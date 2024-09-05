@@ -16,7 +16,7 @@ main:
     url: "/#-educations"
 
   - title: "工作经历"
-    url: "/#-工作经历"
+    url: "/#-work"
 
   - title: "Publications"
     url: "/#-publications"
