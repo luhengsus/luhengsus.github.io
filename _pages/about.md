@@ -27,14 +27,14 @@ redirect_from:
 <span class='anchor' id='-jybj'></span>
 
 # 🎓 教育背景
-- *2023.09 - today*   ：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 博士研究生
-- *2017.09 - 2019.06*：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育学院 运动训练 硕士
-- *2012.09 - 2017.06*：<a href="https://www.bsu.edu.cn/"><img class="svg" src="/images/ahnu.png" width="25pt"></a> 安徽师范大学 体育教育 学士
+- 2023.09 - today  ：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 博士研究生
+- 2017.09 - 2019.06：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育学院 运动训练 硕士
+- 2012.09 - 2017.06：<a href="https://www.bsu.edu.cn/"><img class="svg" src="/images/ahnu.png" width="25pt"></a> 安徽师范大学 体育教育 学士
 
 <span class='anchor' id='-gzjl'></span>
 
 # 📊 工作经历
-- *2019.07 - 2023.09*：上海市人类运动能力开发与保障重点实验室 lab assistant
+- 2019.07 - 2023.09：上海市人类运动能力开发与保障重点实验室 lab assistant
 <span class='anchor' id='-kycg'></span>
 
 # 📝 科研成果
