@@ -8,7 +8,7 @@
 # Site Settings
 title                    : "路恒"
 description              : "上海体育大学 竞技运动学院"
-url                      : https://luhengsus.github.io/
+url                      :# https://luhengsus.github.io/
 repository               : "RayeRen/acad-homepage.github.io"
 google_scholar_stats_use_cdn : true
 
