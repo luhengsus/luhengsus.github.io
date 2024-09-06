@@ -27,7 +27,7 @@ redirect_from:
 <span class='anchor' id='-jybj'></span>
 
 # 🎓 教育背景
-- *2023.09 - today*  ：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 博士研究生
+- *2023.09 - today*   ：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 博士研究生
 - *2017.09 - 2019.06*：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育学院 运动训练 硕士
 - *2012.09 - 2017.06*：<a href="https://www.bsu.edu.cn/"><img class="svg" src="/images/ahnu.png" width="25pt"></a> 安徽师范大学 体育教育 学士
 
@@ -41,7 +41,6 @@ redirect_from:
 - **期刊论文**
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《中国体育科技》2022</div><img src='images/2022中国体育科技.jpg' alt="sym" width="90%"></div></div>
 <div class='paper-box-text' markdown="1">
-  
 - **路恒**, 毛丽娟, 王然*. 冰球比赛特征、体能需求及其测试方法综述[J]. *中国体育科技*, 2022, 58(11): 43-50. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzgDRZcOS1NrWvG_AqqgYUgkLjZQCSuljdKovVjyvv6ScR_t9bRBwdr_3nn9vc0ERhmVc9TeUWgAU5jvY-ui3lBZZlkFwquhRNBde4gM5uVLLrGXr50XuJezrZx9bHrE-UFNdh585c7fkLTHICeSrAIgxihNF1Jl4Y=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022中国体育科技.pdf)
 - **摘要**: 系统梳理与分析国内外冰球项目的比赛特征、体能需求及其测试方法。研究发现：1）冰球比赛中运动员需要进行4～10次上场轮换，每次上场时间为30～90 s，上场比赛期间需要交替进行低、中、高强度运动，在长时间中低强度滑行过程中需要频繁穿插多方向爆发式移动；2）冰球是一项高强度间歇性团体球类项目，比赛的整体负荷较高，运动员需要具备较高的力量、爆发力、速度、灵敏、无氧耐力和有氧耐力等体能素质；3）建议使用陆上深蹲最大力量测试反映力量素质，使用陆上下肢水平与垂直爆发力测试反映爆发力素质，使用陆上与冰上冲刺测试反映速度素质，使用陆上与冰上5-10-5折返跑、冰上S形绕弯测试反映灵敏素质，使用冰上重复冲刺滑行测试反映无氧耐力素质，使用冰上30-15间歇折返滑行测试反映有氧耐力素质。
 
