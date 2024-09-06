@@ -3,8 +3,8 @@ main:
   - title: "个人简介"
     url: "/#-intro"
 
-  - title: "News"
-    url: "/#-news"
+  - title: "最新消息"
+    url: "/#-zxxx"
 
   - title: "教育背景"
     url: "/#-jybj"
