@@ -1,16 +1,16 @@
 # main links links
 main:
   - title: "个人简介"
-    url: /intro/
+    url: "/#-intro"
 
   - title: "News"
-    url: /news/
+    url: "/#-news"
 
   - title: "教育背景"
-    url: /education/
+    url: "/#-education"
 
   - title: "工作经历"
-    url: /work/
+    url: "/#-work"
 
   - title: "科研成果"
-    url: /publications/
+    url: "/#-publications"
