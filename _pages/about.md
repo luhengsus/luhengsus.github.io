@@ -41,7 +41,7 @@ redirect_from:
 - **期刊论文**
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《中国体育科技》2022</div><img src='images/2022中国体育科技.jpg' alt="sym" width="90%"></div></div>
 <div class='paper-box-text' markdown="1">
-- **路恒**, 毛丽娟, 王然*. 冰球比赛特征、体能需求及其测试方法综述[J]. *中国体育科技*, 2022, 58(11): 43-50. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzgDRZcOS1NrWvG_AqqgYUgkLjZQCSuljdKovVjyvv6ScR_t9bRBwdr_3nn9vc0ERhmVc9TeUWgAU5jvY-ui3lBZZlkFwquhRNBde4gM5uVLLrGXr50XuJezrZx9bHrE-UFNdh585c7fkLTHICeSrAIgxihNF1Jl4Y=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022中国体育科技.pdf)
+- **路恒**, 毛丽娟, 王然*. 冰球比赛特征、体能需求及其测试方法综述[J]. 中国体育科技, 2022, 58(11): 43-50. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzgDRZcOS1NrWvG_AqqgYUgkLjZQCSuljdKovVjyvv6ScR_t9bRBwdr_3nn9vc0ERhmVc9TeUWgAU5jvY-ui3lBZZlkFwquhRNBde4gM5uVLLrGXr50XuJezrZx9bHrE-UFNdh585c7fkLTHICeSrAIgxihNF1Jl4Y=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022中国体育科技.pdf)
 - **摘要**: 系统梳理与分析国内外冰球项目的比赛特征、体能需求及其测试方法。研究发现：1）冰球比赛中运动员需要进行4～10次上场轮换，每次上场时间为30～90 s，上场比赛期间需要交替进行低、中、高强度运动，在长时间中低强度滑行过程中需要频繁穿插多方向爆发式移动；2）冰球是一项高强度间歇性团体球类项目，比赛的整体负荷较高，运动员需要具备较高的力量、爆发力、速度、灵敏、无氧耐力和有氧耐力等体能素质；3）建议使用陆上深蹲最大力量测试反映力量素质，使用陆上下肢水平与垂直爆发力测试反映爆发力素质，使用陆上与冰上冲刺测试反映速度素质，使用陆上与冰上5-10-5折返跑、冰上S形绕弯测试反映灵敏素质，使用冰上重复冲刺滑行测试反映无氧耐力素质，使用冰上30-15间歇折返滑行测试反映有氧耐力素质。
 
 </div>
@@ -50,7 +50,7 @@ redirect_from:
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《成都体育学院学报》2022</div><img src='images/2021成体学报.png' alt="sym" width="90%"></div></div>
 <div class='paper-box-text' markdown="1">
   
-- **路恒**, 许贻林, 王然*. 等长大腿中部拉测试在下肢肌肉力量诊断中的应用[J]. *成都体育学院学报*, 2022, 48(01): 129-142. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzw7Lqypz8kyjZlRF9bCXA9-qYYO3lzTDVQ5m2O1RA0dvL_Mg3JRBdWbLiYspILtYSFp3FS40P1tq8gzq7f0CPtgB4_HKTuMsf1s-0aQi2vw7QdaxlQNG6cEV8fCaqzKp5kTqBFnJ_UTs7XAmktM7ZGUXpbroZgwcSA=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022%E6%88%90%E4%BD%93%E5%AD%A6%E6%8A%A5.pdf) 
+- **路恒**, 许贻林, 王然*. 等长大腿中部拉测试在下肢肌肉力量诊断中的应用[J]. 成都体育学院学报, 2022, 48(01): 129-142. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzw7Lqypz8kyjZlRF9bCXA9-qYYO3lzTDVQ5m2O1RA0dvL_Mg3JRBdWbLiYspILtYSFp3FS40P1tq8gzq7f0CPtgB4_HKTuMsf1s-0aQi2vw7QdaxlQNG6cEV8fCaqzKp5kTqBFnJ_UTs7XAmktM7ZGUXpbroZgwcSA=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022%E6%88%90%E4%BD%93%E5%AD%A6%E6%8A%A5.pdf) 
 - **摘要**: 等长大腿中部拉(Isometric Mid-thigh Pull, IMTP)是一种多关节等长测试,常用于评价运动员的下肢力量和爆发力水平。近年来,随着测试设备的便携化,IMTP测试在国际竞技体育领域的广泛应用。对国外相关文献的梳理与总结表明,IMTP测试相较于传统动态测试与单关节等长测试有着简单高效且不易疲劳的特点,通过分析IMTP测试力——时间曲线得到的峰值力、发力率和冲量等指标信度较高,并与力量、爆发力、冲刺与变向等动态运动能力之间呈中度至高度相关关系。教练员和科研人员可以通过IMTP测试评价运动员的运动能力并监控其训练过程,准确掌握运动员的身体状态和对训练刺激的适应程度,并据此优化训练方案以进一步提升运动员的运动能力。
 
 </div>
@@ -65,7 +65,7 @@ redirect_from:
 </div>
 </div>
 
-- 项晓琰, 徐飞, **路恒**, 王然*. 不同负荷结构急性抗阻训练对神经肌肉表现的影响[J]. *中国体育科技*, 2024, 60(4): 39-46. (通讯作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzypRY-9J7FWNl990ggQirTnYLPp9k_6-xNNwR1Kx0zuJl0ij77YYYj4rA9CYy8zoLDziGCfysf_p3YYsQhkkODSc99_XvJnM6izLBKk3FABjZw3DVfItZFj22vUTZyKN1CTC_nrfkjmIluv6yXtw7ZaRW4p1ODpJGI=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2024中国体育科技.pdf)
+- 项晓琰, 徐飞, **路恒**, 王然*. 不同负荷结构急性抗阻训练对神经肌肉表现的影响[J]. 中国体育科技, 2024, 60(4): 39-46. (通讯作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzypRY-9J7FWNl990ggQirTnYLPp9k_6-xNNwR1Kx0zuJl0ij77YYYj4rA9CYy8zoLDziGCfysf_p3YYsQhkkODSc99_XvJnM6izLBKk3FABjZw3DVfItZFj22vUTZyKN1CTC_nrfkjmIluv6yXtw7ZaRW4p1ODpJGI=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2024中国体育科技.pdf)
 
 
 
