@@ -17,7 +17,8 @@ redirect_from:
 <span class='anchor' id='-grjj'></span>
 
 # 👋🏼 个人简介
-- 我目前就读于上海体育大学竞技运动学院
+- 我目前就读于上海体育大学竞技运动学院，曾就职于上海市人类运动能力开发与保障重点实验室。
+- 我的研究方向是体能训练、运动表现测试与评估，致力于通过运动生物力学、运动生理学等方法解决运动训练实践中的问题。
 
 <span class='anchor' id='-zxxx'></span>
 
@@ -27,7 +28,7 @@ redirect_from:
 <span class='anchor' id='-jybj'></span>
 
 # 🎓 教育背景
-- 2023.09 - today      ：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 博士研究生
+- 2023.09 - today      ：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 博士研究生 （导师：[王然](wangransus.github.i) 教授）
 - 2017.09 - 2019.06：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育学院 运动训练 硕士
 - 2012.09 - 2017.06：<a href="https://www.bsu.edu.cn/"><img class="svg" src="/images/ahnu.png" width="25pt"></a> 安徽师范大学 体育教育 学士
 
