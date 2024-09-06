@@ -21,17 +21,14 @@ redirect_from:
 <span class='anchor' id='-jybj'></span>
 
 # 🎓 教育背景
-- *2017.09 - 2019.06*：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 
-- *2010.09 - 2013.06*：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 
-- *2006.09 - 2010.06*：<a href="https://www.bsu.edu.cn/"><img class="svg" src="/images/bsu.png" width="25pt"></a> 北京体育大学 运动人体科学学士 运动机能评定方向（导师：[李燕春](https://xueshu.baidu.com/scholarID/CN-BT74YKOJ)）
+- *2017.09 - 2019.06*：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育大学 体育教育训练学 博士研究生
+- *2010.09 - 2013.06*：<a href="https://www.sus.edu/"><img class="svg" src="/images/sus.png" width="25pt"></a> 上海体育学院 运动训练 硕士
+- *2006.09 - 2010.06*：<a href="https://www.bsu.edu.cn/"><img class="svg" src="/images/ahnu.png" width="25pt"></a> 安徽师范大学 体育教育 学士
 
 <span class='anchor' id='-gzjl'></span>
 
 # 📊 工作经历
-- 科技部国家重点研发计划`《冬季竞速类和团体球类项目专项国际化训练平台关键技术研究与应用》`，362万元，主持
-- 上海市科委地方院校能力建设项目`《科技助力大球类项目运动表现提升关键技术研究》`，50万元，主持
-- 上海市科委青年科技英才扬帆计划`《青少年抗阻训练后肌肉力量改善的生理适应机制》`，20万元，主持
-- 
+- *2019.07 - 2023.09*：上海市人类运动能力开发与保障重点实验室 lab assistant
 <span class='anchor' id='-kycg'></span>
 
 # 📝 科研成果
