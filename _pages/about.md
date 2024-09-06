@@ -43,7 +43,7 @@ redirect_from:
 <div class='paper-box-text' markdown="1">
  
 - **路恒**, 毛丽娟, 王然*. 冰球比赛特征、体能需求及其测试方法综述[J]. *中国体育科技*, 2022, 58(11): 43-50. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzgDRZcOS1NrWvG_AqqgYUgkLjZQCSuljdKovVjyvv6ScR_t9bRBwdr_3nn9vc0ERhmVc9TeUWgAU5jvY-ui3lBZZlkFwquhRNBde4gM5uVLLrGXr50XuJezrZx9bHrE-UFNdh585c7fkLTHICeSrAIgxihNF1Jl4Y=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022中国体育科技.pdf)
-
+- **摘要**: 
 </div>
 </div>
 
