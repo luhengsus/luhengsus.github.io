@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-<span class='anchor' id='intro'></span>
+<span class='anchor' id='-grjj'></span>
 
 # 👋🏼 个人简介
 - 我目前就读于上海体育大学竞技运动学院
