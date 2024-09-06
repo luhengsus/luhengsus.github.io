@@ -6,8 +6,10 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
+locate                   :"zh-CN"
 title                    : "路恒"
 description              : "上海体育大学 竞技运动学院"
+url                      : https://luhengsus.github.io/
 repository               : "RayeRen/acad-homepage.github.io"
 google_scholar_stats_use_cdn : true
 
@@ -17,7 +19,7 @@ google_analytics_id      :  G-Z8GDSFXDS3
 # SEO Related
 google_site_verification : # b_BbOIt7d513ZXYDw-YRMicO6O5tthYiouqWDdWjGTU
 bing_site_verification   : # B5AA590E7B9C03956A6F7DEC0F776211
-baidu_site_verification  : code-ZxFK3f4pfb
+baidu_site_verification  : ZxFK3f4pfb
 
 # Site Author
 author:
