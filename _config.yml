@@ -6,7 +6,6 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-locate                   :"zh-CN"
 title                    : "路恒"
 description              : "上海体育大学 竞技运动学院"
 url                      : https://luhengsus.github.io/
