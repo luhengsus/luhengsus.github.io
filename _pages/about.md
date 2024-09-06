@@ -39,7 +39,7 @@ redirect_from:
 
 # 📝 科研成果
 - **期刊论文**
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">《中国体育科技》2022</div><img src='images/2022中国体育科技.jpg' alt="sym" width="80%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">《中国体育科技》2022</div><img src='images/2022中国体育科技.jpg' alt="sym" width="90%"></div></div>
 <div class='paper-box-text' markdown="1">
  
 - **路恒**, 毛丽娟, 王然*. 冰球比赛特征、体能需求及其测试方法综述[J]. *中国体育科技*, 2022, 58(11): 43-50. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzgDRZcOS1NrWvG_AqqgYUgkLjZQCSuljdKovVjyvv6ScR_t9bRBwdr_3nn9vc0ERhmVc9TeUWgAU5jvY-ui3lBZZlkFwquhRNBde4gM5uVLLrGXr50XuJezrZx9bHrE-UFNdh585c7fkLTHICeSrAIgxihNF1Jl4Y=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022中国体育科技.pdf)
@@ -47,7 +47,7 @@ redirect_from:
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">《成都体育学院学报》2022</div><img src='images/2021成体学报.png' alt="sym" width="80%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">《成都体育学院学报》2022</div><img src='images/2021成体学报.png' alt="sym" width="90%"></div></div>
 <div class='paper-box-text' markdown="1">
  
 - **路恒**, 许贻林, 王然*. 等长大腿中部拉测试在下肢肌肉力量诊断中的应用[J]. *成都体育学院学报*, 2022, 48(01): 129-142. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzw7Lqypz8kyjZlRF9bCXA9-qYYO3lzTDVQ5m2O1RA0dvL_Mg3JRBdWbLiYspILtYSFp3FS40P1tq8gzq7f0CPtgB4_HKTuMsf1s-0aQi2vw7QdaxlQNG6cEV8fCaqzKp5kTqBFnJ_UTs7XAmktM7ZGUXpbroZgwcSA=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022%E6%88%90%E4%BD%93%E5%AD%A6%E6%8A%A5.pdf) 
@@ -56,7 +56,7 @@ redirect_from:
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">《体育与科学》2020</div><img src='images/2020体育与科学.png' alt="sym" width="80%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">《体育与科学》2020</div><img src='images/2020体育与科学.png' alt="sym" width="90%"></div></div>
 <div class='paper-box-text' markdown="1">
   
 - **路恒**, 许贻林, 王然*. 影响等长大腿中部拉测试信效度的方法学因素综述[J]. *体育与科学*, 2020, 41(06): 75-87. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzsehBW5fwdQ9hzRP6M9i1dqKwSMwvArDbxBK-6n_FM0H_evfCsDcDZWnmoJPy-MJtrfFA09kFgTVyoSlBujgmAca5FAFc1iltVJoXWOPB4OSZxvRoR8wgNS-ZBuyQLYLnHbTwI7TGLqD8bbF9lQYLI6jHpzzHpijw=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2020%E4%BD%93%E8%82%B2%E4%B8%8E%E7%A7%91%E5%AD%A6.pdf)
