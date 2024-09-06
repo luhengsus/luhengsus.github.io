@@ -52,14 +52,6 @@ redirect_from:
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">J. Sports Eng. Technol. 2021</div><img src='images/2021JSET.png' alt="sym" width="100%"></div></div>
-<div class='paper-box-text' markdown="1">
-
-- Wu M, `Wang R*`, Hu Y, et al. Invisible experience to real-time assessment in elite tennis athlete training: Sport-specific movement classification based on wearable MEMS sensor data[J]. Proceedings of the Institution of Mechanical Engineers, Part P: Journal of Sports Engineering and Technology, 2021. (通讯作者；SCI收录；英国机械工程师学会会刊) [[网页]](https://dx.doi.org/10.1177/17543371211050312) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2021JSET.pdf)
-
-</div>
-</div>
-
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《体育与科学》2020</div><img src='images/2020体育与科学.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
   
