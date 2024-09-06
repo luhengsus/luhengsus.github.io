@@ -66,8 +66,7 @@ redirect_from:
 - 项晓琰, 徐飞, **路恒**, 王然*. 不同负荷结构急性抗阻训练对神经肌肉表现的影响[J]. *中国体育科技*, 2024, 60(4): 39-46. (通讯作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzypRY-9J7FWNl990ggQirTnYLPp9k_6-xNNwR1Kx0zuJl0ij77YYYj4rA9CYy8zoLDziGCfysf_p3YYsQhkkODSc99_XvJnM6izLBKk3FABjZw3DVfItZFj22vUTZyKN1CTC_nrfkjmIluv6yXtw7ZaRW4p1ODpJGI=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2024中国体育科技.pdf)
 
 
-</div>
-</div>
+
 
 - **会议论文**
 - **路恒**,曹后程,王然*. 动态力量指数与力速不均衡指数的重测信度与相关性研究[C]*中国体育科学学会.第十三届全国体育科学大会论文摘要集*.2023:3.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzwSSdQ4EVSgGRxPJpXYfUySoVIw2l3eec4IcayePLgXpTpU9REYHVagqULG-RDJ6KN336Obc5-IB3bWLCa480GJJ71urwCxqWVR63NIgrgshYwcIH7wi9yQqqTLSWffXa_V4DDR1gJp2kyeAZMyXqiMQn8XUNs-YL4KCZfpOJ52VA==&uniplatform=NZKPT)
