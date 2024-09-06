@@ -32,7 +32,7 @@ redirect_from:
 <span class='anchor' id='-kycg'></span>
 
 # 📝 科研成果
-
+- **期刊论文**
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《中国体育科技》2022</div><img src='images/2022中国体育科技.jpg' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
  
@@ -56,3 +56,4 @@ redirect_from:
   
 </div>
 </div>
+-**会议论文**
