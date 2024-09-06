@@ -59,7 +59,7 @@ redirect_from:
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《体育与科学》2020</div><img src='images/2020体育与科学.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
   
-- **路恒**, 许贻林, 王然*. 影响等长大腿中部拉测试信效度的方法学因素综述[J]. *体育与科学*, 2020, 41(06): 75-87. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzsehBW5fwdQ9hzRP6M9i1dqKwSMwvArDbxBK-6n_FM0H_evfCsDcDZWnmoJPy-MJtrfFA09kFgTVyoSlBujgmAca5FAFc1iltVJoXWOPB4OSZxvRoR8wgNS-ZBuyQLYLnHbTwI7TGLqD8bbF9lQYLI6jHpzzHpijw=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2020%E4%BD%93%E8%82%B2%E4%B8%8E%E7%A7%91%E5%AD%A6.pdf)
+- **路恒**, 许贻林, 王然*. 影响等长大腿中部拉测试信效度的方法学因素综述[J]. 体育与科学, 2020, 41(06): 75-87. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzsehBW5fwdQ9hzRP6M9i1dqKwSMwvArDbxBK-6n_FM0H_evfCsDcDZWnmoJPy-MJtrfFA09kFgTVyoSlBujgmAca5FAFc1iltVJoXWOPB4OSZxvRoR8wgNS-ZBuyQLYLnHbTwI7TGLqD8bbF9lQYLI6jHpzzHpijw=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2020%E4%BD%93%E8%82%B2%E4%B8%8E%E7%A7%91%E5%AD%A6.pdf)
 - **摘要**:等长大腿中部拉(Isometric Mid-thigh Pull, IMTP)测试近年来在国际竞技体育的应用越发广泛。通过分析IMTP测试力-时间曲线得到的峰值力、发力率和冲量等指标具有较高的信度,并与力量、爆发力、冲刺和变向等动态运动表现之间呈中度至高度相关关系。然而,相关研究中模棱两可或相互矛盾的研究结果在一定程度上影响了IMTP测试的应用。对国外相关文献的梳理与总结表明,采样频率、身体姿势、语言提示、基线测量、信号处理、力-时间曲线分析等方法学因素均会影响IMTP测试和分析过程,进而影响测试的准确性和研究的可重复性。因此,在进行IMTP测试时应选择信效度较高的测试方法,并在研究中报道所使用的具体方法以确保后续研究的可重复性。此外,对于一些具有争议的方法学因素仍需进一步研究加以证实,为更准确地评估与监控运动员并提高其运动成绩奠定基础。
 
 </div>
@@ -71,10 +71,10 @@ redirect_from:
 
 - **会议论文**
 
-- **路恒**,曹后程,王然*. 动态力量指数与力速不均衡指数的重测信度与相关性研究[C]*中国体育科学学会.第十三届全国体育科学大会论文摘要集*.2023:3.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzwSSdQ4EVSgGRxPJpXYfUySoVIw2l3eec4IcayePLgXpTpU9REYHVagqULG-RDJ6KN336Obc5-IB3bWLCa480GJJ71urwCxqWVR63NIgrgshYwcIH7wi9yQqqTLSWffXa_V4DDR1gJp2kyeAZMyXqiMQn8XUNs-YL4KCZfpOJ52VA==&uniplatform=NZKPT)
+- **路恒**,曹后程,王然*. 动态力量指数与力速不均衡指数的重测信度与相关性研究[C] 中国体育科学学会.第十三届全国体育科学大会论文摘要集. 2023:3.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzwSSdQ4EVSgGRxPJpXYfUySoVIw2l3eec4IcayePLgXpTpU9REYHVagqULG-RDJ6KN336Obc5-IB3bWLCa480GJJ71urwCxqWVR63NIgrgshYwcIH7wi9yQqqTLSWffXa_V4DDR1gJp2kyeAZMyXqiMQn8XUNs-YL4KCZfpOJ52VA==&uniplatform=NZKPT)
 
-- **路恒**,王然*. 不同负荷结构急性抗阻训练后肌肉疲劳特征对比研究[C]*中国体育科学学会.第十二届全国体育科学大会论文摘要汇编*.2022:2.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzy3gNdiy-WiUm3wX2HqIYsP2ioSqWTSeI11YyO_c608hkWyL4JoVoQE_lrSPMAD1qnXWYR1fX7tPlLM_shV6PrOnUnDLASTWnsgFLiNHYOm9XEtmhb7B34sdpwvRgxAqeTDC0p_UvSlye4EUE-5JCoxbLHq2RyLw1oq2Lp6jJjuLA==&uniplatform=NZKPT)
+- **路恒**,王然*. 不同负荷结构急性抗阻训练后肌肉疲劳特征对比研究[C] 中国体育科学学会.第十二届全国体育科学大会论文摘要汇编. 2022:2.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzy3gNdiy-WiUm3wX2HqIYsP2ioSqWTSeI11YyO_c608hkWyL4JoVoQE_lrSPMAD1qnXWYR1fX7tPlLM_shV6PrOnUnDLASTWnsgFLiNHYOm9XEtmhb7B34sdpwvRgxAqeTDC0p_UvSlye4EUE-5JCoxbLHq2RyLw1oq2Lp6jJjuLA==&uniplatform=NZKPT)
 
-- **路恒**. 高强度间歇训练小周期训练单调性对有氧能力的影响[C]*中国体育科学学会.第十一届全国体育科学大会论文摘要汇编*.2019:3.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzysROXM6Y5MmX-3kVuXu5EStZfpoStSvAK4-XMlq8vPfR_tQO5cahMstF8rc_-5RtcLD3j_44QdT3MkTt0LTGKjAJrN4ZSR-R1G81gr9m4SE_FBjLV1a5t-HcadNMFrXqbbD_2RJ2ESeePC3MI63uAyC9TQZKsX3_iEfZXIRBtLtA==&uniplatform=NZKPT)
+- **路恒**. 高强度间歇训练小周期训练单调性对有氧能力的影响[C] 中国体育科学学会.第十一届全国体育科学大会论文摘要汇编. 2019:3.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzysROXM6Y5MmX-3kVuXu5EStZfpoStSvAK4-XMlq8vPfR_tQO5cahMstF8rc_-5RtcLD3j_44QdT3MkTt0LTGKjAJrN4ZSR-R1G81gr9m4SE_FBjLV1a5t-HcadNMFrXqbbD_2RJ2ESeePC3MI63uAyC9TQZKsX3_iEfZXIRBtLtA==&uniplatform=NZKPT)
 
 
