@@ -76,6 +76,8 @@ redirect_from:
 
 - **路恒**,王然*. 不同负荷结构急性抗阻训练后肌肉疲劳特征对比研究[C] 中国体育科学学会.第十二届全国体育科学大会论文摘要汇编. 2022:2.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzy3gNdiy-WiUm3wX2HqIYsP2ioSqWTSeI11YyO_c608hkWyL4JoVoQE_lrSPMAD1qnXWYR1fX7tPlLM_shV6PrOnUnDLASTWnsgFLiNHYOm9XEtmhb7B34sdpwvRgxAqeTDC0p_UvSlye4EUE-5JCoxbLHq2RyLw1oq2Lp6jJjuLA==&uniplatform=NZKPT)
 
+- 金祝辉,**路恒**,王然.抗阻训练中杠铃速度监测设备的精确性研究：Meta分析[C]中国体育科学学会.第十二届全国体育科学大会论文摘要汇编——墙报交流,2022:2.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=YK1b_MowDz9WrTPN1ATNGKWNu4YJAukxE_B6iXe0ghgX7RKlpBKbs-7fFBBNh7Rj5XxFTr_0kc5hVuyeh2r3Mv0_2TrUmMhfz0D1zmpavDREilMCCNRp09t22f9RT2EW&uniplatform=NZKPT&language=gb)
+
 - **路恒**. 高强度间歇训练小周期训练单调性对有氧能力的影响[C] 中国体育科学学会.第十一届全国体育科学大会论文摘要汇编. 2019:3.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzysROXM6Y5MmX-3kVuXu5EStZfpoStSvAK4-XMlq8vPfR_tQO5cahMstF8rc_-5RtcLD3j_44QdT3MkTt0LTGKjAJrN4ZSR-R1G81gr9m4SE_FBjLV1a5t-HcadNMFrXqbbD_2RJ2ESeePC3MI63uAyC9TQZKsX3_iEfZXIRBtLtA==&uniplatform=NZKPT)
 
 
