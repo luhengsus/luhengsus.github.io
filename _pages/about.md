@@ -80,6 +80,8 @@ redirect_from:
 
 - 金祝辉,**路恒**,王然.抗阻训练中杠铃速度监测设备的精确性研究：Meta分析[C]中国体育科学学会.第十二届全国体育科学大会论文摘要汇编——墙报交流,2022:2.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=YK1b_MowDz9WrTPN1ATNGKWNu4YJAukxE_B6iXe0ghgX7RKlpBKbs-7fFBBNh7Rj5XxFTr_0kc5hVuyeh2r3Mv0_2TrUmMhfz0D1zmpavDREilMCCNRp09t22f9RT2EW&uniplatform=NZKPT&language=gb)
 
+- Wang R, Sheng Y, **Lu H**, et al. Isometric Mid-thigh Pull Correlates With Power, Sprint, Agility And Smash Performance In Junior Female Badminton Players: 3768 Board# 85 May 30 8: 00 AM-9: 30 AM[J]. Medicine & Science in Sports & Exercise, 2020, 52(7S): 1030.[[网页]](https://www.semanticscholar.org/paper/Isometric-Mid-thigh-Pull-Correlates-With-Power%2C-And-Wang-Sheng/036f157deaec9442acf2a7d1e872b8b230ca1091)
+
 - **路恒**. 高强度间歇训练小周期训练单调性对有氧能力的影响[C] 中国体育科学学会.第十一届全国体育科学大会论文摘要汇编. 2019:3.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzysROXM6Y5MmX-3kVuXu5EStZfpoStSvAK4-XMlq8vPfR_tQO5cahMstF8rc_-5RtcLD3j_44QdT3MkTt0LTGKjAJrN4ZSR-R1G81gr9m4SE_FBjLV1a5t-HcadNMFrXqbbD_2RJ2ESeePC3MI63uAyC9TQZKsX3_iEfZXIRBtLtA==&uniplatform=NZKPT)
 
 
