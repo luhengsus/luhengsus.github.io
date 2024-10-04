@@ -41,7 +41,7 @@ redirect_from:
 <span class='anchor' id='-kycg'></span>
 
 # 📝 科研成果
-## **期刊论文**
+## 📑**期刊论文**
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《中国体育科技》2022</div><img src='images/2022中国体育科技.jpg' alt="sym" width="90%"></div></div>
 <div class='paper-box-text' markdown="1">
 - **路恒**, 毛丽娟, 王然*. 冰球比赛特征、体能需求及其测试方法综述[J]. 中国体育科技, 2022, 58(11): 43-50. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzgDRZcOS1NrWvG_AqqgYUgkLjZQCSuljdKovVjyvv6ScR_t9bRBwdr_3nn9vc0ERhmVc9TeUWgAU5jvY-ui3lBZZlkFwquhRNBde4gM5uVLLrGXr50XuJezrZx9bHrE-UFNdh585c7fkLTHICeSrAIgxihNF1Jl4Y=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022中国体育科技.pdf)
@@ -72,7 +72,7 @@ redirect_from:
 
 <br/>
 
-## **会议论文**
+## 📅**会议论文**
 
 - **路恒**,曹后程,王然*. 动态力量指数与力速不均衡指数的重测信度与相关性研究[C] 中国体育科学学会.第十三届全国体育科学大会论文摘要集. 2023:3.[[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzwSSdQ4EVSgGRxPJpXYfUySoVIw2l3eec4IcayePLgXpTpU9REYHVagqULG-RDJ6KN336Obc5-IB3bWLCa480GJJ71urwCxqWVR63NIgrgshYwcIH7wi9yQqqTLSWffXa_V4DDR1gJp2kyeAZMyXqiMQn8XUNs-YL4KCZfpOJ52VA==&uniplatform=NZKPT)
 
