@@ -11,7 +11,6 @@
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《成都体育学院学报》2022</div><img src='images/2021成体学报.png' alt="sym" width="90%"></div></div>
 <div class='paper-box-text' markdown="1">
-  
 - **路恒**, 许贻林, 王然*. 等长大腿中部拉测试在下肢肌肉力量诊断中的应用[J]. 成都体育学院学报, 2022, 48(01): 129-142. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzw7Lqypz8kyjZlRF9bCXA9-qYYO3lzTDVQ5m2O1RA0dvL_Mg3JRBdWbLiYspILtYSFp3FS40P1tq8gzq7f0CPtgB4_HKTuMsf1s-0aQi2vw7QdaxlQNG6cEV8fCaqzKp5kTqBFnJ_UTs7XAmktM7ZGUXpbroZgwcSA=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2022%E6%88%90%E4%BD%93%E5%AD%A6%E6%8A%A5.pdf) 
 - **摘要**: 等长大腿中部拉(Isometric Mid-thigh Pull, IMTP)是一种多关节等长测试,常用于评价运动员的下肢力量和爆发力水平。近年来,随着测试设备的便携化,IMTP测试在国际竞技体育领域的广泛应用。对国外相关文献的梳理与总结表明,IMTP测试相较于传统动态测试与单关节等长测试有着简单高效且不易疲劳的特点,通过分析IMTP测试力——时间曲线得到的峰值力、发力率和冲量等指标信度较高,并与力量、爆发力、冲刺与变向等动态运动能力之间呈中度至高度相关关系。教练员和科研人员可以通过IMTP测试评价运动员的运动能力并监控其训练过程,准确掌握运动员的身体状态和对训练刺激的适应程度,并据此优化训练方案以进一步提升运动员的运动能力。
 
@@ -20,7 +19,6 @@
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">《体育与科学》2020</div><img src='images/2020体育与科学.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
-  
 - **路恒**, 许贻林, 王然*. 影响等长大腿中部拉测试信效度的方法学因素综述[J]. 体育与科学, 2020, 41(06): 75-87. (第一作者；CSSCI期刊) [[网页]](https://kns.cnki.net/kcms2/article/abstract?v=Z-eERPAUDzzsehBW5fwdQ9hzRP6M9i1dqKwSMwvArDbxBK-6n_FM0H_evfCsDcDZWnmoJPy-MJtrfFA09kFgTVyoSlBujgmAca5FAFc1iltVJoXWOPB4OSZxvRoR8wgNS-ZBuyQLYLnHbTwI7TGLqD8bbF9lQYLI6jHpzzHpijw=&uniplatform=NZKPT) [[下载]](https://github.com/wangransus/wangransus.github.io/raw/master/docs/2020%E4%BD%93%E8%82%B2%E4%B8%8E%E7%A7%91%E5%AD%A6.pdf)
 - **摘要**:等长大腿中部拉(Isometric Mid-thigh Pull, IMTP)测试近年来在国际竞技体育的应用越发广泛。通过分析IMTP测试力-时间曲线得到的峰值力、发力率和冲量等指标具有较高的信度,并与力量、爆发力、冲刺和变向等动态运动表现之间呈中度至高度相关关系。然而,相关研究中模棱两可或相互矛盾的研究结果在一定程度上影响了IMTP测试的应用。对国外相关文献的梳理与总结表明,采样频率、身体姿势、语言提示、基线测量、信号处理、力-时间曲线分析等方法学因素均会影响IMTP测试和分析过程,进而影响测试的准确性和研究的可重复性。因此,在进行IMTP测试时应选择信效度较高的测试方法,并在研究中报道所使用的具体方法以确保后续研究的可重复性。此外,对于一些具有争议的方法学因素仍需进一步研究加以证实,为更准确地评估与监控运动员并提高其运动成绩奠定基础。
 
