@@ -4,7 +4,8 @@
 v3d Project Automation Framework[[简介]](https://github.com/qualisys/paf-documentation) [[点击另存为下载]](https://github.com/luhengsus.github.io/file/PAF_v3d.zip)
 <br>
 Visual3d tutorial link: [[网页]](https://www.wiki.has-motion.com/doku.php?id=main_page)
-
+<br>
+B站视频教程:[[网页]](https://space.bilibili.com/475148699/lists/3631993?type=season)
 
 
 <img class="svg" src="/images/matlabb.png" width="400pt">
