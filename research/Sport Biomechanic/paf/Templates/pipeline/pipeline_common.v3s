@@ -1,0 +1,219 @@
+<?
+if (file_exists($static_name)) {
+?> 
+	Select_Active_File
+	/FILE_NAME=Static
+	;
+
+	Metric_Mean
+	/RESULT_METRIC_FOLDER=STATIC
+	/RESULT_METRIC_NAME=_mean
+	/APPLY_AS_SUFFIX_TO_SIGNAL_NAME=TRUE
+	/SIGNAL_TYPES=LINK_MODEL_BASED
+	/SIGNAL_FOLDER=ORIGINAL
+	/SIGNAL_NAMES=CenterOfMass
+	!/SIGNAL_COMPONENTS=
+	/COMPONENT_SEQUENCE=ALL
+	/EVENT_SEQUENCE=
+	/EXCLUDE_EVENTS=
+	! /SEQUENCE_PERCENT_START=0
+	! /SEQUENCE_PERCENT_END=100
+	/GENERATE_MEAN_AND_STDDEV=TRUE
+	! /APPEND_TO_EXISTING_VALUES=FALSE
+	;
+<?
+}?> 
+
+Select_Active_File
+/FILE_NAME=ALL_FILES
+! /QUERY=
+;
+
+! Foot normalization -----------------
+! if Marker-based:
+! 	if field = false > use L/RMF -> solution A
+!	else use 'normalized foot segment' -> solution B
+
+! if Markerless (foot is always normalizes by Theia model):
+! 	if Static exists and field = true
+!		> works as solution A
+! 	elseif Static exists and field = false
+!		> works as solution A
+! 	else Static does not exist
+!		> works as solution A
+
+<?
+if (strpos($subsession['Feet_normalised_to_static_trial'], 'True') === false || strpos($model_used,'Theia') !== false) {
+?> 
+	Compute_Model_Based_Data
+	/RESULT_NAME=Left Ankle Angles
+	/FUNCTION=JOINT_ANGLE
+	/SEGMENT=LMF
+	/REFERENCE_SEGMENT=LSK
+	/RESOLUTION_COORDINATE_SYSTEM=
+	! /USE_CARDAN_SEQUENCE=FALSE
+	! /NORMALIZATION=FALSE
+	! /NORMALIZATION_METHOD=
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	/NEGATEY=TRUE
+	/NEGATEZ=TRUE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Left Foot Pitch Angles
+	/FUNCTION=JOINT_ANGLE
+	/SEGMENT=LMF
+	/REFERENCE_SEGMENT=Virtual Lab
+	/RESOLUTION_COORDINATE_SYSTEM=
+	! /USE_CARDAN_SEQUENCE=FALSE
+	! /NORMALIZATION=FALSE
+	! /NORMALIZATION_METHOD=
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEEED=0.0
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Left Foot Progression
+	/FUNCTION=JOINT_ANGLE
+	/SEGMENT=LMF
+	/REFERENCE_SEGMENT=RPV
+	/RESOLUTION_COORDINATE_SYSTEM=
+	! /USE_CARDAN_SEQUENCE=FALSE
+	! /NORMALIZATION=FALSE
+	! /NORMALIZATION_METHOD=
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	! /NEGATEY=FALSE
+	/NEGATEZ=TRUE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEEED=0.0
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Right Ankle Angles
+	/FUNCTION=JOINT_ANGLE
+	/SEGMENT=RMF
+	/REFERENCE_SEGMENT=RSK
+	/RESOLUTION_COORDINATE_SYSTEM=
+	! /USE_CARDAN_SEQUENCE=FALSE
+	! /NORMALIZATION=FALSE
+	! /NORMALIZATION_METHOD=
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Right Foot Pitch Angles
+	/FUNCTION=JOINT_ANGLE
+	/SEGMENT=RMF
+	/REFERENCE_SEGMENT=Virtual Lab
+	/RESOLUTION_COORDINATE_SYSTEM=
+	! /USE_CARDAN_SEQUENCE=FALSE
+	! /NORMALIZATION=FALSE
+	! /NORMALIZATION_METHOD=
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEEED=0.0
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Right Foot Progression
+	/FUNCTION=JOINT_ANGLE
+	/SEGMENT=RMF
+	/REFERENCE_SEGMENT=RPV
+	/RESOLUTION_COORDINATE_SYSTEM=
+	! /USE_CARDAN_SEQUENCE=FALSE
+	! /NORMALIZATION=FALSE
+	! /NORMALIZATION_METHOD=
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEEED=0.0
+	;
+<?
+}?> 
+
+! Velocities
+First_Derivative
+/SIGNAL_TYPES=LINK_MODEL_BASED
+/SIGNAL_FOLDER=ORIGINAL
+/SIGNAL_NAMES=CenterOfMass+PelvisCGPos+Left Ankle Angles+Left Hip Angles+Left Knee Angles+Right Ankle Angles+Right Hip Angles+Right Knee Angles
+/RESULT_TYPES=DERIVED
+! /RESULT_FOLDERS=PROCESSED
+/RESULT_NAME=_vel
+/APPLY_AS_SUFFIX_TO_SIGNAL_NAME=TRUE
+;
+
+!remove gimbal lock from shoulder angles
+Evaluate_Expression
+/EXPRESSION=resolve_discontinuity(LINK_MODEL_BASED::ORIGINAL::Left Shoulder Angles,360)
+/RESULT_TYPES=LINK_MODEL_BASED
+! /RESULT_FOLDERS=PROCESSED
+/RESULT_NAME=Left Shoulder Angles
+! /APPLY_AS_SUFFIX_TO_SIGNAL_NAME=FALSE
+;
+
+Evaluate_Expression
+/EXPRESSION=resolve_discontinuity(LINK_MODEL_BASED::ORIGINAL::Right Shoulder Angles,360)
+/RESULT_TYPES=LINK_MODEL_BASED
+! /RESULT_FOLDERS=PROCESSED
+/RESULT_NAME=Right Shoulder Angles
+! /APPLY_AS_SUFFIX_TO_SIGNAL_NAME=FALSE
+;
+
+Set_Pipeline_Parameter
+/PARAMETER_NAME=left_trial_exists
+/PARAMETER_VALUE=false
+;
+
+Set_Pipeline_Parameter
+/PARAMETER_NAME=right_trial_exists
+/PARAMETER_VALUE=false
+;
+
+<?
+if (strpos($model_used,'Theia') !== false) {
+	$left_terminal_segment = "LTO";
+	$right_terminal_segment = "RTO";
+	$terminal_segment_short = "TO";
+}
+else {
+	$left_terminal_segment = "LFT";
+	$right_terminal_segment = "RFT";
+	$terminal_segment_short = "FT";
+}
+?> 

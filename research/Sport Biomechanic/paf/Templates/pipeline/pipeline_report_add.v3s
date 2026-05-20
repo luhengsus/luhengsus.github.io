@@ -1,0 +1,380 @@
+Open_Report_Template
+/REPORT_TEMPLATE=<?=$reportTemplateDirectory . $report_template;?> 
+! /SET_PROMPT=Open report template
+;
+
+! Calculate GRF from terminal segment. Theia model is using toe segment while markerbased model uses foot.
+<?
+if (strpos($model_used,'Theia') !== false) {
+?> 
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Right GRF
+	/SUBJECT_TAG=
+	/FUNCTION=GRF_DATA
+	/SEGMENT=RTO
+	/REFERENCE_SEGMENT=
+	/RESOLUTION_COORDINATE_SYSTEM=Virtual Lab
+	! /USE_CARDAN_SEQUENCE=FALSE
+	/NORMALIZATION=TRUE
+	/NORMALIZATION_METHOD=DEFAULT_NORMALIZATION
+	! /NORMALIZATION_METRIC=
+	/NEGATEX=TRUE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEED=0.0
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Left GRF
+	/SUBJECT_TAG=
+	/FUNCTION=GRF_DATA
+	/SEGMENT=LTO
+	/REFERENCE_SEGMENT=
+	/RESOLUTION_COORDINATE_SYSTEM=Virtual Lab
+	! /USE_CARDAN_SEQUENCE=FALSE
+	/NORMALIZATION=TRUE
+	/NORMALIZATION_METHOD=DEFAULT_NORMALIZATION
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEED=0.0
+	;
+	
+	! Following overrides settings from $report_template
+	Compute_Model_Based_Data
+	/RESULT_NAME=Left Ankle Power
+	/SUBJECT_TAG=
+	/FUNCTION=JOINT_POWER
+	/SEGMENT=LFT_S
+	/REFERENCE_SEGMENT=
+	/RESOLUTION_COORDINATE_SYSTEM=LSK
+	! /USE_CARDAN_SEQUENCE=FALSE
+	/NORMALIZATION=TRUE
+	/NORMALIZATION_METHOD=DEFAULT_NORMALIZATION
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	/NEGATEY=TRUE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEED=0.0
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Right Ankle Power
+	/SUBJECT_TAG=
+	/FUNCTION=JOINT_POWER
+	/SEGMENT=RFT_S
+	/REFERENCE_SEGMENT=
+	/RESOLUTION_COORDINATE_SYSTEM=RSK
+	! /USE_CARDAN_SEQUENCE=FALSE
+	/NORMALIZATION=TRUE
+	/NORMALIZATION_METHOD=DEFAULT_NORMALIZATION
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	/NEGATEY=TRUE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEED=0.0
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Left Ankle Moment
+	/SUBJECT_TAG=
+	/FUNCTION=JOINT_MOMENT
+	/SEGMENT=LFT_S
+	/REFERENCE_SEGMENT=
+	/RESOLUTION_COORDINATE_SYSTEM=LSK
+	! /USE_CARDAN_SEQUENCE=FALSE
+	/NORMALIZATION=TRUE
+	/NORMALIZATION_METHOD=DEFAULT_NORMALIZATION
+	! /NORMALIZATION_METRIC=
+	/NEGATEX=TRUE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEED=0.0
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Right Ankle Moment
+	/SUBJECT_TAG=
+	/FUNCTION=JOINT_MOMENT
+	/SEGMENT=RFT_S
+	/REFERENCE_SEGMENT=
+	/RESOLUTION_COORDINATE_SYSTEM=RSK
+	! /USE_CARDAN_SEQUENCE=FALSE
+	/NORMALIZATION=TRUE
+	/NORMALIZATION_METHOD=DEFAULT_NORMALIZATION
+	! /NORMALIZATION_METRIC=
+	/NEGATEX=TRUE
+	/NEGATEY=TRUE
+	/NEGATEZ=TRUE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEED=0.0
+	;
+
+<?
+}
+else {
+?> 
+	Compute_Model_Based_Data
+	/RESULT_NAME=Right GRF
+	/SUBJECT_TAG=
+	/FUNCTION=GRF_DATA
+	/SEGMENT=RFT
+	/REFERENCE_SEGMENT=
+	/RESOLUTION_COORDINATE_SYSTEM=Virtual Lab
+	! /USE_CARDAN_SEQUENCE=FALSE
+	/NORMALIZATION=TRUE
+	/NORMALIZATION_METHOD=DEFAULT_NORMALIZATION
+	! /NORMALIZATION_METRIC=
+	/NEGATEX=TRUE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEED=0.0
+	;
+
+	Compute_Model_Based_Data
+	/RESULT_NAME=Left GRF
+	/SUBJECT_TAG=
+	/FUNCTION=GRF_DATA
+	/SEGMENT=LFT
+	/REFERENCE_SEGMENT=
+	/RESOLUTION_COORDINATE_SYSTEM=Virtual Lab
+	! /USE_CARDAN_SEQUENCE=FALSE
+	/NORMALIZATION=TRUE
+	/NORMALIZATION_METHOD=DEFAULT_NORMALIZATION
+	! /NORMALIZATION_METRIC=
+	! /NEGATEX=FALSE
+	! /NEGATEY=FALSE
+	! /NEGATEZ=FALSE
+	! /AXIS1=X
+	! /AXIS2=Y
+	! /AXIS3=Z
+	! /TREADMILL_DATA=FALSE
+	! /TREADMILL_DIRECTION=UNIT_VECTOR(0,1,0)
+	! /TREADMILL_SPEED=0.0
+	;
+
+<?
+}?> 
+
+<?
+if (strpos($report_template, 'extended') === false) {
+	$base_report_page_numbers = '2+3';
+	$upper_report_page_number = '4';
+}
+else {
+	$base_report_page_numbers = '2+3+4+5+6';
+	$upper_report_page_number = '7';
+}?> 
+
+Modify_All_Graphs
+/PAGE_NO=<?=$base_report_page_numbers;?> 
+! /Y_MODIFY_RANGE=TRUE
+! /Y_USE_AUTO_RANGE=TRUE
+! /Y_MIN_BUFFER=
+! /Y_MAX_BUFFER=
+! /Y_MIN=
+! /Y_MAX=
+! /Y_SCALE_INCREMENT=
+! /Y_AXIS_LABEL=
+/X_AXIS_LABEL=<?=$graphXAxisTitle;?> 
+;
+
+Conditional_Statement
+/ITERATION_PARAMETER_NAME=cond
+/EXPRESSION=(("&::UB_exists&" = "true") &::AMP& ("<?=$task;?>" <> "Balance"))
+! /AS_INTEGER=TRUE
+;
+
+	Append_Report_Template
+	/REPORT_TEMPLATE=<?=$reportTemplateDirectory . $report_template_UB;?> 
+	;
+
+	Modify_All_Graphs
+	/PAGE_NO=<?=$upper_report_page_number;?> 
+	! /Y_MODIFY_RANGE=TRUE
+	! /Y_USE_AUTO_RANGE=TRUE
+	! /Y_MIN_BUFFER=
+	! /Y_MAX_BUFFER=
+	! /Y_MIN=
+	! /Y_MAX=
+	! /Y_SCALE_INCREMENT=
+	! /Y_AXIS_LABEL=
+	/X_AXIS_LABEL=<?=$graphXAxisTitle;?> 
+	;
+
+Conditional_Statement_End
+/ITERATION_PARAMETER_NAME=cond
+;
+
+<?
+if (strpos($report_template_append,'unspecified') === false) {
+?> 
+
+	Append_Report_Template
+	/REPORT_TEMPLATE=<?=$reportTemplateDirectory . $report_template_append;?> 
+	;
+
+<?
+}?> 
+
+Make_Image_Item
+/IMAGE_FILE=<?=$picturesDirectory . 'logo1.png';?> 
+/PAGE_NUMBER=1
+/COLUMN_NUMBER=1
+/ROW_NUMBER=1
+! /COLUMN_SPAN=1
+! /ROW_SPAN=1
+;
+
+Make_Image_Item
+/IMAGE_FILE=<?=$picturesDirectory . 'logo2.png';?> 
+/PAGE_NUMBER=1
+/COLUMN_NUMBER=3
+/ROW_NUMBER=1
+! /COLUMN_SPAN=1
+! /ROW_SPAN=1
+;
+
+Select_Active_File
+/FILE_NAME=GLOBAL
+! /QUERY=
+;
+
+Set_Text_Item
+/SIGNAL_NAME=Report_title
+/SIGNAL_FOLDER=META
+/SIGNAL_DATA_VALUE=<?=$report_title; ?> 
+;
+
+<?
+if (!empty($session["Injury"])) {?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Injury
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<?=$session['Injury']; ?> 
+	;
+<?}
+
+if (!empty($session["Injured_side"])) {?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Injured_side
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<?=$session['Injured_side'];?> 
+	;
+<?}
+
+if (!empty($session["Dominance"])) {?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Dominance
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<?=$session['Dominance'];?> 
+	;
+<?
+} 
+
+if (!empty($session["Last_name"])) {
+	$first_name = iconv('UTF-8', 'CP'.$CP_page, $session['First_name']);
+	$last_name = iconv('UTF-8', 'CP'.$CP_page, $session['Last_name']);
+?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Name
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<? echo $first_name . ' ' . $last_name; ?> 
+	;
+<?}
+
+if (!empty($subject["ID"])) {
+	$subject_ID = iconv('UTF-8', 'CP'.$CP_page, $subject["ID"]);
+?> 
+	Set_Text_Item
+	/SIGNAL_NAME=ID
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<?=$subject_ID; ?> 
+	;
+<?}
+
+if (!empty($subject["DOB"])) { ?> 
+	Set_Text_Item
+	/SIGNAL_NAME=DOB
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<?=$subject['DOB'];?> 
+	;
+<?}
+
+if (!empty($subsession["Height"])) {?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Height
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<?echo (number_format(round(trim($subsession["Height"]),1),2).' m');?> 
+	;
+<?}
+	
+if (!empty($subsession["Weight"])) {?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Weight
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<?echo (number_format(round(trim($subsession["Weight"]),1),1).' kg');?> 
+	;
+<?}
+	
+if (!empty($subsession["Comments"])) {?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Comments
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<?=$subsession['Comments'];?> 
+	;
+<?}
+
+if (!empty($subsession["Creation_date"])) {?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Creation_date
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<? echo (trim($subsession["Creation_date"]));?> 
+	;
+<?}
+
+if (!empty($subsession["Creation_time"])) {?> 
+	Set_Text_Item
+	/SIGNAL_NAME=Creation_time
+	/SIGNAL_FOLDER=META
+	/SIGNAL_DATA_VALUE=<? echo (trim($subsession["Creation_time"]));?> 
+	;
+<?}
+?> 
+

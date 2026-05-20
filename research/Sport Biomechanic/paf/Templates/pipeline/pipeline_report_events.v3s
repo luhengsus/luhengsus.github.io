@@ -1,0 +1,146 @@
+!Create ploting events for reports
+!----------------------------------------
+<?
+if ($LRExists) {
+	$tagLeft = $tag . '_L';
+	$tagRight = $tag . '_R';
+}
+else {
+	$tagLeft = $tag;
+	$tagRight = $tag;
+}
+?> 
+
+Select_Active_File
+/FILE_NAME=<?=$tagRight;?> 
+! /QUERY=
+;
+
+Event_Copy
+/EVENT_NAME=<?=$plotStartEventRight;?> 
+/NEW_EVENT_NAME=<?=$webReportStartEventRight;?> 
+/FRAME_OFFSET=0
+! /TIME_OFFSET=
+! /PERCENT_OFFSET=
+! /EVENT_INSTANCE=0
+! /RANGE_INSTANCE=0
+! /EVENT_SEQUENCE=
+! /EXCLUDE_EVENTS=
+! /START_AT_EVENT=
+! /END_AT_EVENT=
+;
+
+Event_Copy
+/EVENT_NAME=<?=$plotEndEventRight;?> 
+/NEW_EVENT_NAME=<?=$webReportEndEventRight;?> 
+/FRAME_OFFSET=0
+! /TIME_OFFSET=
+! /PERCENT_OFFSET=
+! /EVENT_INSTANCE=0
+! /RANGE_INSTANCE=0
+! /EVENT_SEQUENCE=
+! /EXCLUDE_EVENTS=
+! /START_AT_EVENT=
+! /END_AT_EVENT=
+;
+
+<?
+if (strpos($session['Event_mode'], 'Force Plates') !== false) {
+?> 
+	Event_Copy
+	/EVENT_NAME=<?=$plotStartEventRightForce;?>  
+	/NEW_EVENT_NAME=RightPlotStartForce
+	/FRAME_OFFSET=0
+	! /TIME_OFFSET=
+	! /PERCENT_OFFSET=
+	! /EVENT_INSTANCE=0
+	! /RANGE_INSTANCE=0
+	! /EVENT_SEQUENCE=
+	! /EXCLUDE_EVENTS=
+	! /START_AT_EVENT=
+	! /END_AT_EVENT=
+	;
+
+	Event_Copy
+	/EVENT_NAME=<?=$plotEndEventRightForce;?> 
+	/NEW_EVENT_NAME=RightPlotEndForce
+	/FRAME_OFFSET=0
+	! /TIME_OFFSET=
+	! /PERCENT_OFFSET=
+	! /EVENT_INSTANCE=0
+	! /RANGE_INSTANCE=0
+	! /EVENT_SEQUENCE=
+	! /EXCLUDE_EVENTS=
+	! /START_AT_EVENT=
+	! /END_AT_EVENT=
+	;
+
+<?
+}?> 
+
+Select_Active_File
+/FILE_NAME=<?=$tagLeft;?> 
+! /QUERY=
+;
+
+Event_Copy
+/EVENT_NAME=<?=$plotStartEventLeft;?> 
+/NEW_EVENT_NAME=<?=$webReportStartEventLeft;?> 
+/FRAME_OFFSET=0
+! /TIME_OFFSET=
+! /PERCENT_OFFSET=
+! /EVENT_INSTANCE=0
+! /RANGE_INSTANCE=0
+! /EVENT_SEQUENCE=
+! /EXCLUDE_EVENTS=
+! /START_AT_EVENT=
+! /END_AT_EVENT=
+;
+
+Event_Copy
+/EVENT_NAME=<?=$plotEndEventLeft;?> 
+/NEW_EVENT_NAME=<?=$webReportEndEventLeft;?> 
+/FRAME_OFFSET=0
+! /TIME_OFFSET=
+! /PERCENT_OFFSET=
+! /EVENT_INSTANCE=0
+! /RANGE_INSTANCE=0
+! /EVENT_SEQUENCE=
+! /EXCLUDE_EVENTS=
+! /START_AT_EVENT=
+! /END_AT_EVENT=
+;
+
+<?
+if (strpos($session['Event_mode'], 'Force Plates') !== false) {
+?> 
+	Event_Copy
+	/EVENT_NAME=<?=$plotStartEventLeftForce;?>  
+	/NEW_EVENT_NAME=LeftPlotStartForce
+	/FRAME_OFFSET=0
+	! /TIME_OFFSET=
+	! /PERCENT_OFFSET=
+	! /EVENT_INSTANCE=0
+	! /RANGE_INSTANCE=0
+	! /EVENT_SEQUENCE=
+	! /EXCLUDE_EVENTS=
+	! /START_AT_EVENT=
+	! /END_AT_EVENT=
+	;
+
+	Event_Copy
+	/EVENT_NAME=<?=$plotEndEventLeftForce;?> 
+	/NEW_EVENT_NAME=LeftPlotEndForce
+	/FRAME_OFFSET=0
+	! /TIME_OFFSET=
+	! /PERCENT_OFFSET=
+	! /EVENT_INSTANCE=0
+	! /RANGE_INSTANCE=0
+	! /EVENT_SEQUENCE=
+	! /EXCLUDE_EVENTS=
+	! /START_AT_EVENT=
+	! /END_AT_EVENT=
+	;
+
+<?
+}?> 

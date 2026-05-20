@@ -1,0 +1,35 @@
+File_Open 
+/FILE_NAME=<?=$working_directory . $path_parts['filename'] . ".c3d";?> 
+/SET_PROMPT=Open dynamic trials
+; 
+
+!Add tag to each file
+Assign_Tags_To_Files
+/MOTION_FILE_NAMES=<?=$working_directory . $path_parts['filename'] . ".c3d";?> 
+! /QUERY=
+/TAGS=<?=$tag;?> 
+;
+
+Metric_Explicit
+! /RESULT_METRIC_FOLDER=PROCESSED
+/RESULT_METRIC_NAME=Cropped Measurement Start Frame
+/METRIC_VALUE=PARAMETERS::PROCESSING::Cropped Measurement Start Frame
+;
+
+Metric_Explicit
+! /RESULT_METRIC_FOLDER=PROCESSED
+/RESULT_METRIC_NAME=Cropped Measurement End Frame
+/METRIC_VALUE=PARAMETERS::PROCESSING::Cropped Measurement End Frame
+;
+
+Metric_Explicit
+! /RESULT_METRIC_FOLDER=PROCESSED
+/RESULT_METRIC_NAME=Uncropped Measurement Length
+/METRIC_VALUE=PARAMETERS::PROCESSING::Uncropped Measurement Length
+;
+
+Metric_Explicit
+! /RESULT_METRIC_FOLDER=PROCESSED
+/RESULT_METRIC_NAME=Uncropped Measurement Frames
+/METRIC_VALUE=PARAMETERS::PROCESSING::Uncropped Measurement Frames
+;

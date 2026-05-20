@@ -1,0 +1,789 @@
+! ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ +
+!  Copyright notice
+!  This PAF and its content is copyright of Qualisys AB © 2012-2024. All rights reserved. 
+!  The PAF script is only to be used in conjunction with a Qualisys Motion Capture System. 
+!  Only legal PAF owners are entitled to use the script and only in relation with related PAF.
+! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+<?php
+// Include php variables.
+include ($template_directory . 'settings.php');
+include ($template_directory . 'Scripts\src\Visual3D\prepare_variables.php');
+
+$model_used = $subsession['Model_used'];
+$task = $subsession['Task'];
+echo "! Model used: " . $model_used;
+echo "\n! Task: " . $task;
+
+$CP_page = sapi_windows_cp_get('ansi');	
+
+// Allow user to specify force threshold in % of body weight
+if (strpos($force_threshold_units, '%') !== false)
+	$force_threshold = $session["Weight"] * $force_threshold * 0.01 * 9.81;
+?> 
+
+!Set the force threshold for the FP 
+Set_Force_Platform_Threshold
+/THRESHOLD=<?=$force_threshold;?> 
+! /SET_AS_DEFAULT=FALSE
+;
+
+Set_Use_Processed_Analog
+/USE_PROCESSED=TRUE
+;
+
+Set_Use_Processed_Targets
+/USE_PROCESSED=TRUE
+;
+
+Set_Use_Processed_Forces
+/USE_PROCESSED=TRUE
+;
+
+<?
+if (strpos($model_used,'Theia') !== false)
+	$stat_name = 'Static*_Theia.c3d';
+else
+	$stat_name = 'Static_' .$session['ID'].'_'.$subject['Last_name'].'.cmz';
+
+$stat_dir = dirname($working_directory) . '\\Static*\\';
+
+foreach (glob($stat_dir) as $my_static_dir) {
+	foreach (glob($my_static_dir . $stat_name) as $my_static_name) {
+		if (file_exists($my_static_name)) {
+			$static_directory = iconv('UTF-8','CP'.$CP_page,$my_static_dir);
+			$static_name = iconv('UTF-8','CP'.$CP_page,$my_static_name);
+		}
+	}
+}
+
+if (empty($static_name))
+	echo "! No static trial exist.";
+else
+	echo "! Using " . $static_name . " from " . $static_directory;
+
+if (file_exists($static_name) && strpos($model_used,'Theia') === false) { 
+?> 
+
+	File_Open
+	/FILE_NAME=<?=$static_name;?> 
+	! /SUFFIX=
+	/SET_PROMPT=Open Static cmz
+	! /FILTER=
+	;
+
+<?
+}
+elseif (!file_exists($static_name) && strpos($model_used,'Theia') === false && strpos($subsession['Task'],'Isometric') === false) { ?> 
+
+	Pipeline_Breakpoint
+	/PAUSE_MESSAGE=<?=$stat_name;?> not found. Static session must be processed first. Please halt processing and start static session processing.
+	;
+<?
+}?> 
+
+!=============================
+!Open files
+!=============================
+<?
+$report_template 			= $report_template_base;
+$report_template_UB		 	= $report_template_upper_body;
+$report_template_append 	= 'unspecified';
+$LRExists					= false;
+$force_plates_zeroed		= false;
+$report_title 				= $subsession['Type'];
+$plotStartEventLeft 		= 'LON';
+$plotStartEventRight 		= 'RON';
+$plotEndEventLeft 			= 'LOFF';
+$plotEndEventRight 			= 'ROFF';
+$plotStartEventLeftForce	= 'LON';
+$plotStartEventRightForce	= 'RON';
+$plotEndEventLeftForce		= 'LOFF';
+$plotEndEventRightForce		= 'ROFF';
+$plotStartEventLeftEMG		= 'LON';
+$plotStartEventRightEMG		= 'RON';
+$plotEndEventLeftEMG		= 'LOFF';
+$plotEndEventRightEMG		= 'ROFF';
+$graphXAxisTitle			= '% of contact phase';
+$graphXAxisTitleEmg			= '% of contact phase';
+$webReportStartEventLeft	= 'LeftPlotStart';
+$webReportStartEventRight	= 'RightPlotStart';
+$webReportEndEventLeft		= 'LeftPlotEnd';
+$webReportEndEventRight		= 'RightPlotEnd';
+
+// Load movement files and add tags.
+foreach($measurements as $m) {
+	if(strstr($m["Used"], "True") && strpos($m['Measurement_type'], 'Dynamic') !== false) {
+		$path_parts 	= pathinfo($m["Filename"]);
+		
+		if (strpos($task, 'Acc') !== false) {
+			$tag 						= 'Acc';
+			$accelerationExists 		= true;
+			$LRExists					= true;
+			$force_plates_zeroed		= true;
+		}
+		elseif (strpos($task, 'CMJ') !== false) {
+			$tag 						= 'CMJ';
+			$CMJExists 					= true;
+			$report_template_append 	= 'report_CMJ.rgt';
+			$plotStartEventLeft 		= 'PlotStart_L';
+			$plotStartEventRight 		= 'PlotStart_R';
+			$plotEndEventLeft 			= 'PlotEnd_L';
+			$plotEndEventRight 			= 'PlotEnd_R';
+			$plotStartEventLeftForce	= 'PlotStart_L';
+			$plotStartEventRightForce	= 'PlotStart_R';
+			$plotEndEventLeftForce		= 'PlotEnd_L';
+			$plotEndEventRightForce		= 'PlotEnd_R';
+			$plotStartEventLeftEMG		= 'PlotStart_L';
+			$plotStartEventRightEMG		= 'PlotStart_R';
+			$plotEndEventLeftEMG		= 'PlotEnd_L';
+			$plotEndEventRightEMG		= 'PlotEnd_R';
+			$graphXAxisTitle			= 'Movement start to 0.75s after touchdown';
+			$graphXAxisTitleEmg			= 'Movement start to 0.75s after touchdown';
+		}
+		elseif (strpos($task, 'Cutting') !== false) {
+			$tag 						= 'Cut';
+			$cuttingExists 				= true;
+			$LRExists					= true;
+			$force_plates_zeroed		= true;
+			$report_template_append 	= 'report_Cut.rgt';
+			$plotStartEventLeft 		= 'TouchDown';
+			$plotStartEventRight 		= 'TouchDown';
+			$plotEndEventLeft 			= 'TakeOff';
+			$plotEndEventRight 			= 'TakeOff';
+			$plotStartEventLeftForce	= 'TouchDown';
+			$plotStartEventRightForce	= 'TouchDown';
+			$plotEndEventLeftForce		= 'TakeOff';
+			$plotEndEventRightForce		= 'TakeOff';
+			$plotStartEventLeftEMG		= 'TouchDown';
+			$plotStartEventRightEMG		= 'TouchDown';
+			$plotEndEventLeftEMG		= 'TakeOff';
+			$plotEndEventRightEMG		= 'TakeOff';
+			$graphXAxisTitle			= 'Touchdown to Takeoff';
+			$graphXAxisTitleEmg			= 'Touchdown to Takeoff';
+		}
+		elseif (strpos($task, 'DJ') !== false) {
+			$tag 						= 'DVJ';
+			$dropJumpExists 			= true;
+			$force_plates_zeroed		= true;
+			$report_template_append 	= 'report_DVJ.rgt';
+			$plotStartEventLeft 		= 'TouchDown_L';
+			$plotStartEventRight 		= 'TouchDown_R';
+			$plotEndEventLeft 			= 'TakeOff_L';
+			$plotEndEventRight 			= 'TakeOff_R';
+			$plotStartEventLeftForce	= 'TouchDown_L';
+			$plotStartEventRightForce	= 'TouchDown_R';
+			$plotEndEventLeftForce		= 'TakeOff_L';
+			$plotEndEventRightForce		= 'TakeOff_R';
+			$plotStartEventLeftEMG		= 'TouchDown_L';
+			$plotStartEventRightEMG		= 'TouchDown_R';
+			$plotEndEventLeftEMG		= 'TakeOff_L';
+			$plotEndEventRightEMG		= 'TakeOff_R';
+			$graphXAxisTitle			= 'Touchdown to Takeoff';
+			$graphXAxisTitleEmg			= 'Touchdown to Takeoff';
+		}
+		elseif (strpos($task, 'Gait') !== false) {
+			$tag 						= 'Gait';
+			$gaitExists 				= true;
+			$force_plates_zeroed		= true;
+			
+			if ($use_full_gait_cycle) {
+				$report_template_append 	= 'report_TSP.rgt';
+			}
+			
+			if($use_full_gait_cycle) {
+				$plotStartEventLeft 		= 'LHS';
+				$plotStartEventRight 		= 'RHS';
+				$plotEndEventLeft 			= 'LHS';
+				$plotEndEventRight 			= 'RHS';
+				$plotStartEventLeftEMG		= 'LHS';
+				$plotStartEventRightEMG		= 'RHS';
+				$plotEndEventLeftEMG		= 'LHS';
+				$plotEndEventRightEMG		= 'RHS';
+				$graphXAxisTitle			= '% of gait cycle';
+				$graphXAxisTitleEmg			= '% of gait cycle';
+			}
+		}
+		elseif (strpos($task, 'Running') !== false) {
+			$tag 						= 'Running';
+			$runningExists 				= true;
+			$force_plates_zeroed		= true;
+
+			if ($use_full_gait_cycle) {
+				$report_template_append 	= 'report_TSP.rgt';
+			}
+
+			if($use_full_gait_cycle) {
+				$plotStartEventLeft 		= 'LHS';
+				$plotStartEventRight 		= 'RHS';
+				$plotEndEventLeft 			= 'LHS';
+				$plotEndEventRight 			= 'RHS';
+				$plotStartEventLeftEMG		= 'LHS';
+				$plotStartEventRightEMG		= 'RHS';
+				$plotEndEventLeftEMG		= 'LHS';
+				$plotEndEventRightEMG		= 'RHS';
+				$graphXAxisTitle			= '% of running cycle';
+				$graphXAxisTitleEmg			= '% of running cycle';
+			}
+		}
+		elseif (strpos($task, 'SH') !== false) {
+			$tag 						= 'SH';
+			$sideHopExists 				= true;
+			$LRExists					= true;
+			$report_template_append 	= 'report_SH.rgt';
+		}
+		elseif (strpos($task, 'COD') !== false) {
+			$tag 						= 'CD';
+			$LRExists					= true;
+			$changeOfDirectionExists 	= true;
+		}
+		elseif (strpos($task, 'SLJ') !== false) {
+			$tag 						= 'SLJ';
+			$singleLegJumpExists	 	= true;
+			$LRExists					= true;
+			$force_plates_zeroed		= true;
+			$report_template_append 	= 'report_SL.rgt';
+			$plotStartEventLeft 		= 'TouchDown';
+			$plotStartEventRight 		= 'TouchDown';
+			$plotEndEventLeft 			= 'PlotEnd';
+			$plotEndEventRight 			= 'PlotEnd';
+			$plotStartEventLeftForce	= 'TouchDown';
+			$plotStartEventRightForce	= 'TouchDown';
+			$plotEndEventLeftForce		= 'PlotEnd';
+			$plotEndEventRightForce		= 'PlotEnd';
+			$plotStartEventLeftEMG		= 'TouchDown';
+			$plotStartEventRightEMG		= 'TouchDown';
+			$plotEndEventLeftEMG		= 'PlotEnd';
+			$plotEndEventRightEMG		= 'PlotEnd';
+			$graphXAxisTitle			= 'From Touchdown to 1s after';
+			$graphXAxisTitleEmg			= 'From Touchdown to 1s after';
+		}
+		elseif (strpos($task, 'SLL') !== false) {
+			$tag						= 'SLL';
+			$singleLegLandingExists 	= true;
+			$LRExists					= true;
+			$force_plates_zeroed		= true;
+			$report_template_append 	= 'report_SL.rgt';
+			$plotStartEventLeft 		= 'TouchDown';
+			$plotStartEventRight 		= 'TouchDown';
+			$plotEndEventLeft 			= 'PlotEnd';
+			$plotEndEventRight 			= 'PlotEnd';
+			$plotStartEventLeftForce	= 'TouchDown';
+			$plotStartEventRightForce	= 'TouchDown';
+			$plotEndEventLeftForce		= 'PlotEnd';
+			$plotEndEventRightForce		= 'PlotEnd';
+			$plotStartEventLeftEMG		= 'TouchDown';
+			$plotStartEventRightEMG		= 'TouchDown';
+			$plotEndEventLeftEMG		= 'PlotEnd';
+			$plotEndEventRightEMG		= 'PlotEnd';
+			$graphXAxisTitle			= 'From Touchdown to ' . $SLL_duration. 's after';
+			$graphXAxisTitleEmg			= 'From Touchdown to ' . $SLL_duration. 's after';
+		}
+		elseif (strpos($task, 'Tapping') !== false) {
+			$tag 						= 'Tapping';
+			$tappingExists 				= true;
+			$report_template_append 	= 'report_Tapping.rgt';
+		}
+		elseif (strpos($task, 'Squat') !== false) {
+			$tag 						= 'Squat';
+			$squattingExists 			= true;
+			$plotStartEventLeft 		= 'TOP_L';
+			$plotStartEventRight 		= 'TOP_R';
+			$plotEndEventLeft 			= 'TOP_L';
+			$plotEndEventRight 			= 'TOP_R';
+			$plotStartEventLeftForce	= 'TOP_L';
+			$plotStartEventRightForce	= 'TOP_R';
+			$plotEndEventLeftForce		= 'TOP_L';
+			$plotEndEventRightForce		= 'TOP_R';
+			$plotStartEventLeftEMG		= 'TOP_L';
+			$plotStartEventRightEMG		= 'TOP_R';
+			$plotEndEventLeftEMG		= 'TOP_L';
+			$plotEndEventRightEMG		= 'TOP_R';
+			$graphXAxisTitle			= 'From Max Pelvis Height to Max Pelvis Height';
+			$graphXAxisTitleEmg			= 'From Max Pelvis Height to Max Pelvis Height';
+		}
+		elseif (strpos($task, 'Isometric') !== false) {
+			$report_template 			= 'Report_isometric.rgt';
+			$tag 						= 'Isometric';
+			$isometricExists 			= true;
+			$plotStartEventLeft 		= 'Onset';
+			$plotStartEventRight 		= 'Onset';
+			$plotEndEventLeft 			= 'Measurement_end';
+			$plotEndEventRight 			= 'Measurement_end';
+			$plotStartEventLeftForce	= 'Onset';
+			$plotStartEventRightForce	= 'Onset';
+			$plotEndEventLeftForce		= 'Measurement_end';
+			$plotEndEventRightForce		= 'Measurement_end';
+			$plotStartEventLeftEMG		= 'Onset';
+			$plotStartEventRightEMG		= 'Onset';
+			$plotEndEventLeftEMG		= 'Measurement_end';
+			$plotEndEventRightEMG		= 'Measurement_end';
+			$graphXAxisTitle			= 'Whole measurement';
+			$graphXAxisTitleEmg			= 'Whole measurement';
+		}
+		elseif (strpos($task, 'Generic') !== false) {
+			$tag 						= 'generic';
+			$genericExists				= true;
+			$report_title 				= $subsession['Task_name'] . ' session';
+		}
+		elseif (strpos($task, 'LL') !== false) {
+			$tag 						= 'LL';
+			$lateralLeapExists 			= true;
+			$LRExists					= true;
+			$report_template_append 	= 'report_LL.rgt';
+			$plotStartEventLeft 		= 'PlotStart';
+			$plotStartEventRight 		= 'PlotStart';
+			$plotEndEventLeft 			= 'TakeOff';
+			$plotEndEventRight 			= 'TakeOff';
+			$plotStartEventLeftForce	= 'PlotStart';
+			$plotStartEventRightForce	= 'PlotStart';
+			$plotEndEventLeftForce		= 'TakeOff';
+			$plotEndEventRightForce		= 'TakeOff';
+			$plotStartEventLeftEMG		= 'PlotStart';
+			$plotStartEventRightEMG		= 'PlotStart';
+			$plotEndEventLeftEMG		= 'TakeOff';
+			$plotEndEventRightEMG		= 'TakeOff';
+			$graphXAxisTitle			= 'From PlotStart to TakeOff after';
+			$graphXAxisTitleEmg			= 'From PlotStart to TakeOff after';
+		}
+		elseif (strpos($task, 'Balance') !== false) {
+			$report_template 			= 'Report_balance.rgt';
+			$tag 						= 'Balance';
+			$balanceExists 				= true;
+			$plotStartEventLeft 		= 'PlotStart';
+			$plotStartEventRight 		= 'PlotStart';
+			$plotEndEventLeft 			= 'PlotEnd';
+			$plotEndEventRight 			= 'PlotEnd';
+			$plotStartEventLeftForce	= 'PlotStart';
+			$plotStartEventRightForce	= 'PlotStart';
+			$plotEndEventLeftForce		= 'PlotEnd';
+			$plotEndEventRightForce		= 'PlotEnd';
+			$plotStartEventLeftEMG		= 'PlotStart';
+			$plotStartEventRightEMG		= 'PlotStart';
+			$plotEndEventLeftEMG		= 'PlotEnd';
+			$plotEndEventRightEMG		= 'PlotEnd';
+			$graphXAxisTitle			= 'Whole measurement';
+			$graphXAxisTitleEmg			= 'Whole measurement';
+		}
+		elseif (strpos($task, 'SLCDL') !== false) {
+			$tag 						= 'SLCDL';
+			$crossDropExists 			= true;
+			$LRExists					= true;
+			$force_plates_zeroed		= true;
+			$report_template_append 	= 'report_SL.rgt';
+			$plotStartEventLeft 		= 'TouchDown';
+			$plotStartEventRight 		= 'TouchDown';
+			$plotEndEventLeft 			= 'PlotEnd';
+			$plotEndEventRight 			= 'PlotEnd';
+			$plotStartEventLeftForce	= 'TouchDown';
+			$plotStartEventRightForce	= 'TouchDown';
+			$plotEndEventLeftForce		= 'PlotEnd';
+			$plotEndEventRightForce		= 'PlotEnd';
+			$plotStartEventLeftEMG		= 'TouchDown';
+			$plotStartEventRightEMG		= 'TouchDown';
+			$plotEndEventLeftEMG		= 'PlotEnd';
+			$plotEndEventRightEMG		= 'PlotEnd';
+			$graphXAxisTitle			= 'From Touchdown to ' . $SLL_duration. 's after';
+			$graphXAxisTitleEmg			= 'From Touchdown to ' . $SLL_duration. 's after';
+		}
+		/*
+		elseif (strpos($task, 'SLP') !== false) {
+			$tag 						= 'SLP';
+			$singleLegPowerExists 		= true;
+			$LRExists					= true;
+			$report_template_append 	= 'report_SLP.rgt';
+			$plotStartEventLeft 		= 'TouchDown';
+			$plotStartEventRight 		= 'TouchDown';
+			$plotEndEventLeft 			= 'TakeOff';
+			$plotEndEventRight 			= 'TakeOff';
+			$plotStartEventLeftForce	= 'TouchDown';
+			$plotStartEventRightForce	= 'TouchDown';
+			$plotEndEventLeftForce		= 'TakeOff';
+			$plotEndEventRightForce		= 'TakeOff';
+			$plotStartEventLeftEMG		= 'TouchDown';
+			$plotStartEventRightEMG		= 'TouchDown';
+			$plotEndEventLeftEMG		= 'TakeOff';
+			$plotEndEventRightEMG		= 'TakeOff';
+			$graphXAxisTitle			= 'Touchdown to Takeoff';
+			$graphXAxisTitleEmg			= 'Touchdown to Takeoff';
+		}
+		*/
+		elseif (strpos($task, 'PJ') !== false) {
+			$tag 						= 'PJ';
+			$powerJumpExists	 		= true;
+			$report_template_append 	= 'report_PJ.rgt';
+			$plotStartEventLeft 		= 'TouchDown_L';
+			$plotStartEventRight 		= 'TouchDown_R';
+			$plotEndEventLeft 			= 'TakeOff_L';
+			$plotEndEventRight 			= 'TakeOff_R';
+			$plotStartEventLeftForce	= 'TouchDown_L';
+			$plotStartEventRightForce	= 'TouchDown_R';
+			$plotEndEventLeftForce		= 'TakeOff_L';
+			$plotEndEventRightForce		= 'TakeOff_R';
+			$plotStartEventLeftEMG		= 'TouchDown_L';
+			$plotStartEventRightEMG		= 'TouchDown_R';
+			$plotEndEventLeftEMG		= 'TakeOff_L';
+			$plotEndEventRightEMG		= 'TakeOff_R';
+			$graphXAxisTitle			= 'Touchdown to Takeoff';
+			$graphXAxisTitleEmg			= 'Touchdown to Takeoff';
+		}
+		elseif (strpos($task, 'SJ') !== false) {
+			$tag 						= 'SJ';
+			$squatJumpExists			= true;
+			$report_template_append 	= 'report_SJ.rgt';
+			$plotStartEventLeft 		= 'PlotStart_L';
+			$plotStartEventRight 		= 'PlotStart_R';
+			$plotEndEventLeft 			= 'PlotEnd_L';
+			$plotEndEventRight 			= 'PlotEnd_R';
+			$plotStartEventLeftForce	= 'PlotStart_L';
+			$plotStartEventRightForce	= 'PlotStart_R';
+			$plotEndEventLeftForce		= 'PlotEnd_L';
+			$plotEndEventRightForce		= 'PlotEnd_R';
+			$plotStartEventLeftEMG		= 'PlotStart_L';
+			$plotStartEventRightEMG		= 'PlotStart_R';
+			$plotEndEventLeftEMG		= 'PlotEnd_L';
+			$plotEndEventRightEMG		= 'PlotEnd_R';
+			$graphXAxisTitle			= 'Movement start to 0.75s after touchdown';
+			$graphXAxisTitleEmg			= 'Movement start to 0.75s after touchdown';
+		}
+		
+		if ($LRExists) 
+			$LRExists_str = "true"; 
+		else
+			$LRExists_str = "false";
+ 
+		if (strstr($m["Used"], "True") && strpos($model_used,'Theia') === false) {
+			include ($v3dScriptDirectory . 'pipeline_open_files.v3s');
+		}
+		elseif (strstr($m["Used"], "True") && strpos($model_used,'Theia') !== false) {
+			include ($v3dScriptDirectory . 'pipeline_open_files_Theia.v3s');
+		}
+	}
+}
+
+if (strpos($model_used,'Theia') !== false) {
+	include ($v3dScriptDirectory . 'pipeline_model_Theia.v3s');
+?> 
+	! Workaround for a situation when 'JUMP' tag is added to Single-Leg Jump Left/Right Markerless *_Theia.c3d
+	Remove_Tags
+	/MOTION_FILE_NAMES=ALL_FILES
+	/TAGS=JUMP
+	;
+<?
+}
+
+if (file_exists($static_name)) {
+?> 
+	Set_Pipeline_Parameter_To_List_Of_Files
+	/PARAMETER_NAME=static
+	/FOLDER=<?=$static_directory;?> 
+	! /SEARCH_SUBFOLDERS=FALSE
+	/FILE_MASK=Static*.c3d
+	;
+<?
+}
+
+if (!$isometricExists) {
+?> 
+	Assign_Model_File
+	/CALIBRATION_FILE=*.c3d
+	/MOTION_FILE_NAMES=<?=$tag;?>+Static
+	! /REMOVE_EXISTING_ASSIGNMENTS=FALSE
+	;
+<?
+}?> 
+
+File_Close
+/FILE_NAME=Functional
+! /QUERY=
+;
+
+<?
+if (strpos($model_used,'Sports') !== false) {
+?> 
+
+	! Remove prefix 'Q_' if Skeleton solver Sports marker set is used.
+	Remove_Prefix_From_Point_Labels
+	/PREFIX=Q_
+	! /INCLUDE_CAL_FILE=TRUE
+	! /OVERWRITE_C3D_FILE=FALSE
+	;
+<?
+}
+
+if (strpos($model_used,'Theia') === false && (!$isometricExists)) {
+?> 
+	Build_Model
+	/CALIBRATION_FILE=*.c3d
+	! /REBUILD_ALL_MODELS=TRUE
+	! /DISPLAY_RESULTS=TRUE
+	;
+<?
+}?> 
+
+!Virtual lab definition
+!============================================
+<?
+if (!$isometricExists)
+	include ($v3dScriptDirectory . 'pipeline_virtual_lab.v3s');
+?> 
+
+! Find out if upper body markers exist
+!============================================
+! We assume UB exists if 'SME or 'Chest' markers exist
+Set_Pipeline_Parameter
+/PARAMETER_NAME=UB_exists
+/PARAMETER_VALUE=false
+;
+
+Conditional_Statement
+/ITERATION_PARAMETER_NAME=cond
+/EXPRESSION=Data_Exists(TARGET::ORIGINAL::Chest) | Data_Exists(TARGET::ORIGINAL::SME) | ("<?=$model_used;?>" = "Theia")
+! /AS_INTEGER=TRUE
+;
+
+	Set_Pipeline_Parameter
+	/PARAMETER_NAME=UB_exists
+	/PARAMETER_VALUE=true
+	;
+
+Conditional_Statement_End
+/ITERATION_PARAMETER_NAME=cond
+;
+
+!Open report template
+!============================================
+<?
+include ($v3dScriptDirectory . 'pipeline_report_add.v3s');
+?> 
+
+!General parameters (same for all tasks)
+!============================================
+<?
+if (!$isometricExists)
+	include ($v3dScriptDirectory . 'pipeline_common.v3s');
+?> 
+
+!=======================================
+Select_Active_File
+/FILE_NAME=<?=$tag;?> 
+! /QUERY=
+;
+
+! Zeroing force plates. Default is first 10 frames.
+Conditional_Statement
+/ITERATION_PARAMETER_NAME=cond
+/EXPRESSION=((<?=$fp_zero_start;?> <> <?=$fp_zero_end;?>) &::AMP& (<?=$force_plates_zeroed;?> = 1))
+! /AS_INTEGER=TRUE
+;
+
+	Modify_Force_Platform_Parameters
+	/FP_ZERO=<?=$fp_zero_start;?>+<?=$fp_zero_end;?> 
+	;
+
+Conditional_Statement_End
+/ITERATION_PARAMETER_NAME=cond
+;
+
+! Halt script if event mode is set to 'Force Plates' but force data do not exist
+<?
+if (strpos($session['Event_mode'], 'Force Plates') !== false) {
+?> 
+	Conditional_Statement
+	/ITERATION_PARAMETER_NAME=cond
+	/EXPRESSION=(Data_Exists(FORCE::ORIGINAL::FP1) <> 1)
+	! /AS_INTEGER=TRUE
+	;
+
+		Pipeline_Breakpoint
+		/PAUSE_MESSAGE=Event mode is set to 'Force Plates' but no force data has been found. Halt the script and set event mode to 'No Force Plate (Automatic)' or 'Manual'.
+		;
+
+	Conditional_Statement_End
+	/ITERATION_PARAMETER_NAME=cond
+	;
+
+<?
+}
+if (!$isometricExists)
+include ($v3dScriptDirectory . 'pipeline_filter.v3s');
+
+if($accelerationExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_Acc_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_Acc_events_no_FP.v3s');
+}
+
+if ($changeOfDirectionExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_CD_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_CD_events_no_FP.v3s');
+}
+
+if ($CMJExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_CMJ_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_CMJ_events_no_FP.v3s');
+	
+	include ($v3dScriptDirectory . 'pipeline_CMJ_METRICS.v3s');
+}
+
+if ($cuttingExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false)
+		include ($v3dScriptDirectory . 'pipeline_Cut_events.v3s');
+	elseif (strpos($session['Event_mode'], 'No Force Plate (Automatic)') !== false)
+		include ($v3dScriptDirectory . 'pipeline_Cut_events_no_FP.v3s');
+	elseif (strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_Cut_events_Manual.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_Cut_METRICS.v3s');
+}
+
+if($dropJumpExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_DVJ_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_DVJ_events_no_FP.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_DVJ_METRICS.v3s');
+}
+
+if ($gaitExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_Gait_events_FP.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_Gait_events_no_FP.v3s');
+		include ($v3dScriptDirectory . 'pipeline_Gait_METRICS.v3s');
+}
+
+if ($runningExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_Gait_events_FP.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_Gait_events_no_FP.v3s');
+	include ($v3dScriptDirectory . 'pipeline_Gait_METRICS.v3s');
+}
+
+if ($sideHopExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_SH_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_SH_events_no_FP.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_SH_metrics.v3s');
+}
+
+if ($singleLegJumpExists || $singleLegLandingExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_SL_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_SL_events_no_FP.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_SL_METRICS.v3s');
+}
+
+if ($tappingExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_Gait_events_FP.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_Tapping_events_no_FP.v3s');
+	
+	include ($v3dScriptDirectory . 'pipeline_Tapping_metrics.v3s');
+}
+
+if ($squattingExists) {
+	include ($v3dScriptDirectory . 'pipeline_Squatting_events.v3s');
+	include ($v3dScriptDirectory . 'pipeline_Squatting_metrics.v3s');
+}
+
+if ($isometricExists) {
+	include ($v3dScriptDirectory . 'pipeline_Isometric.v3s');
+}
+
+if ($genericExists) {
+	include ($v3dScriptDirectory . 'pipeline_Generic_events.v3s');
+	include ($v3dScriptDirectory . 'pipeline_Generic_metrics.v3s');
+}
+
+if ($lateralLeapExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_LL_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_LL_events_no_FP.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_LL_metrics.v3s');
+}
+
+if ($balanceExists) {
+	include ($v3dScriptDirectory . 'pipeline_Balance_events.v3s');
+	include ($v3dScriptDirectory . 'pipeline_Balance_metrics.v3s');
+}
+
+if ($crossDropExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_SLCDL_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_SLCDL_events_no_FP.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_SLCDL_metrics.v3s');
+}
+
+/*
+if ($singleLegPowerExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_SLP_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_SLP_events_no_FP.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_SLP_metrics.v3s');
+}
+*/
+
+if ($powerJumpExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_PJ_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_PJ_events_no_FP.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_PJ_metrics.v3s');
+}
+
+if ($squatJumpExists) {
+	if (strpos($session['Event_mode'], 'Force Plates') !== false || strpos($session['Event_mode'], 'Manual') !== false)
+		include ($v3dScriptDirectory . 'pipeline_CMJ_events.v3s');
+	else
+		include ($v3dScriptDirectory . 'pipeline_SJ_events_no_FP.v3s');
+
+	include ($v3dScriptDirectory . 'pipeline_SJ_metrics.v3s');
+}
+
+if ($includes_noraxon || $includes_mega_me6000 || $includes_delsys_trigno || $includes_myon || $includes_analog_EMG) {
+	include ($v3dScriptDirectory . 'prepare_variables.php');
+	include ($v3dScriptDirectory . 'pipeline_EMG_filter.v3s');
+	include ($v3dScriptDirectory . 'pipeline_EMG_normatives.v3s');
+	include ($v3dScriptDirectory . 'pipeline_EMG_make_graphs.v3s');
+	include ($v3dScriptDirectory . 'pipeline_EMG_cleanup.v3s');
+}
+
+//Add unified plot events for web report
+include ($v3dScriptDirectory . 'pipeline_report_events.v3s');
+
+include ($v3dScriptDirectory . 'pipeline_report_modify.v3s');
+
+//include ($v3dScriptDirectory . 'pipeline_QUALITY_CONTROL.v3s');
+
+$cmz_wo_suffix = str_replace('_exp','',$cmo_file);
+?> 
+
+Recalc
+;
+
+File_Save_As
+/FILE_NAME=<?=$cmz_wo_suffix;?> 
+! /SET_PROMPT=Save CMO file as
+! /SAVE_EMBEDDED_GRAPHICS=FALSE
+;
+

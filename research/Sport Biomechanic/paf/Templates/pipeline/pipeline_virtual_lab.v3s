@@ -1,0 +1,265 @@
+!===========================================
+! Define walking direction
+!===========================================
+
+!First create temporary events to ensure changing direction of pelvis rotation won't effect it
+!If no pelvis data in first frame exist, find first frame with valid pelvis data
+Set_Pipeline_Parameter_To_List_Of_Tagged_Files
+/PARAMETER_NAME=files
+/TAG_NAME=ALL_FILES
+! /GET_CURRENT_SELECTED_FILES=false
+! /USE_SHORT_FILENAMES=false
+;
+
+!loop thought all files to make sure pelvis is available in each of them
+For_Each
+/ITERATION_PARAMETER_NAME=file
+! /ITERATION_PARAMETER_COUNT_NAME=
+/ITEMS=::files
+;
+
+	Select_Active_File
+	/FILE_NAME=::file
+	! /QUERY=
+	;
+
+	Conditional_Statement
+	/ITERATION_PARAMETER_NAME=cond
+	/EXPRESSION=(isnan(KINETIC_KINEMATIC::RPV::CGPos[1,1]) = 1)
+	! /AS_INTEGER=TRUE
+	;
+
+		Set_Data_To_New_Values
+		/SIGNAL_TYPES=KINETIC_KINEMATIC
+		/SIGNAL_FOLDER=RPV
+		/SIGNAL_NAMES=CGPos
+		! /SIGNAL_COMPONENTS=ALL_COMPONENTS
+		/RESULT_TYPES=DERIVED
+		! /RESULT_FOLDERS=PROCESSED
+		/RESULT_SUFFIX=_test
+		! /EVENT_SEQUENCE=
+		! /EXCLUDE_EVENTS=
+		! /EVENT_INSTANCE=0
+		/START_FRAME=1
+		/END_FRAME=EOF
+		! /USE_POINT_RATE=TRUE
+		/REPLACEMENT_VALUES=0
+		/THRESHOLD_HIGH=10
+		/THRESHOLD_LOW=0
+		! /SET_DATA_AT_SINGLE_EVENT=FALSE
+		;
+
+		Event_Threshold
+		/RESULT_EVENT_NAME=temp1
+		/SIGNAL_TYPES=DERIVED
+		/SIGNAL_FOLDER=PROCESSED
+		/SIGNAL_NAMES=CGPos_test
+		/SIGNAL_COMPONENTS=Z
+		/FRAME_OFFSET=1
+		! /TIME_OFFSET=
+		! /EVENT_SEQUENCE=
+		! /EXCLUDE_EVENTS=
+		! /EVENT_SEQUENCE_INSTANCE=0
+		! /EVENT_SUBSEQUENCE=
+		! /SUBSEQUENCE_EXCLUDE_EVENTS=
+		! /EVENT_SUBSEQUENCE_INSTANCE=0
+		/EVENT_INSTANCE=1
+		/THRESHOLD=0.1
+		/ON_ASCENT=TRUE
+		/ON_DESCENT=FALSE
+		/FRAME_WINDOW=1
+		! /ENSURE_FRAMES_BEFORE=FALSE
+		! /ENSURE_FRAMES_AFTER=FALSE
+		;
+
+	Conditional_Statement_End
+	/ITERATION_PARAMETER_NAME=cond
+	;
+
+	Conditional_Statement
+	/ITERATION_PARAMETER_NAME=cond
+	/EXPRESSION=(isnan(KINETIC_KINEMATIC::RPV::CGPos[1,1]) = 0)
+	! /AS_INTEGER=TRUE
+	;
+
+		Event_Explicit
+		/EVENT_NAME=temp1
+		/FRAME=1
+		! /TIME=
+		;
+		
+	Conditional_Statement_End
+	/ITERATION_PARAMETER_NAME=cond
+	;
+
+End_For_Each
+/ITERATION_PARAMETER_NAME=file
+;
+
+Select_Active_File
+/FILE_NAME=ALL_FILES
+! /QUERY=
+;
+
+Event_Copy
+/EVENT_NAME=temp1
+/NEW_EVENT_NAME=temp2
+! /EVENT_INSTANCE=0
+! /RANGE_INSTANCE=0
+! /EVENT_SEQUENCE=
+! /EXCLUDE_EVENTS=
+! /START_AT_EVENT=
+! /END_AT_EVENT=
+/FRAME_OFFSET=1
+! /TIME_OFFSET=
+! /PERCENT_OFFSET=
+;
+
+! A unit vector is defined between the right and left hip landmarks, 
+!   then rounded to yield 4 possible solutions ( +/- X-axis and +/- y-axis)
+! A target is created that contains that unit_vector at every frame of data.
+! The virtual_lab will be tracked by the new TARGET named LAB_LATERAL.
+
+! Create a unit vector between left and right hips
+Evaluate_Expression
+/EXPRESSION=UNIT_VECTOR(
+(LANDMARK::ORIGINAL::RIGHT_HIP::X-LANDMARK::ORIGINAL::LEFT_HIP::X),
+(LANDMARK::ORIGINAL::RIGHT_HIP::Y-LANDMARK::ORIGINAL::LEFT_HIP::Y),
+(LANDMARK::ORIGINAL::RIGHT_HIP::Z-LANDMARK::ORIGINAL::LEFT_HIP::Z))
+! /SIGNAL_TYPES=
+! /SIGNAL_FOLDER=ORIGINAL
+! /SIGNAL_NAMES=
+! /RESULT_TYPES=DERIVED
+/RESULT_FOLDERS=VIRTUAL_LAB
+/RESULT_NAME=HIP_VECTOR
+! /APPLY_AS_SUFFIX_TO_SIGNAL_NAME=FALSE
+;
+
+! compute the median value of the unit vector
+Metric_Median
+/RESULT_METRIC_FOLDER=VIRTUAL_LAB
+/RESULT_METRIC_NAME=_MED
+/APPLY_AS_SUFFIX_TO_SIGNAL_NAME=TRUE
+/SIGNAL_TYPES=DERIVED
+/SIGNAL_FOLDER=VIRTUAL_LAB
+/SIGNAL_NAMES=HIP_VECTOR
+/COMPONENT_SEQUENCE=ALL
+/EVENT_SEQUENCE=temp1 + temp2
+/EXCLUDE_EVENTS=
+/SEQUENCE_PERCENT_START=
+/SEQUENCE_PERCENT_END=
+/GENERATE_MEAN_AND_STDDEV=FALSE
+! /APPEND_TO_EXISTING_VALUES=FALSE
+;
+
+! round the floats to an integer
+Evaluate_Expression
+/EXPRESSION=ROUND(METRIC::VIRTUAL_LAB::HIP_VECTOR_MED)
+! /SIGNAL_TYPES=
+! /SIGNAL_FOLDER=ORIGINAL
+! /SIGNAL_NAMES=
+/RESULT_TYPES=METRIC
+/RESULT_FOLDERS=VIRTUAL_LAB
+/RESULT_NAME=LAB_LATERAL
+! /APPLY_AS_SUFFIX_TO_SIGNAL_NAME=FALSE
+;
+
+! create a new TARGET that has the rounded unit vector at every frame. 
+Create_Target
+/SIGNAL_NAMES=Lab_orientation
+! /SIGNAL_DESCRIPTION=
+/EXPRESSION=METRIC::VIRTUAL_LAB::LAB_LATERAL
+;
+
+! Modify LANDMARK Lab_orientation (used if TARGET Lab_orientation does not exists)
+! ==================================
+! Note: Lower_body.mdh will not work properly if used outside PAF on c3d files without TARGET::ORIGINAL::Lab_orientation and when walking direction in +-Y direction
+
+Set_Pipeline_Parameter_To_List_Of_Tagged_Files
+/PARAMETER_NAME=filenames
+/TAG_NAME=<?=$tag;?> 
+! /GET_CURRENT_SELECTED_FILES=false
+! /USE_SHORT_FILENAMES=false
+;
+
+For_Each
+/ITERATION_PARAMETER_NAME=file
+/ITEMS=::filenames
+;
+
+	Select_Active_File
+	/FILE_NAME=::file
+	;
+
+	Set_Pipeline_Parameter_To_Data_Value
+	/SIGNAL_TYPES=METRIC
+	/SIGNAL_FOLDER=VIRTUAL_LAB
+	/SIGNAL_NAMES=LAB_LATERAL
+	/SIGNAL_COMPONENTS=X
+	/PARAMETER_NAME=offset_x
+	;
+
+	Set_Pipeline_Parameter_To_Data_Value
+	/SIGNAL_TYPES=METRIC
+	/SIGNAL_FOLDER=VIRTUAL_LAB
+	/SIGNAL_NAMES=LAB_LATERAL
+	/SIGNAL_COMPONENTS=Y
+	/PARAMETER_NAME=offset_y
+	;
+
+	! Create vector to define walking direction and store it at GLOBAL::TREADMILL folder (will be used for Temporal_Distance calculations)
+	Evaluate_Expression
+	/EXPRESSION=vector(-&::offset_y&,&::offset_x&,0)
+	/RESULT_NAME=WALKING_DIRECTION
+	/RESULT_TYPE=METRIC
+	/RESULT_FOLDER=TREADMILL
+	;
+
+	! make copy of WALKING_DIRECTION to GLOBAL and back to All_files
+	Evaluate_Expression
+	/EXPRESSION=METRIC::TREADMILL::WALKING_DIRECTION
+	/RESULT_NAME=GLOBAL::WALKING_DIRECTION
+	/RESULT_TYPE=METRIC
+	/RESULT_FOLDER=TREADMILL
+	;
+
+End_For_Each
+/ITERATION_PARAMETER_NAME=file
+;
+
+! Modify position of Lab_orientation landmark to rotate Virtual Lab according to walking direction (only X and Y is considered)
+! walking at x direction -> offset_x = 0, offset_y =-1, walking at y direction -> offset_x = 1, offset_y = 0
+Modify_Landmark
+/LANDMARK_NAME=Lab_orientation
+/CALIBRATION_FILE=<?if(strpos($subsession['Model_used'],'Theia') === false) echo '*Static*.c3d'; else echo '*markerless*.c3d';?> 
+! /USER_GENERATED=TRUE
+! /USE_PERCENTAGE=FALSE
+! /CALIBRATION_ONLY=FALSE
+! /USE_TARGETS=FALSE
+/SEGMENT_NAME=LAB
+! /TARGET_TYPES=
+! /TARGET_NAMES=
+/MCSX=&::offset_x
+/MCSY=&::offset_y
+! /MCSZ=0.0
+! /LANDMARK_LOCATION=
+! /REFERENCE_LOCATION_NAME=
+! /REFERENCE_LOCATION_TYPE=
+! /USE_REFERENCE_LOCATION=FALSE
+;
+
+Build_Model
+/DISPLAY_RESULTS=FALSE
+;
+
+Select_Active_File
+/FILE_NAME=<?=$tag;?> 
+;
+
+Event_Delete
+/EVENT_NAME=temp1+temp2
+! /EVENT_SEQUENCE=
+! /EXCLUDE_EVENTS=
+! /EVENT_INSTANCE=
+! /TIME=
+;

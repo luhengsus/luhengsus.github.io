@@ -1,0 +1,85 @@
+Select_Active_File
+/FILE_NAME=<?=$tag;?> 
+! /QUERY=
+;
+
+<?
+if ($max_gap > 0) {
+?> 
+
+	Interpolate
+	/SIGNAL_TYPES=TARGET
+	! /SIGNAL_FOLDER=ORIGINAL
+	! /SIGNAL_NAMES=
+	! /RESULT_FOLDER=PROCESSED
+	! /RESULT_SUFFIX=
+	/MAXIMUM_GAP=<?=$max_gap;?> 
+	! /NUM_FIT=3
+	! /POLYNOMIAL_ORDER=3
+	;
+
+<?
+}
+
+if ($marker_filter_fq > 0) {
+?> 
+
+	Lowpass_Filter
+	/SIGNAL_TYPES=TARGET
+	/SIGNAL_FOLDER=PROCESSED
+	! /SIGNAL_NAMES=
+	! /RESULT_FOLDER=PROCESSED
+	! /RESULT_SUFFIX=
+	! /FILTER_CLASS=BUTTERWORTH
+	/FREQUENCY_CUTOFF=<?=$marker_filter_fq;?> 
+	! /NUM_REFLECTED=6
+	! /NUM_EXTRAPOLATED=0
+	! /TOTAL_BUFFER_SIZE=6
+	! /NUM_BIDIRECTIONAL_PASSES=1
+	;
+
+<?
+}
+
+if ($analog_filter_fq > 0) {
+?> 
+
+	Lowpass_Filter
+	/SIGNAL_TYPES=ANALOG
+	! /SIGNAL_NAMES=
+	/SIGNAL_FOLDER=ORIGINAL
+	! /RESULT_SUFFIX=
+	/RESULT_FOLDER=PROCESSED
+	! /FILTER_CLASS=BUTTERWORTH
+	/FREQUENCY_CUTOFF=<?=$analog_filter_fq;?> 
+	/NUM_REFLECTED=0
+	! /TOTAL_BUFFER_SIZE=6
+	! /NUM_BIDIRECTIONAL_PASSES=1
+	;
+
+<?
+} 
+
+if ($angular_velocity_filter_fq > 0) {
+?> 
+
+	Lowpass_Filter
+	/SIGNAL_TYPES=DERIVED
+	/SIGNAL_FOLDER=PROCESSED
+	/SIGNAL_NAMES=Left Ankle Angles_vel+Left Hip Angles_vel+Left Knee Angles_vel+Right Ankle Angles_vel+Right Hip Angles_vel+Right Knee Angles_vel
+	! /RESULT_FOLDER=PROCESSED
+	! /RESULT_SUFFIX=
+	! /FILTER_CLASS=BUTTERWORTH
+	/FREQUENCY_CUTOFF=<?=$angular_velocity_filter_fq;?> 
+	! /NUM_REFLECTED=6
+	! /NUM_EXTRAPOLATED=0
+	! /TOTAL_BUFFER_SIZE=6
+	! /NUM_BIDIRECTIONAL_PASSES=1
+	;
+
+<?
+}?> 
+
+! This Recalc is required to ensure events are not out of sync when applying Automatic_Gait_Events command
+Recalc
+;

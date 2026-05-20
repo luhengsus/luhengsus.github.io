@@ -1,0 +1,108 @@
+!Report modifications
+!---------------------------
+!Replace tags
+Search_and_Replace_Tags
+/PAGE_NUMBER=0
+/FIND_TAG=TaskLeft
+/REPLACE_WITH_TAG=<?=$tagLeft;?> 
+!/FIND_EVENT=
+!/REPLACE_WITH_EVENT=
+;
+
+Search_and_Replace_Tags
+/PAGE_NUMBER=0
+/FIND_TAG=TaskRight
+/REPLACE_WITH_TAG=<?=$tagRight;?> 
+!/FIND_EVENT=
+!/REPLACE_WITH_EVENT=
+;
+
+<?
+if ((strpos($tag,'DVJ') !== false) || (strpos($tag,'CMJ') !== false) || (strpos($tag,'Squat') !== false) || (strpos($tag,'SJ') !== false)) {
+?> 
+
+	! Handle DJ, CMJ, Squat and SJ left/right by overlay 
+	Overlay_Report
+	! /PAGE_NO=ALL_PAGES
+	/IDENTIFIER_TYPE=LINE_COLOR
+	/IDENTIFIER=Blue
+	/NEW_TAG=<?=$tag;?>_R
+	/NEW_COLOR=Purple
+	! /OLD_EVENT=
+	! /NEW_EVENT=
+	;
+	
+	Overlay_Report
+	! /PAGE_NO=ALL_PAGES
+	/IDENTIFIER_TYPE=LINE_COLOR
+	/IDENTIFIER=#0080FF
+	/NEW_TAG=<?=$tag;?>_R
+	/NEW_COLOR=Purple
+	! /OLD_EVENT=
+	! /NEW_EVENT=
+	;
+	
+	Overlay_Report
+	! /PAGE_NO=ALL_PAGES
+	/IDENTIFIER_TYPE=LINE_COLOR
+	/IDENTIFIER=Red
+	/NEW_TAG=<?=$tag;?>_L
+	/NEW_COLOR=Green
+	! /OLD_EVENT=
+	! /NEW_EVENT=
+	;
+	
+	Overlay_Report
+	! /PAGE_NO=ALL_PAGES
+	/IDENTIFIER_TYPE=LINE_COLOR
+	/IDENTIFIER=#FF8080
+	/NEW_TAG=<?=$tag;?>_L
+	/NEW_COLOR=Green
+	! /OLD_EVENT=
+	! /NEW_EVENT=
+	;
+	
+	Search_and_Replace_Tags
+	/PAGE_NUMBER=0
+	/FIND_TAG=<?=$tag;?> 
+	/REPLACE_WITH_TAG=<?=$tag;?>_B 
+	!/FIND_EVENT=
+	!/REPLACE_WITH_EVENT=
+	;
+<?
+}?> 
+
+Select_Active_File
+/FILE_NAME=Static
+!/QUERY=
+;
+
+Event_Explicit
+/EVENT_NAME=<?=$plotStartEventLeft;?> 
+/FRAME=1
+! /TIME=
+;
+
+Event_Explicit
+/EVENT_NAME=<?=$plotEndEventLeft;?> 
+/FRAME=EOF
+! /TIME=
+;
+
+Select_Active_File
+/FILE_NAME=<?=$tag;?> 
+! /QUERY=
+;
+
+<?
+if (strpos($session['Event_mode'], 'No Force Plate (Automatic)') !== false) {
+?> 
+	! If event mode is set to 'No Force Plate (Automatic)', kinetics signals are removed
+	Remove_Signals
+	/SIGNAL_TYPES=LINK_MODEL_BASED
+	/SIGNAL_FOLDER=ORIGINAL
+	/SIGNAL_NAMES=Left Ankle Moment+Left Ankle Power+Left Hip Moment+Left Hip Power+Left Knee Moment+Left Knee Power+Right Ankle Moment+Right Ankle Power+Right Hip Moment+Right Hip Power+Right Knee Moment+Right Knee Power
+	! /INCLUDE_MODELS=FALSE
+	;
+<?
+}?> 
