@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual3D 全身建模教程 | Biomechanic Research</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+      color: #333;
+      background: #f8f9fa;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 0 50px;
+      text-align: center;
+    }
+    header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; }
+    header p { font-size: 1.05rem; opacity: 0.9; }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid #e1e4e8;
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    nav .container { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    nav a {
+      color: #586069;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    nav a:hover, nav a.active { color: #667eea; border-bottom-color: #667eea; }
+    nav .logo { font-weight: 700; color: #333; margin-right: auto; font-size: 1rem; }
+
+    .section {
+      background: white;
+      border-radius: 10px;
+      padding: 32px;
+      margin: 24px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 1.4rem;
+      color: #444;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #667eea;
+      display: inline-block;
+    }
+    .section h3 {
+      font-size: 1.15rem;
+      color: #555;
+      margin: 20px 0 10px;
+    }
+    .section p { color: #555; margin-bottom: 12px; }
+
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      margin: 16px 0;
+      background: #000;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .step-list {
+      list-style: none;
+      margin: 16px 0;
+    }
+    .step-list li {
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      background: #f6f8fa;
+      border-radius: 8px;
+      border-left: 3px solid #667eea;
+    }
+    .step-list li strong { color: #333; }
+    .step-list li code {
+      background: #eef0f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #667eea;
+    }
+
+    .screenshot-placeholder {
+      background: #f0f0f0;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 40px;
+      text-align: center;
+      color: #888;
+      margin: 16px 0;
+    }
+    .screenshot-placeholder .hint {
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .tag-outline {
+      display: inline-block;
+      background: transparent;
+      color: #667eea;
+      border: 1px solid #667eea;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .breadcrumb {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 16px;
+    }
+    .breadcrumb a { color: #667eea; text-decoration: none; }
+
+    .doc-link {
+      display: inline-block;
+      background: #f6f8fa;
+      padding: 8px 16px;
+      border-radius: 6px;
+      color: #667eea;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin: 4px 4px 4px 0;
+      border: 1px solid #e1e4e8;
+    }
+    .doc-link:hover { background: #eef0f5; }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 30px;
+      color: #999;
+      font-size: 0.9rem;
+    }
+    footer a { color: #667eea; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.6rem; }
+      .section { padding: 22px; }
+      nav .container { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>🦴 Visual3D 全身建模教程</h1>
+    <p>从骨盆到上肢的完整六自由度建模流程 · 视频 + 关键帧 + 官方文档</p>
+  </div>
+</header>
+
+<nav>
+  <div class="container">
+    <span class="logo">Research</span>
+    <a href="/research/">首页</a>
+    <a href="#pelvis">骨盆/下肢</a>
+    <a href="#foot">足部坐标</a>
+    <a href="#thorax">胸廓</a>
+    <a href="#upper">上肢</a>
+    <a href="#cmo">CMO整合</a>
+    <a href="#export">导出</a>
+    <a href="https://www.wiki.has-motion.com/doku.php?id=visual3d:documentation:visual3d_documentation_overview" target="_blank">官方文档 ↗</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- 概述 -->
+  <div class="section" id="overview">
+    <div class="breadcrumb"><a href="/research/">首页</a> › Visual3D 全身建模教程</div>
+    <h2>📋 教程概述</h2>
+    <p>本教程基于 <strong>熊童子荷鱼</strong> 的 Bilibili Visual3D 视频合集，结合 <strong>Has-Motion 官方文档</strong>，系统讲解 Visual3D 全身各节段建模的完整流程。</p>
+    <p>
+      <span class="tag-outline">Visual3D</span>
+      <span class="tag-outline">六自由度建模</span>
+      <span class="tag-outline">C3D</span>
+      <span class="tag-outline">运动捕捉</span>
+    </p>
+    <h3>📎 参考文档</h3>
+    <a class="doc-link" href="https://www.wiki.has-motion.com/doku.php?id=visual3d:documentation:visual3d_documentation_overview" target="_blank">📖 Visual3D 官方文档总览</a>
+    <a class="doc-link" href="https://www.wiki.has-motion.com/doku.php?id=visual3d:documentation:pipeline" target="_blank">⚙️ Pipeline 处理流程</a>
+    <a class="doc-link" href="https://www.wiki.has-motion.com/doku.php?id=visual3d:documentation:modeling" target="_blank">🔧 Modeling 建模指南</a>
+    <a class="doc-link" href="https://www.wiki.has-motion.com/doku.php?id=visual3d:documentation:exporting" target="_blank">📤 数据导出</a>
+  </div>
+
+  <!-- 第一步：骨盆和下肢 -->
+  <div class="section" id="pelvis">
+    <h2>1️⃣ 建立骨盆和下肢 Model <span class="tag">基础</span></h2>
+    <p><strong>视频：</strong><a href="https://www.bilibili.com/video/BV1cL411A7Hf/" target="_blank">【学完怕忘】Visual 3D（一）建立骨盆和下肢Model</a></p>
+
+    <div class="video-wrap">
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1cL411A7Hf&page=1&high_quality=1" allowfullscreen></iframe>
+    </div>
+
+    <h3>🔑 关键步骤</h3>
+    <ul class="step-list">
+      <li><strong>1. 导入 C3D 文件</strong> → <code>File → Open → 选择静态标定文件</code></li>
+      <li><strong>2. 创建 Pelvis Segment</strong> → 使用 <code>RASI/LASI/RPSI/LPSI</code> 标记点定义骨盆坐标系</li>
+      <li><strong>3. 定义骨盆原点</strong> → 以双侧髂前上棘中点作为骨盆中心</li>
+      <li><strong>4. 创建 Thigh Segment</strong> → 使用 <code>LTHI/RTHI + LKNE/RKNE</code> 标记点</li>
+      <li><strong>5. 创建 Shank Segment</strong> → 使用 <code>LTIB/RTIB + LANK/RANK</code> 标记点</li>
+      <li><strong>6. 定义关节中心</strong> → 髋关节用球心拟合，膝关节用铰链近似</li>
+    </ul>
+
+    <div class="screenshot-placeholder">
+      📸 <strong>关键帧占位</strong><br>
+      <span class="hint">建议截图：Pelvis Segment 创建完成后的 3D 视图 + 标记点列表</span>
+    </div>
+  </div>
+
+  <!-- 第二步：足部虚拟坐标轴 -->
+  <div class="section" id="foot">
+    <h2>2️⃣ 建立虚拟坐标轴（足）<span class="tag">进阶</span></h2>
+    <p><strong>视频：</strong><a href="https://www.bilibili.com/video/BV1kL411A7Hf/" target="_blank">【学完怕忘】Visual 3D（二）建立虚拟坐标轴（足）</a></p>
+
+    <div class="video-wrap">
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1kL411A7Hf&page=1&high_quality=1" allowfullscreen></iframe>
+    </div>
+
+    <h3>🔑 关键步骤</h3>
+    <ul class="step-list">
+      <li><strong>1. 创建 Foot Segment</strong> → 使用 <code>LHEE/RHEE + LTOE/RTOE + LMT5/RMT5</code></li>
+      <li><strong>2. 建立虚拟坐标轴</strong> → <code>Build → Virtual Lab → Create Coordinate System</code></li>
+      <li><strong>3. 定义足背屈/跖屈轴</strong> → 以踝-第1跖骨连线为 Z 轴</li>
+      <li><strong>4. 定义内外翻轴</strong> → 以跟骨-第5跖骨连线为 X 轴</li>
+      <li><strong>5. 验证坐标系方向</strong> → 检查右手定则一致性</li>
+    </ul>
+
+    <div class="screenshot-placeholder">
+      📸 <strong>关键帧占位</strong><br>
+      <span class="hint">建议截图：虚拟坐标轴建立后的足部分段 3D 视图</span>
+    </div>
+  </div>
+
+  <!-- 第三步：胸廓 -->
+  <div class="section" id="thorax">
+    <h2>3️⃣ 建立胸廓 Model <span class="tag">躯干</span></h2>
+    <p><strong>视频：</strong><a href="https://www.bilibili.com/video/BV1qL411A7Hf/" target="_blank">【学完怕忘】Visual 3D（四）建立胸廓Model</a></p>
+
+    <div class="video-wrap">
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1qL411A7Hf&page=1&high_quality=1" allowfullscreen></iframe>
+    </div>
+
+    <h3>🔑 关键步骤</h3>
+    <ul class="step-list">
+      <li><strong>1. 创建 Thorax Segment</strong> → 使用 <code>C7/T10/STRN/CLAV</code> 标记点</li>
+      <li><strong>2. 定义胸廓坐标系</strong> → Z 轴：T10→C7；X 轴：垂直于矢状面</li>
+      <li><strong>3. 与骨盆建立关联</strong> → 确保腰椎关节中心正确连接</li>
+      <li><strong>4. 验证躯干姿态</strong> → 站立姿态下脊柱应接近竖直</li>
+    </ul>
+
+    <div class="screenshot-placeholder">
+      📸 <strong>关键帧占位</strong><br>
+      <span class="hint">建议截图：Thorax Segment 与 Pelvis 的连接关系 3D 视图</span>
+    </div>
+  </div>
+
+  <!-- 第四步：上肢 -->
+  <div class="section" id="upper">
+    <h2>4️⃣ 建立上肢 Model <span class="tag">上肢</span></h2>
+    <p><strong>视频：</strong><a href="https://www.bilibili.com/video/BV1rL411A7Hf/" target="_blank">【学完怕忘】Visual 3D（五）建立上肢Model：上</a></p>
+
+    <div class="video-wrap">
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1rL411A7Hf&page=1&high_quality=1" allowfullscreen></iframe>
+    </div>
+
+    <h3>🔑 关键步骤</h3>
+    <ul class="step-list">
+      <li><strong>1. 创建 Upper Arm Segment</strong> → 使用 <code>LUPA/RUPA + LELO/RELO</code></li>
+      <li><strong>2. 创建 Forearm Segment</strong> → 使用 <code>LELO/RELO + LWRA/RWRA + LWRB/RWRB</code></li>
+      <li><strong>3. 创建 Hand Segment</strong> → 使用 <code>LWRA/RWRA + LFIN/RFIN</code></li>
+      <li><strong>4. 定义肩关节中心</strong> → 基于功能方法（Functional Method）拟合球心</li>
+      <li><strong>5. 定义肘关节轴</strong> → 以肱骨外上髁-内上髁连线为铰链轴</li>
+      <li><strong>6. 验证上肢姿态</strong> → 自然下垂时肘角约 5-10° 屈曲</li>
+    </ul>
+
+    <div class="screenshot-placeholder">
+      📸 <strong>关键帧占位</strong><br>
+      <span class="hint">建议截图：上肢三段模型（Upper Arm / Forearm / Hand）完整建立后的视图</span>
+    </div>
+  </div>
+
+  <!-- 第五步：CMO/CMZ 整合 -->
+  <div class="section" id="cmo">
+    <h2>5️⃣ 建立 CMO/CMZ（整合多个 C3D 文件）<span class="tag">整合</span></h2>
+    <p><strong>视频：</strong><a href="https://www.bilibili.com/video/BV1sL411A7Hf/" target="_blank">【学完怕忘】Visual 3D（七）建立CMO/CMZ（整合多个C3D文件）</a></p>
+
+    <div class="video-wrap">
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1sL411A7Hf&page=1&high_quality=1" allowfullscreen></iframe>
+    </div>
+
+    <h3>🔑 关键步骤</h3>
+    <ul class="step-list">
+      <li><strong>1. 准备多文件</strong> → 静态标定文件（Calibration）+ 动态 trial 文件</li>
+      <li><strong>2. 创建 CMO（Calibration Model Object）</strong> → <code>Model → Build Model From → Multiple Files</code></li>
+      <li><strong>3. 指定标定文件</strong> → 选择包含完整标记点的静态文件</li>
+      <li><strong>4. 创建 CMZ（Calibration Model Zipped）</strong> → 导出压缩模型文件</li>
+      <li><strong>5. 应用到动态文件</strong> → 用 CMZ 批量处理多个动态 trial</li>
+      <li><strong>6. 验证标记点覆盖</strong> → 确保每个 trial 的标记点都被模型识别</li>
+    </ul>
+
+    <div class="screenshot-placeholder">
+      📸 <strong>关键帧占位</strong><br>
+      <span class="hint">建议截图：CMO 创建完成后的多文件模型树结构</span>
+    </div>
+  </div>
+
+  <!-- 第六步：数据导出 -->
+  <div class="section" id="export">
+    <h2>6️⃣ 导数据（OpenSim / C3D / MATLAB）<span class="tag">导出</span></h2>
+    <p><strong>视频：</strong><a href="https://www.bilibili.com/video/BV1tL411A7Hf/" target="_blank">【学完怕忘】Visual 3D（八）导数据</a></p>
+
+    <div class="video-wrap">
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1tL411A7Hf&page=1&high_quality=1" allowfullscreen></iframe>
+    </div>
+
+    <h3>🔑 关键步骤</h3>
+    <ul class="step-list">
+      <li><strong>1. 导出 C3D</strong> → <code>File → Export → C3D</code>（保留标记点和模型数据）</li>
+      <li><strong>2. 导出 TRC / MOT</strong> → 用于 OpenSim：标记点轨迹 + 关节角</li>
+      <li><strong>3. 导出 ASCII</strong> → 文本格式，便于 MATLAB/Python 读取</li>
+      <li><strong>4. 导出 OpenSim 配置</strong> → 使用模板生成 .xml 和 .osim 文件</li>
+      <li><strong>5. 批量导出</strong> → 利用 Pipeline 脚本批量处理多个 trial</li>
+    </ul>
+
+    <div class="screenshot-placeholder">
+      📸 <strong>关键帧占位</strong><br>
+      <span class="hint">建议截图：导出设置窗口 + 生成的 OpenSim 文件列表</span>
+    </div>
+  </div>
+
+  <!-- 附录：Qualisys 标记点命名 -->
+  <div class="section" id="qualisys">
+    <h2>📎 附录：Qualisys 标记点命名（全身）<span class="tag">前置</span></h2>
+    <p><strong>视频：</strong><a href="https://www.bilibili.com/video/BV1uu411q7e3/" target="_blank">【学完怕忘】Qualisys mark点命名（全身）</a></p>
+
+    <div class="video-wrap">
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1uu411q7e3&page=1&high_quality=1" allowfullscreen></iframe>
+    </div>
+
+    <h3>🔑 标记点命名规范（Plug-in-Gait 全身模型）</h3>
+    <ul class="step-list">
+      <li><strong>骨盆：</strong><code>RASI / LASI / RPSI / LPSI</code>（髂前/后上棘）</li>
+      <li><strong>大腿：</strong><code>RTHI / LTHI</code>（大腿外侧）；<code>RKNE / LKNE</code>（膝外侧）</li>
+      <li><strong>小腿：</strong><code>RTIB / LTIB</code>（小腿外侧）；<code>RANK / LANK</code>（踝外侧）</li>
+      <li><strong>足部：</strong><code>RHEE / LHEE</code>（跟骨）；<code>RTOE / LTOE</code>（第1跖骨）；<code>RMT5 / LMT5</code>（第5跖骨）</li>
+      <li><strong>躯干：</strong><code>C7 / T10 / STRN / CLAV</code></li>
+      <li><strong>上肢：</strong><code>RUPA / LUPA / RELO / LELO / RWRA / LWRA / RWRB / LWRB / RFIN / LFIN</code></li>
+    </ul>
+
+    <div class="screenshot-placeholder">
+      📸 <strong>关键帧占位</strong><br>
+      <span class="hint">建议截图：Qualisys 软件中全身 39 个标记点的 3D 分布图</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>教程基于 <a href="https://space.bilibili.com/475148699" target="_blank">熊童子荷鱼</a> Bilibili 视频整理 · 参考 <a href="https://www.wiki.has-motion.com" target="_blank">Has-Motion 官方文档</a></p>
+    <p style="margin-top:8px;">Built with GitHub Pages · <a href="/research/">返回 Research 首页</a></p>
+  </div>
+</footer>
+
+<script>
+  // 导航高亮跟随滚动
+  const sections = ['overview', 'pelvis', 'foot', 'thorax', 'upper', 'cmo', 'export', 'qualisys'];
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  function updateActiveNav() {
+    let current = 'overview';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 100) current = id;
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', updateActiveNav);
+  window.addEventListener('load', updateActiveNav);
+</script>
+
+</body>
+</html>
