@@ -20,4 +20,4 @@ redirect_from:
 
 {% include_relative includes/05publication.md %}
 
-{% include_relative includes/06yjck.md %}
+{% include_relative includes/06resources.md %}
