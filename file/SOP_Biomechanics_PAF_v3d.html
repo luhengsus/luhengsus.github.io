@@ -530,8 +530,8 @@
 │        ├─ RESULT.cmz             ← Visual3D 工作空间
 │        ├─ DATA_Angle.txt         ← 关节角度
 │        ├─ DATA_Segment.txt       ← 分段角（相对实验室）
-│        ├─ DATA_Moment.txt        ← 关节力矩（归一化）
-│        ├─ DATA_Power.txt         ← 关节功率（归一化）
+│        ├─ DATA_Moment.txt        ← 关节力矩（体重标准化）
+│        ├─ DATA_Power.txt         ← 关节功率（体重标准化）
 │        ├─ DATA_Angular_Velocity.txt ← 角速度
 │        └─ DATA_CoM.txt          ← 质心位置
 ├─ Documentation/         ← PDF 参考文档
@@ -732,7 +732,7 @@
   <tr>
     <td>受试者体重</td>
     <td>真实体重 (kg)，<strong>不能为 0</strong></td>
-    <td>体重为 0 导致归一化力矩/功率不可靠，触发 <code>WARNING!! Weight not specified or invalid!</code></td>
+    <td>体重为 0 导致体重标准化力矩/功率不可靠，触发 <code>WARNING!! Weight not specified or invalid!</code></td>
   </tr>
   <tr>
     <td>受试者身高</td>
@@ -1101,7 +1101,7 @@ R_IAS    L_IAS</code></pre>
 
 <!-- ===== 8.2 Sports 下肢 ===== -->
 <h3 id="s6a2">8.2 Sports 下肢 <span class="badge badge-sports">Sports</span></h3>
-<p>模型文件：<code>Sports_Lower_Body_sports_wo_FKnee.mdh</code>。定义双侧大腿 (RTH/LTH)、小腿 (RSK/LSK)、足 (RFT/LFT)、中足 (RMF/LMF)、骨盆地面 (Pelvis Floor)、虚拟实验室 (Virtual Lab) 及足部归一化段。</p>
+<p>模型文件：<code>Sports_Lower_Body_sports_wo_FKnee.mdh</code>。定义双侧大腿 (RTH/LTH)、小腿 (RSK/LSK)、足 (RFT/LFT)、中足 (RMF/LMF)、骨盆地面 (Pelvis Floor)、虚拟实验室 (Virtual Lab) 及足部标准化段。</p>
 
 <h4>分段定义 — 动力学段</h4>
 <table>
@@ -1763,7 +1763,7 @@ R_IAS    L_IAS</code></pre>
 
 <table>
   <thead>
-    <tr><th>类别</th><th>信号名称</th><th>函数</th><th>参考坐标系</th><th>归一化</th></tr>
+    <tr><th>类别</th><th>信号名称</th><th>函数</th><th>参考坐标系</th><th>体重标准化</th></tr>
   </thead>
   <tbody>
     <tr><td>质心</td><td><code>CenterOfMass</code></td><td>MODEL_COG</td><td>—</td><td>否</td></tr>
@@ -1788,8 +1788,8 @@ R_IAS    L_IAS</code></pre>
 </table>
 
 <div class="info">
-  <strong>归一化说明：</strong>力矩和功率通过 <code>DEFAULT_NORMALIZATION</code> 按体重归一化（Nm/kg 和 W/kg）。
-  如果体重为 0 或未指定，归一化结果不可靠。
+  <strong>体重标准化说明：</strong>力矩和功率通过 <code>DEFAULT_NORMALIZATION</code> 按体重标准化（Nm/kg 和 W/kg）。
+  如果体重为 0 或未指定，体重标准化结果不可靠。
 </div>
 
 <h3 id="s8b">10.2 数据导出</h3>
