@@ -325,7 +325,8 @@
   #back-to-top:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(25,118,210,0.45); }
 
   /* ===== Table wrapper for overflow ===== */
-  .table-wrap { overflow-x: auto; margin: 10px 0 22px; }
+  .table-wrap { width: 100%; overflow-x: auto; margin: 10px 0 22px; }
+  .table-wrap table { width: 100%; }
 
   /* ===== Print ===== */
   @media print {
@@ -374,7 +375,11 @@
     pre code { white-space: pre; overflow-wrap: normal; }
     .dir-tree { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .table-wrap { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .table-wrap table { margin: 0; min-width: 620px; }
+    .table-wrap table {
+      margin: 0;
+      width: max(100%, var(--table-min-width, 680px));
+      min-width: var(--table-min-width, 680px);
+    }
     .diagram { padding: 12px; -webkit-overflow-scrolling: touch; }
     .diagram.wide svg { min-width: 920px; }
     .branch-grid { grid-template-columns: 1fr; }
@@ -1924,7 +1929,7 @@ WARNING!! Weight not specified or invalid!</div>
 
 <h3 id="s11a">13.1 PAF_v3d 版本信息</h3>
 <table>
-  <tr><td>当前 SOP 版本</td><td><strong>1.0.7</strong> (2026.06.03)</td></tr>
+  <tr><td>当前 SOP 版本</td><td><strong>1.0.8</strong> (2026.06.03)</td></tr>
   <tr><td>Settings.paf 包版本</td><td><strong>1.0.5</strong>（未改动）</td></tr>
   <tr><td>最低 QTM 版本</td><td>2.16.3600</td></tr>
   <tr><td>兼容 Visual3D</td><td>2024.10.4（推荐），向下兼容至 2023.10.2</td></tr>
@@ -1937,6 +1942,7 @@ WARNING!! Weight not specified or invalid!</div>
 <h3 id="s11b">13.2 变更记录</h3>
 <table>
   <tr><th>日期</th><th>变更</th></tr>
+  <tr><td>2026.06.03</td><td>修正手机端多列表格宽度：根据列数自动设置表格最小宽度，避免 4 列及以上表格内容被挤压。</td></tr>
   <tr><td>2026.06.03</td><td>增加手机端浏览器适配：目录改为移动端抽屉、表格自动横向滚动、正文路径与代码片段避免撑破屏幕，并补齐网页端 Logo 相对资源路径。</td></tr>
   <tr><td>2026.06.02</td><td>更新 Sports functional knee 分支：无 RKneeIn/LKneeIn 时调用 <code>Sports_Lower_Body_sports.mdh</code>；当前 Sports pipeline 仅建立躯干、骨盆和下肢；体重改为只读取 <code>$subject["Weight"]</code>；同步美化 SOP 页面样式</td></tr>
   <tr><td>2026.05.20</td><td>整合 Cast 模型，拆分下肢/骨盆/上肢；根据优势侧自动输出</td></tr>
@@ -2057,6 +2063,13 @@ WARNING!! Weight not specified or invalid!</div>
 // ===== Responsive Table Wrappers =====
 (function() {
   document.querySelectorAll('#main-content table').forEach(table => {
+    const firstRow = table.querySelector('tr');
+    const columnCount = firstRow ? firstRow.children.length : 2;
+    const minWidth = columnCount <= 2 ? 680 :
+      columnCount === 3 ? 820 :
+      columnCount === 4 ? 980 : 1180;
+    table.style.setProperty('--table-min-width', minWidth + 'px');
+
     if (table.parentElement && table.parentElement.classList.contains('table-wrap')) return;
     const wrap = document.createElement('div');
     wrap.className = 'table-wrap';
