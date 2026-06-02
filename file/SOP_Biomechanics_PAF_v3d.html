@@ -9,35 +9,39 @@
 <style>
   /* ===== CSS Variables: Light & Dark Themes ===== */
   :root {
-    --bg: #ffffff; --text: #1a1a1a; --muted: #555;
-    --border: #d0d0d0; --code-bg: #f4f4f4;
-    --th-bg: #2c3e50; --th-text: #ffffff; --td-bg: #fafafa;
+    --bg: #ffffff; --page-bg: #f4f6f9; --surface: #ffffff; --surface-2: #f8fafc;
+    --text: #1a1d23; --muted: #586171;
+    --border: #d7dce3; --code-bg: #f1f4f8;
+    --th-bg: #263444; --th-text: #ffffff; --td-bg: #fbfcfe;
     --h2-border: #2c3e50; --warn-bg: #fff8e1; --warn-border: #ffc107;
     --link: #1565c0; --sports: #1976d2; --cast: #e65100;
     --step-bg: #eef5fb; --step-border: #90caf9;
-    --sidebar-bg: #f5f6f8; --sidebar-hover: #e0e0e0;
-    --diagram-bg: #fafafa; --card-bg: #fafafa;
+    --sidebar-bg: #ffffff; --sidebar-hover: #eef3f8;
+    --diagram-bg: #fbfcfe; --card-bg: #ffffff;
     --table-stripe: #fff; --info-bg: #e3f2fd; --info-border: #1976d2;
     --flow-box-bg: #eef5fb; --header-gradient: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%);
+    --shadow-sm: 0 1px 4px rgba(15,23,42,0.06); --shadow-md: 0 8px 28px rgba(15,23,42,0.09);
   }
   [data-theme="dark"] {
-    --bg: #1a1a2e; --text: #e0e0e0; --muted: #aaa;
-    --border: #3a3a5a; --code-bg: #252540;
-    --th-bg: #16213e; --th-text: #e0e0e0; --td-bg: #1e1e38;
+    --bg: #171923; --page-bg: #10131a; --surface: #171923; --surface-2: #1f2430;
+    --text: #e8eaf0; --muted: #aab2c0;
+    --border: #343b4b; --code-bg: #202635;
+    --th-bg: #222b3a; --th-text: #e8eaf0; --td-bg: #1c2230;
     --h2-border: #4a6fa5; --warn-bg: #2a2010; --warn-border: #ffc107;
     --link: #64b5f6; --sports: #42a5f5; --cast: #ff8a65;
     --step-bg: #1a2a3a; --step-border: #4a6fa5;
-    --sidebar-bg: #16213e; --sidebar-hover: #1e1e38;
-    --diagram-bg: #1a1a2e; --card-bg: #1e1e38;
+    --sidebar-bg: #151923; --sidebar-hover: #202636;
+    --diagram-bg: #171923; --card-bg: #1c2230;
     --table-stripe: #222240; --info-bg: #1a2a3a; --info-border: #42a5f5;
     --flow-box-bg: #1a2a3a;
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.22); --shadow-md: 0 8px 28px rgba(0,0,0,0.3);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; scroll-padding-top: 40px; }
   body {
     font-family: "Segoe UI", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-    color: var(--text); background: var(--bg);
+    color: var(--text); background: var(--page-bg);
     line-height: 1.75; display: flex;
     transition: background 0.3s, color 0.3s;
   }
@@ -56,10 +60,10 @@
     display: flex; gap: 8px; align-items: center;
   }
   #top-bar button {
-    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
-    background: var(--bg); color: var(--text); cursor: pointer;
+    width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text); cursor: pointer;
     font-size: 1rem; display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s; box-shadow: var(--shadow-sm);
   }
   #top-bar button:hover {
     transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -103,7 +107,11 @@
     background: var(--sidebar-bg); border-right: 1px solid var(--border);
     overflow-y: auto; padding: 24px 16px 40px;
     font-size: 0.84em; line-height: 1.5; z-index: 100;
-    transition: background 0.3s;
+    transition: background 0.3s; box-shadow: var(--shadow-sm);
+  }
+  #sidebar > img {
+    display: block; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px; box-shadow: var(--shadow-sm);
   }
   #sidebar .logo-wrap { text-align: center; margin-bottom: 6px; }
   #sidebar .logo-wrap img { max-width: 160px; }
@@ -119,7 +127,7 @@
   #sidebar > ol > li > a { padding-left: 18px; display: block; }
   #sidebar > ol > li.has-sub > a { padding-left: 0; }
   #sidebar a {
-    display: block; padding: 4px 8px; border-radius: 4px;
+    display: block; padding: 5px 8px; border-radius: 6px;
     text-decoration: none; color: var(--text); transition: all 0.15s;
   }
   #sidebar a:hover { background: var(--sidebar-hover); }
@@ -144,10 +152,20 @@
   /* ===== Main Content ===== */
   #main-content {
     flex: 1; min-width: 0;
-    max-width: 1020px; padding: 40px 40px 100px 44px;
+    max-width: 1120px; padding: 34px 48px 100px 48px;
+    background: var(--bg); box-shadow: var(--shadow-sm);
+  }
+  .doc-hero {
+    border: 1px solid var(--border); border-radius: 8px; padding: 24px 28px;
+    margin-bottom: 26px; background: var(--surface);
+    box-shadow: var(--shadow-md);
+  }
+  .doc-eyebrow {
+    color: var(--muted); font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
   }
   h1 {
-    font-size: 1.85rem; padding-bottom: 12px; margin-bottom: 4px;
+    font-size: 2.1rem; padding-bottom: 12px; margin-bottom: 4px;
     border: none; position: relative;
   }
   h1::after {
@@ -174,7 +192,7 @@
   }
   pre {
     position: relative; background: var(--code-bg); border: 1px solid var(--border);
-    border-radius: 6px; padding: 14px 16px; overflow-x: auto;
+    border-radius: 8px; padding: 14px 16px; overflow-x: auto;
     font-size: 0.85em; line-height: 1.55; margin: 8px 0 18px; white-space: pre;
   }
   pre code { background: none; border: none; padding: 0; white-space: pre; }
@@ -189,7 +207,8 @@
 
   table {
     width: 100%; border-collapse: collapse; margin: 10px 0 22px; font-size: 0.91em;
-    border-radius: 6px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
   }
   th {
     background: var(--th-bg); color: var(--th-text);
@@ -205,21 +224,30 @@
   tbody tr:hover td { background: #e8f0fe; }
   [data-theme="dark"] tbody tr:hover td { background: #1e3050; }
 
-  .meta { color: var(--muted); font-size: 0.92em; margin-bottom: 24px; }
+  .meta { color: var(--muted); font-size: 0.92em; margin-bottom: 16px; }
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 5px 10px; background: var(--surface-2); color: var(--muted);
+    font-size: 0.84em; font-weight: 600;
+  }
   .warn {
     background: var(--warn-bg); border-left: 4px solid var(--warn-border);
-    padding: 12px 16px; margin: 12px 0 18px; border-radius: 4px; font-size: 0.93em;
+    padding: 12px 16px; margin: 12px 0 18px; border-radius: 8px; font-size: 0.93em;
   }
   .warn::before { content: "⚠️ "; font-size: 1.1em; }
   .info {
     background: var(--info-bg); border-left: 4px solid var(--info-border);
-    padding: 12px 16px; margin: 12px 0 18px; border-radius: 4px; font-size: 0.93em;
+    padding: 12px 16px; margin: 12px 0 18px; border-radius: 8px; font-size: 0.93em;
   }
   .info::before { content: "ℹ️ "; font-size: 1.1em; }
   .dir-tree {
     font-family: "Consolas","Courier New",monospace; font-size: 0.85em; line-height: 1.5;
     white-space: pre; background: var(--code-bg); padding: 16px 20px;
-    border-radius: 6px; border: 1px solid var(--border); margin: 6px 0 18px;
+    border-radius: 8px; border: 1px solid var(--border); margin: 6px 0 18px;
   }
   a { color: var(--link); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -242,6 +270,7 @@
     margin: 14px 0 22px; background: var(--diagram-bg); overflow-x: auto;
   }
   .diagram svg { display: block; margin: 0 auto; max-width: 100%; }
+  .diagram.wide svg { min-width: 980px; max-width: none; }
 
   .badge {
     display: inline-block; padding: 2px 10px; border-radius: 10px;
@@ -255,11 +284,25 @@
   [data-theme="dark"] .badge-both { background: #1b5e20; color: #c8e6c9; }
 
   .ref-card {
-    border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px;
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
     margin: 8px 0; background: var(--card-bg); font-size: 0.9em;
     transition: box-shadow 0.15s;
   }
   .ref-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+  .branch-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px; margin: 12px 0 18px;
+  }
+  .branch-card {
+    border: 1px solid var(--border); border-left: 4px solid var(--sports);
+    border-radius: 8px; padding: 12px 14px; background: var(--card-bg);
+    box-shadow: var(--shadow-sm);
+  }
+  .branch-card h5 {
+    font-size: 0.92rem; margin: 0 0 6px; color: var(--text);
+  }
+  .branch-card p { margin-bottom: 6px; }
 
   /* ===== Back to Top ===== */
   #back-to-top {
@@ -287,6 +330,7 @@
     h2 { page-break-before: always; }
     h2:first-of-type { page-break-before: avoid; }
     pre, .diagram, .dir-tree { page-break-inside: avoid; }
+    .diagram.wide svg { min-width: 0; max-width: 100%; }
   }
   @media (max-width: 768px) {
     body { flex-direction: column; }
@@ -294,7 +338,9 @@
       width: 100%; min-width: 0; height: auto; max-height: 45vh;
       position: relative; border-right: none; border-bottom: 1px solid var(--border);
     }
-    #main-content { padding: 20px 16px 80px; }
+    #main-content { padding: 20px 16px 80px; box-shadow: none; }
+    .doc-hero { padding: 18px 16px; }
+    h1 { font-size: 1.6rem; }
     #back-to-top { bottom: 20px; right: 16px; width: 40px; height: 40px; }
   }
 </style>
@@ -327,7 +373,7 @@
 </div>
 
 <div id="sidebar">
-  <img src="../images/wisemove-logo.png" alt="WiseMove Logo" style="width:100%;max-width:180px;margin-bottom:12px;">
+  <img src="Documentation/WiseMove logo.png" alt="WiseMove Logo" style="width:100%;max-width:180px;margin-bottom:12px;">
   <h3>目录</h3>
   <ol>
     <li><a href="#s1">1. 系统架构与数据流程</a></li>
@@ -359,7 +405,7 @@
       <ol>
         <li><a href="#s6a1">8.1 Sports 骨盆</a></li>
         <li><a href="#s6a2">8.2 Sports 下肢</a></li>
-        <li><a href="#s6a3">8.3 Sports 躯干/上肢</a></li>
+        <li><a href="#s6a3">8.3 Sports 躯干</a></li>
         <li><a href="#s6a4">8.4 Cast 骨盆</a></li>
         <li><a href="#s6a5">8.5 Cast 下肢</a></li>
         <li><a href="#s6a6">8.6 Cast 简化下肢 (Custom)</a></li>
@@ -411,11 +457,13 @@
 
 <div id="main-content">
 
+<div class="doc-hero">
+<div class="doc-eyebrow">PAF_v3d · Visual3D Pipeline SOP</div>
 <h1>运动生物力学数据采集与处理 SOP</h1>
 <p class="meta">
   <strong>Author:</strong> Heng Lu &nbsp;|&nbsp;
-	  <strong>版本：</strong>1.0.5 &nbsp;|&nbsp;
-  <strong>日期：</strong>2026/05/27 &nbsp;|&nbsp;
+	  <strong>版本：</strong>1.0.6 &nbsp;|&nbsp;
+  <strong>日期：</strong>2026/06/02 &nbsp;|&nbsp;
   <strong>适用项目：</strong><code>PAF_v3d</code> &nbsp;|&nbsp;
   <strong>处理引擎：</strong>Visual3D 2024.10.4+
 </p>
@@ -423,6 +471,13 @@
 <p>
   基于 <strong>Qualisys Track Manager (QTM)</strong> 采集的三维动作捕捉数据与力台数据，配合 <strong>Project Automation Framework (PAF)</strong> 驱动 <strong>Visual3D</strong> 自动建模、运动学/动力学计算与数据导出。本文覆盖采集准备、贴点方案、模型选择逻辑、滤波参数、Pipeline 处理流程、质量控制和输出规范。
 </p>
+<div class="hero-pills">
+  <span class="pill"><i class="fa-solid fa-code-branch"></i> Sports / Cast 自动分支</span>
+  <span class="pill"><i class="fa-solid fa-person-running"></i> Sports functional knee 兼容</span>
+  <span class="pill"><i class="fa-solid fa-table"></i> Double / Dominance 导出</span>
+  <span class="pill"><i class="fa-solid fa-circle-nodes"></i> 当前 Sports 仅建躯干+骨盆+下肢</span>
+</div>
+</div>
 
 <!-- ===== 1. 系统架构 ===== -->
 <h2 id="s1">1. 系统架构与数据流程</h2>
@@ -551,7 +606,9 @@
 │  ├─ pipeline_export_c3d.v3s
 │  ├─ Sports_Pelvis.mdh / Sports_Pelvis_IC.mdh
 │  ├─ Sports_Lower_Body_sports_wo_FKnee.mdh
-│  ├─ Sports_Upper_Body_sports.mdh
+│  ├─ Sports_Lower_Body_sports.mdh
+│  ├─ Sports_Trunk_sports.mdh
+│  ├─ Sports_Upper_Body_sports.mdh        ← 保留模板，不在当前 pipeline 调用
 │  ├─ Cast_Pelvis_Coda.mdh
 │  ├─ Cast_Lower_Body.mdh
 │  ├─ Cast_Trunk.mdh
@@ -568,6 +625,7 @@
 <ol>
   <li>在 QTM 中录入受试者信息：<code>ID</code>、<code>Name</code>、<code>Height</code> (m)、<code>Weight</code> (kg)、<code>Dominance</code> (Left/Right)、<code>Sex</code>。</li>
   <li>采集 <strong>1 个静态文件</strong>（<code>Static*.c3d</code>），用于模型标定。</li>
+  <li>若 Sports 方案不贴 <code>RKneeIn</code>/<code>LKneeIn</code>，需额外采集至少 1 个带 <code>Functional</code> 标签的功能膝试验。</li>
   <li>采集 <strong>1-50 个动态文件</strong>（<code>Dynamic*.c3d</code>），用于运动学和动力学计算。</li>
   <li>确认静态和动态文件均被标记为 <code>Used</code>。</li>
   <li>在 QTM 中选择分析类型（<code>Processing Double</code> 或 <code>Processing Dominance</code>），触发 Visual3D Pipeline。</li>
@@ -845,30 +903,37 @@
   <strong>两套模型的区别：</strong>仅 RPV 段的 <strong>追踪 marker</strong> 不同（IC 版用髂嵴 WaistL/R，标准版用前腰 WaistLFront/RFront），参考对象、OBJFILE、DEPTH、生成的 landmarks 和参数完全一致。贴点时建议两套 marker 全部贴上，Pipeline 会自动选择。
 </div>
 
-<h4>下肢 marker (16 点)</h4>
+<h4>下肢 marker 与膝关节分支</h4>
 <pre><code>RThighFrontLow    LThighFrontLow
 RKneeOut          LKneeOut
-RKneeIn           LKneeIn
+RKneeIn           LKneeIn        ← 有则走直接膝内侧 marker 模型
 RShinFrontHigh    LShinFrontHigh
 RAnkleOut         LAnkleOut
 RHeelBack         LHeelBack
 RForefoot2        LForefoot2
 RForefoot5        LForefoot5</code></pre>
-<p>模型：<code>Sports_Lower_Body_sports_wo_FKnee.mdh</code></p>
-<p>检测条件：以上 <strong>16 个 marker 必须全部存在</strong>，否则下肢模型不会生成。</p>
-
-<h4>上肢和躯干 marker (16 点)</h4>
-<pre><code>Chest    SpineThoracic2    SpineThoracic12
-LShoulderTop    RShoulderTop
-LElbowOut       LElbowIn
-RElbowOut       RElbowIn
-LWristIn        LWristOut
-RWristIn        RWristOut
-LHand2          RHand2</code></pre>
-<p>模型：<code>Sports_Upper_Body_sports.mdh</code></p>
+<div class="branch-grid">
+  <div class="branch-card">
+    <h5>分支 A：静态膝内侧 marker</h5>
+    <p>检测到 <code>RKneeIn</code> + <code>LKneeIn</code> 时调用：</p>
+    <p><code>Sports_Lower_Body_sports_wo_FKnee.mdh</code></p>
+  </div>
+  <div class="branch-card">
+    <h5>分支 B：Functional knee</h5>
+    <p>检测不到完整 <code>RKneeIn</code>/<code>LKneeIn</code>，但下肢基础 marker 存在时调用：</p>
+    <p><code>Sports_Lower_Body_sports.mdh</code></p>
+  </div>
+</div>
 <div class="info">
-  <strong>注意：</strong>当前版本 Sports 上肢模型<strong>已删除头部段</strong>，不要求 <code>HeadL</code>、<code>HeadR</code>、<code>HeadFront</code> marker。
-  上肢模型包含躯干、肩带、上臂、前臂、手部段。
+  <strong>Functional knee 要求：</strong>如果不贴 <code>RKneeIn</code>/<code>LKneeIn</code>，必须有一个被 PAF/QTM 标记为 <code>Functional</code> 的非 Static 文件。Pipeline 会对该文件执行 <code>Associate_Functional_Joints_With_Files</code>，计算 <code>F_RKNEE</code> 与 <code>F_LKNEE</code>，再生成 <code>R_KneeIn_FJ</code>/<code>L_KneeIn_FJ</code> 供下肢模型使用。
+</div>
+
+<h4>躯干 marker (5 点)</h4>
+<pre><code>Chest    SpineThoracic2    SpineThoracic12
+LShoulderTop    RShoulderTop</code></pre>
+<p>模型：<code>Sports_Trunk_sports.mdh</code></p>
+<div class="info">
+  <strong>当前 pipeline 仅建立 Sports 躯干段：</strong>不再调用 <code>Sports_Upper_Body_sports.mdh</code> 建立上臂、前臂或手部段；肘、腕、手 marker 可以出现在采集文件中，但不会触发手臂模型。
 </div>
 
 <h3 id="s5c">6.3 Cast 方案 <span class="badge badge-cast">Cast</span></h3>
@@ -892,8 +957,8 @@ LHand2          RHand2</code></pre>
 </table>
 
 <div class="info">
-  <strong>Cast 下肢 Cluster 贴点参考：</strong>包含大腿、小腿、足部 cluster marker 的具体贴附位置图示。<br>
-  <img src="../images/cluster-markers.png" alt="Cluster marker placement" style="max-width:100%;margin-top:8px;">
+  <strong>Cast 下肢 Cluster 追踪板位置：</strong><br>
+  <img src="Documentation/Cluster.png" alt="Cluster marker placement" style="max-width:100%;margin-top:8px;">
 </div>
 
 <h4>躯干 marker (10 点)</h4>
@@ -905,8 +970,8 @@ R_IAS    L_IAS</code></pre>
 <!-- ===== 6. 模型分段逻辑 ===== -->
 <h2 id="s6">7. 模型分段与自动选择逻辑</h2>
 
-<div class="diagram">
-<svg viewBox="0 0 920 520" xmlns="http://www.w3.org/2000/svg" style="font-family:'Segoe UI','Microsoft YaHei',sans-serif; font-size:12px;">
+<div class="diagram wide">
+<svg viewBox="0 0 1040 560" xmlns="http://www.w3.org/2000/svg" style="font-family:'Segoe UI','Microsoft YaHei',sans-serif; font-size:12px;">
   <!-- Root -->
   <rect x="360" y="8" width="200" height="36" rx="18" fill="#2c3e50"/>
   <text x="460" y="31" text-anchor="middle" fill="#fff" font-weight="bold">静态文件加载</text>
@@ -927,64 +992,71 @@ R_IAS    L_IAS</code></pre>
   <text x="630" y="96" font-size="11" fill="#e65100" font-weight="bold">NO → Cast</text>
 
   <!-- Sports Pelvis -->
-  <rect x="40" y="130" width="340" height="40" rx="6" fill="#e3f2fd" stroke="#1976d2"/>
-  <text x="210" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#0d47a1">Sports 骨盆</text>
-  <text x="210" y="163" text-anchor="middle" font-size="11" fill="#555">WaistL? → Sports_Pelvis_IC.mdh : Sports_Pelvis.mdh</text>
+  <rect x="40" y="130" width="380" height="46" rx="6" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="230" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#0d47a1">Sports 骨盆</text>
+  <text x="230" y="164" text-anchor="middle" font-size="10.5" fill="#555">WaistL? → Sports_Pelvis_IC.mdh</text>
+  <text x="230" y="176" text-anchor="middle" font-size="10.5" fill="#555">否则 → Sports_Pelvis.mdh</text>
 
-  <line x1="210" y1="170" x2="210" y2="190" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="230" y1="176" x2="230" y2="192" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
 
   <!-- Sports Lower -->
-  <rect x="40" y="195" width="340" height="40" rx="6" fill="#e3f2fd" stroke="#1976d2"/>
-  <text x="210" y="213" text-anchor="middle" font-size="12" font-weight="bold" fill="#0d47a1">Sports 下肢</text>
-  <text x="210" y="228" text-anchor="middle" font-size="11" fill="#555">16 个下肢 marker? → Sports_Lower_Body_sports_wo_FKnee.mdh</text>
+  <rect x="40" y="198" width="380" height="58" rx="6" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="230" y="216" text-anchor="middle" font-size="12" font-weight="bold" fill="#0d47a1">Sports 下肢</text>
+  <text x="230" y="232" text-anchor="middle" font-size="10.5" fill="#555">有 RKneeIn/LKneeIn → sports_wo_FKnee.mdh</text>
+  <text x="230" y="246" text-anchor="middle" font-size="10.5" fill="#555">无 KneeIn + Functional → sports.mdh</text>
 
-  <line x1="210" y1="235" x2="210" y2="255" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="230" y1="256" x2="230" y2="272" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
 
-  <!-- Sports Upper -->
-  <rect x="40" y="260" width="340" height="40" rx="6" fill="#e3f2fd" stroke="#1976d2"/>
-  <text x="210" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#0d47a1">Sports 躯干/上肢</text>
-  <text x="210" y="293" text-anchor="middle" font-size="11" fill="#555">16 个躯干 marker? → Sports_Upper_Body_sports.mdh</text>
+  <!-- Sports Trunk -->
+  <rect x="40" y="276" width="380" height="46" rx="6" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="230" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#0d47a1">Sports 躯干</text>
+  <text x="230" y="310" text-anchor="middle" font-size="11" fill="#555">5 个躯干 marker → Sports_Trunk_sports.mdh</text>
 
   <!-- Cast Pelvis -->
-  <rect x="600" y="130" width="300" height="40" rx="6" fill="#fff3e0" stroke="#e65100"/>
-  <text x="750" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#bf360c">Cast 骨盆</text>
-  <text x="750" y="163" text-anchor="middle" font-size="11" fill="#555">Cast_Pelvis_Coda.mdh（始终应用）</text>
+  <rect x="640" y="130" width="340" height="40" rx="6" fill="#fff3e0" stroke="#e65100"/>
+  <text x="810" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#bf360c">Cast 骨盆</text>
+  <text x="810" y="163" text-anchor="middle" font-size="11" fill="#555">Cast_Pelvis_Coda.mdh（始终应用）</text>
 
-  <line x1="750" y1="170" x2="750" y2="190" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="810" y1="170" x2="810" y2="190" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
 
   <!-- Cast Lower decision -->
-  <polygon points="750,195 830,225 750,255 670,225" fill="#fff8e1" stroke="#e65100" stroke-width="1.2"/>
-  <text x="750" y="222" text-anchor="middle" font-size="10" font-weight="bold" fill="#bf360c">L_TH3 &amp; L_TH4?</text>
+  <polygon points="810,195 890,225 810,255 730,225" fill="#fff8e1" stroke="#e65100" stroke-width="1.2"/>
+  <text x="810" y="222" text-anchor="middle" font-size="10" font-weight="bold" fill="#bf360c">L_TH3 &amp; L_TH4?</text>
 
-  <!-- YES -->
-  <line x1="670" y1="225" x2="580" y2="225" stroke="#e65100" stroke-width="1"/>
-  <rect x="310" y="210" width="260" height="30" rx="4" fill="#fff3e0" stroke="#e65100"/>
-  <text x="440" y="230" text-anchor="middle" font-size="11" fill="#bf360c">YES → Cast_Lower_Body.mdh</text>
+  <!-- Branch lines from diamond bottom -->
+  <line x1="810" y1="255" x2="810" y2="268" stroke="#e65100" stroke-width="1"/>
+  <!-- YES: goes left -->
+  <line x1="810" y1="268" x2="604" y2="268" stroke="#e65100" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="430" y="252" width="170" height="42" rx="4" fill="#fff3e0" stroke="#e65100"/>
+  <text x="515" y="270" text-anchor="middle" font-size="10.5" fill="#bf360c">YES → Cast_Lower_Body.mdh</text>
+  <text x="515" y="284" text-anchor="middle" font-size="10.5" fill="#bf360c">完整集群</text>
 
-  <!-- NO -->
-  <line x1="830" y1="225" x2="870" y2="225" stroke="#e65100" stroke-width="1"/>
-  <rect x="630" y="210" width="270" height="30" rx="4" fill="#fff3e0" stroke="#e65100"/>
-  <text x="765" y="230" text-anchor="middle" font-size="11" fill="#bf360c">NO → Custom_Lower_Body_xxy.mdh</text>
+  <!-- NO: goes right -->
+  <line x1="810" y1="268" x2="984" y2="268" stroke="#e65100" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="810" y="292" width="190" height="46" rx="4" fill="#fff3e0" stroke="#e65100"/>
+  <line x1="984" y1="268" x2="984" y2="292" stroke="#e65100" stroke-width="1"/>
+  <text x="905" y="312" text-anchor="middle" font-size="10.5" fill="#bf360c">NO → Custom_Lower_Body_xxy.mdh</text>
+  <text x="905" y="326" text-anchor="middle" font-size="10.5" fill="#bf360c">简化集群</text>
 
-  <line x1="750" y1="255" x2="750" y2="275" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="810" y1="338" x2="810" y2="356" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
 
   <!-- Cast Trunk -->
-  <rect x="600" y="280" width="300" height="40" rx="6" fill="#fff3e0" stroke="#e65100"/>
-  <text x="750" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#bf360c">Cast 躯干</text>
-  <text x="750" y="313" text-anchor="middle" font-size="11" fill="#555">10 个躯干 marker? → Cast_Trunk.mdh</text>
+  <rect x="640" y="360" width="340" height="40" rx="6" fill="#fff3e0" stroke="#e65100"/>
+  <text x="810" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#bf360c">Cast 躯干</text>
+  <text x="810" y="393" text-anchor="middle" font-size="11" fill="#555">10 个躯干 marker → Cast_Trunk.mdh</text>
 
   <!-- Common steps -->
-  <line x1="460" y1="340" x2="460" y2="370" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="520" y1="410" x2="520" y2="430" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
 
-  <rect x="250" y="375" width="420" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
-  <text x="460" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20">Set Subject Weight/Height → Assign Model → Build</text>
-  <text x="460" y="408" text-anchor="middle" font-size="11" fill="#555">将模型应用到所有动态文件</text>
+  <rect x="300" y="435" width="440" height="42" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="520" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20">Set Subject Weight/Height → Assign Model → Build</text>
+  <text x="520" y="468" text-anchor="middle" font-size="11" fill="#555">将模型应用到所有动态文件</text>
 
-  <line x1="460" y1="415" x2="460" y2="445" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="520" y1="477" x2="520" y2="498" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
 
-  <rect x="250" y="450" width="420" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
-  <text x="460" y="468" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20">Virtual Lab Orientation → pipeline_Modelcomputing.v3s</text>
-  <text x="460" y="483" text-anchor="middle" font-size="11" fill="#555">定义虚拟实验室方向 → 运动学/动力学计算</text>
+  <rect x="300" y="502" width="440" height="42" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="520" y="520" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20">Virtual Lab Orientation → pipeline_Modelcomputing.v3s</text>
+  <text x="520" y="535" text-anchor="middle" font-size="11" fill="#555">定义虚拟实验室方向 → 运动学/动力学计算</text>
 </svg>
 </div>
 
@@ -1002,13 +1074,13 @@ R_IAS    L_IAS</code></pre>
     </tr>
     <tr>
       <td>下肢</td>
-      <td><code>Sports_Lower_Body_sports_wo_FKnee.mdh</code></td>
+      <td><code>Sports_Lower_Body_sports_wo_FKnee.mdh</code><br><code>Sports_Lower_Body_sports.mdh</code></td>
       <td><code>Cast_Lower_Body.mdh</code> / <code>Custom_Lower_Body_xxy.mdh</code></td>
       <td>按 marker 自动判定</td>
     </tr>
     <tr>
-      <td>躯干/上肢</td>
-      <td><code>Sports_Upper_Body_sports.mdh</code></td>
+      <td>躯干</td>
+      <td><code>Sports_Trunk_sports.mdh</code></td>
       <td><code>Cast_Trunk.mdh</code></td>
       <td>按 marker 自动判定</td>
     </tr>
@@ -1019,7 +1091,7 @@ R_IAS    L_IAS</code></pre>
 <h2 id="s6a">8. 详细建模规格<br><small>分段定义与参数</small></h2>
 
 <p>
-  以下基于 8 个 <code>.mdh</code> 模型模板文件，逐段列出每个 HYBRID_SEGMENT 的：
+  以下基于当前 Pipeline 调用的主要 <code>.mdh</code> 模型模板文件，逐段列出每个 HYBRID_SEGMENT 的：
   <strong>类型 (Type)、近端/远端定义 (Proximal/Distal Joint)、内外侧参考点 (Lateral/Medial)、
   关节中心 (Joint Center)、半径 (Radius)、追踪信号 (Tracking)、深度 (Depth)、
   生成的 Landmarks 以及关键参数 (Metrics)</strong>。
@@ -1101,7 +1173,11 @@ R_IAS    L_IAS</code></pre>
 
 <!-- ===== 8.2 Sports 下肢 ===== -->
 <h3 id="s6a2">8.2 Sports 下肢 <span class="badge badge-sports">Sports</span></h3>
-<p>模型文件：<code>Sports_Lower_Body_sports_wo_FKnee.mdh</code>。定义双侧大腿 (RTH/LTH)、小腿 (RSK/LSK)、足 (RFT/LFT)、中足 (RMF/LMF)、骨盆地面 (Pelvis Floor)、虚拟实验室 (Virtual Lab) 及足部标准化段。</p>
+<p>模型文件：<code>Sports_Lower_Body_sports_wo_FKnee.mdh</code> 或 <code>Sports_Lower_Body_sports.mdh</code>。两者均定义双侧大腿 (RTH/LTH)、小腿 (RSK/LSK)、足 (RFT/LFT)、中足 (RMF/LMF)、骨盆地面 (Pelvis Floor)、虚拟实验室 (Virtual Lab) 及足部标准化段。</p>
+
+<div class="info">
+  <strong>两套 Sports 下肢模型的区别：</strong><code>Sports_Lower_Body_sports_wo_FKnee.mdh</code> 直接使用静态文件中的 <code>RKneeIn</code>/<code>LKneeIn</code>；<code>Sports_Lower_Body_sports.mdh</code> 使用 Functional 文件计算 <code>F_RKNEE</code>/<code>F_LKNEE</code>，并派生 <code>R_KneeIn_FJ</code>/<code>L_KneeIn_FJ</code> 替代膝内侧 marker。
+</div>
 
 <h4>分段定义 — 动力学段</h4>
 <table>
@@ -1113,9 +1189,9 @@ R_IAS    L_IAS</code></pre>
       <td><strong>RTH</strong><br>(右大腿)</td>
       <td><code>Visual_3D</code></td>
       <td><strong>RIGHT_HIP</strong><br>(LANDMARK, 骨盆端)</td>
-      <td>RKneeOut / RKneeIn 中点<br>(TARGET 自动计算)</td>
+      <td>RKneeOut / RKneeIn 或 R_KneeIn_FJ 中点<br>(TARGET/LANDMARK 自动计算)</td>
       <td>远端外侧=<strong>RKneeOut</strong></td>
-      <td>远端内侧=<strong>RKneeIn</strong></td>
+      <td>远端内侧=<strong>RKneeIn</strong> 或 <strong>R_KneeIn_FJ</strong></td>
       <td>RIGHT_HIP<br>+ RThighFrontLow<br>+ RKneeOut</td>
       <td>rthigh.v3g</td>
     </tr>
@@ -1123,16 +1199,16 @@ R_IAS    L_IAS</code></pre>
       <td><strong>LTH</strong><br>(左大腿)</td>
       <td><code>Visual_3D</code></td>
       <td><strong>LEFT_HIP</strong><br>(LANDMARK, 骨盆端)</td>
-      <td>LKneeOut / LKneeIn 中点<br>(TARGET 自动计算)</td>
+      <td>LKneeOut / LKneeIn 或 L_KneeIn_FJ 中点<br>(TARGET/LANDMARK 自动计算)</td>
       <td>远端外侧=<strong>LKneeOut</strong></td>
-      <td>远端内侧=<strong>LKneeIn</strong></td>
+      <td>远端内侧=<strong>LKneeIn</strong> 或 <strong>L_KneeIn_FJ</strong></td>
       <td>LEFT_HIP<br>+ LThighFrontLow<br>+ LKneeOut</td>
       <td>lthigh.v3g</td>
     </tr>
     <tr>
       <td><strong>RSK</strong><br>(右小腿)</td>
       <td><code>Visual_3D</code></td>
-      <td>RKneeOut / RKneeIn 中点<br>(TARGET 自动计算)</td>
+      <td>RKneeOut / RKneeIn 或 R_KneeIn_FJ 中点<br>(TARGET/LANDMARK 自动计算)</td>
       <td>RAnkleOut<br>(TARGET, 远端外侧即远端关节)</td>
       <td>远端外侧=<strong>RAnkleOut</strong></td>
       <td>远端内侧=<strong>空</strong></td>
@@ -1142,7 +1218,7 @@ R_IAS    L_IAS</code></pre>
     <tr>
       <td><strong>LSK</strong><br>(左小腿)</td>
       <td><code>Visual_3D</code></td>
-      <td>LKneeOut / LKneeIn 中点<br>(TARGET 自动计算)</td>
+      <td>LKneeOut / LKneeIn 或 L_KneeIn_FJ 中点<br>(TARGET/LANDMARK 自动计算)</td>
       <td>LAnkleOut<br>(TARGET, 远端外侧即远端关节)</td>
       <td>远端外侧=<strong>LAnkleOut</strong></td>
       <td>远端内侧=<strong>空</strong></td>
@@ -1247,9 +1323,9 @@ R_IAS    L_IAS</code></pre>
   <tbody>
     <tr><td><code>RIGHT_HIP</code></td><td>RPV 段</td><td><strong>Bell-Hayes 回归:</strong> MCS_ML=0.36*ASIS_Distance*RPV_ML, MCS_AP=-0.19*ASIS_Distance*RPV_AP, MCS_AXIAL=-0.30*ASIS_Distance*RPV_Axial</td></tr>
     <tr><td><code>LEFT_HIP</code></td><td>RPV 段</td><td>同上，但 MCS_ML=<strong>-</strong>0.36*ASIS_Distance*RPV_ML (左侧取负)</td></tr>
-    <tr><td><code>RIGHT_KNEE</code></td><td>— (USE_TARGETS)</td><td>RKneeOut 与 RKneeIn 的中点 (50%)</td></tr>
-    <tr><td><code>LEFT_KNEE</code></td><td>— (USE_TARGETS)</td><td>LKneeOut 与 LKneeIn 的中点 (50%)</td></tr>
-    <tr><td><code>RIGHT_ANKLE</code></td><td>— (USE_TARGETS)</td><td>RAnkleOut_MOVED 向 RKneeOut/RKneeIn 方向偏移 -0.5*(2*RSK_Proximal_Radius*0.322+0.038745)</td></tr>
+    <tr><td><code>RIGHT_KNEE</code></td><td>— (USE_TARGETS)</td><td>RKneeOut 与 RKneeIn 的中点；functional knee 分支中使用 RKneeOut 与 <code>R_KneeIn_FJ</code> 的中点</td></tr>
+    <tr><td><code>LEFT_KNEE</code></td><td>— (USE_TARGETS)</td><td>LKneeOut 与 LKneeIn 的中点；functional knee 分支中使用 LKneeOut 与 <code>L_KneeIn_FJ</code> 的中点</td></tr>
+    <tr><td><code>RIGHT_ANKLE</code></td><td>— (USE_TARGETS)</td><td>RAnkleOut_MOVED 向 RKneeOut/RKneeIn 或 functional knee 派生方向偏移 -0.5*(2*RSK_Proximal_Radius*0.322+0.038745)</td></tr>
     <tr><td><code>LEFT_ANKLE</code></td><td>— (USE_TARGETS)</td><td>同上，使用左侧对应 marker</td></tr>
     <tr><td><code>RKneeOut_MOVED</code></td><td>— (USE_TARGETS)</td><td>9mm 修正: MCS_ML=-0.009*0.7071, MCS_AP=-0.009*0.7071<br>（参考 RKneeOut+RAnkleOut+RShinFrontHigh 平面）</td></tr>
     <tr><td><code>LKneeOut_MOVED</code></td><td>— (USE_TARGETS)</td><td>9mm 修正: MCS_ML=-0.009*0.7071, MCS_AP=+0.009*0.7071</td></tr>
@@ -1276,101 +1352,23 @@ R_IAS    L_IAS</code></pre>
   将皮肤表面 marker 位置修正到更接近关节旋转轴的位置。MovED marker 用于踝关节中心计算，而非直接用于 segment 追踪。
 </div>
 
-<!-- ===== 8.3 Sports 躯干/上肢 ===== -->
-<h3 id="s6a3">8.3 Sports 躯干/上肢 <span class="badge badge-sports">Sports</span></h3>
-<p>模型文件：<code>Sports_Upper_Body_sports.mdh</code>。定义躯干 (RTA)、双侧上臂 (RAR/LAR)、前臂 (RFA/LFA)、手 (RHA/LHA) 及肩部运动学段 (Shoulders)。<strong>当前版本已删除头部段。</strong></p>
+<!-- ===== 8.3 Sports 躯干 ===== -->
+<h3 id="s6a3">8.3 Sports 躯干 <span class="badge badge-sports">Sports</span></h3>
+<p>模型文件：<code>Sports_Trunk_sports.mdh</code>。当前 pipeline 仅建立躯干/胸腹段 <code>RTA</code>，不建立 Sports 上臂、前臂、手部或肩带运动学段。</p>
 
-<h4>分段定义 — 动力学段</h4>
+<h4>分段定义</h4>
 <table>
   <thead>
-    <tr><th>段名</th><th>类型</th><th>近端关节</th><th>远端关节</th><th>外侧</th><th>内侧</th><th>追踪信号</th><th>OBJFILE</th></tr>
+    <tr><th>段名</th><th>类型</th><th>近端关节</th><th>远端关节</th><th>追踪信号</th><th>OBJFILE / 深度</th></tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>RTA</strong><br>(躯干/胸腹)</td>
       <td><code>Visual_3D</code></td>
-      <td><strong>trunk_cran</strong><br>(Chest+SpineThoracic2 中点)</td>
-      <td><strong>Pelvis_mid</strong><br>(LANDMARK, 来自骨盆)</td>
-      <td>近端外侧=空<br>远端外侧=空</td>
-      <td>近端内侧=空<br>远端内侧=空</td>
+      <td><strong>trunk_cran</strong><br>(Chest + SpineThoracic2 中点)</td>
+      <td><strong>Pelvis_mid</strong><br>(LANDMARK, 来自 Sports 骨盆)</td>
       <td>Chest<br>+ SpineThoracic12<br>+ SpineThoracic2</td>
-      <td>thoraxab_acromiumtoiliaccrest.v3g</td>
-    </tr>
-    <tr>
-      <td><strong>RAR</strong><br>(右上臂)</td>
-      <td><code>Visual_3D</code></td>
-      <td><strong>R_SHOULD_MOVED</strong><br>(LANDMARK, RTA 段)</td>
-      <td>RElbowOut / RElbowIn<br>中点 (TARGET 自动)</td>
-      <td>远端外侧=<strong>RElbowOut</strong></td>
-      <td>远端内侧=<strong>RElbowIn</strong></td>
-      <td>R_SHOULD_MOVED<br>+ RElbowOut<br>+ RElbowIn</td>
-      <td>RUpperArm.v3g</td>
-    </tr>
-    <tr>
-      <td><strong>LAR</strong><br>(左上臂)</td>
-      <td><code>Visual_3D</code></td>
-      <td><strong>L_SHOULD_MOVED</strong><br>(LANDMARK, RTA 段)</td>
-      <td>LElbowOut / LElbowIn<br>中点 (TARGET 自动)</td>
-      <td>远端外侧=<strong>LElbowOut</strong></td>
-      <td>远端内侧=<strong>LElbowIn</strong></td>
-      <td>L_SHOULD_MOVED<br>+ LElbowOut<br>+ LElbowIn</td>
-      <td>LUpperArm.v3g</td>
-    </tr>
-    <tr>
-      <td><strong>RFA</strong><br>(右前臂)</td>
-      <td><code>Visual_3D</code></td>
-      <td><strong>R_ELBOW</strong><br>(LANDMARK, RAR 远端)</td>
-      <td><strong>R_WRIST_MOVED</strong><br>(LANDMARK)</td>
-      <td>近端外侧=空<br>远端外侧=空</td>
-      <td>远端内侧=<strong>RWristIn</strong></td>
-      <td>RElbowOut<br>+ RWristIn<br>+ RWristOut</td>
-      <td>RForeArm.v3g</td>
-    </tr>
-    <tr>
-      <td><strong>LFA</strong><br>(左前臂)</td>
-      <td><code>Visual_3D</code></td>
-      <td><strong>L_ELBOW</strong><br>(LANDMARK, LAR 远端)</td>
-      <td><strong>L_WRIST_MOVED</strong><br>(LANDMARK)</td>
-      <td>近端外侧=空<br>远端外侧=空</td>
-      <td>远端内侧=<strong>LWristIn</strong></td>
-      <td>LElbowOut<br>+ LWristIn<br>+ LWristOut</td>
-      <td>LForeArm.v3g</td>
-    </tr>
-    <tr>
-      <td><strong>RHA</strong><br>(右手)</td>
-      <td><code>Visual_3D</code></td>
-      <td><strong>R_WRIST_MOVED</strong><br>(LANDMARK)</td>
-      <td><strong>RHand2_DIST</strong><br>(仅标定用, CALIBRATION_ONLY)</td>
-      <td>近端外侧=空<br>远端外侧=空</td>
-      <td>近端内侧=<strong>RWristIn</strong><br>远端内侧=空</td>
-      <td>R_WRIST_MOVED<br>+ RHand2<br>+ RWristIn<br>+ RWristOut</td>
-      <td>rhand.v3g<br>(scale 1.3)</td>
-    </tr>
-    <tr>
-      <td><strong>LHA</strong><br>(左手)</td>
-      <td><code>Visual_3D</code></td>
-      <td><strong>L_WRIST_MOVED</strong><br>(LANDMARK)</td>
-      <td><strong>LHand2_DIST</strong><br>(仅标定用, CALIBRATION_ONLY)</td>
-      <td>近端外侧=空<br>远端外侧=空</td>
-      <td>近端内侧=<strong>LWristIn</strong><br>远端内侧=空</td>
-      <td>L_WRIST_MOVED<br>+ LHand2<br>+ LWristIn<br>+ LWristOut</td>
-      <td>lhand.v3g<br>(scale 1.3)</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4>分段定义 — 仅运动学段</h4>
-<table>
-  <thead>
-    <tr><th>段名</th><th>类型</th><th>近端 / 远端</th><th>追踪信号</th><th>其他</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Shoulders</strong></td>
-      <td><code>Visual_3D</code></td>
-      <td>近端=trunk_cran, 远端=WaistBack</td>
-      <td>LShoulderTop+RShoulderTop+Chest+SpineThoracic2</td>
-      <td>KINEMATIC_ONLY=TRUE</td>
+      <td>thoraxab_acromiumtoiliaccrest.v3g<br>DEPTH=0.2</td>
     </tr>
   </tbody>
 </table>
@@ -1382,53 +1380,19 @@ R_IAS    L_IAS</code></pre>
     <tr><td><code>RTA_Proximal_Radius</code></td><td><code>0.5*DISTANCE(RShoulderTop, LShoulderTop)</code></td><td>躯干近端半径 = 肩宽的一半</td></tr>
     <tr><td><code>RTA_Distal_Radius</code></td><td><code>0.5*DISTANCE(WaistRFront, WaistLFront)</code></td><td>躯干远端半径 = 骨盆宽的一半</td></tr>
     <tr><td><code>RTA_Segment_Depth</code></td><td><strong>0.2</strong> (m)</td><td>躯干段深度</td></tr>
-    <tr><td><code>RAR_Proximal_Radius</code></td><td><strong>0.05</strong> (m)</td><td>上臂近端半径</td></tr>
-    <tr><td><code>LAR_Proximal_Radius</code></td><td><strong>0.05</strong> (m)</td><td></td></tr>
-    <tr><td><code>RFA_Proximal_Radius</code></td><td><strong>0.05</strong> (m)</td><td>前臂近端半径</td></tr>
-    <tr><td><code>LFA_Proximal_Radius</code></td><td><strong>0.05</strong> (m)</td><td></td></tr>
-    <tr><td><code>RFA_Distal_Radius</code></td><td><strong>0.0406496</strong></td><td>固定值 (m)</td></tr>
-    <tr><td><code>LFA_Distal_Radius</code></td><td><strong>0.0372141</strong></td><td>固定值 (m)</td></tr>
-    <tr><td><code>RHA_Proximal_Radius</code></td><td><strong>0.0406496</strong></td><td>与 RFA 远端半径相同</td></tr>
-    <tr><td><code>LHA_Proximal_Radius</code></td><td><strong>0.0372141</strong></td><td>与 LFA 远端半径相同</td></tr>
-    <tr><td><code>RHA_Distal_Radius</code></td><td><code>0.5*DISTANCE(RWristIn, RWristOut)</code></td><td>手远端半径 = 腕宽的一半</td></tr>
-    <tr><td><code>LHA_Distal_Radius</code></td><td><code>0.5*DISTANCE(LWristIn, LWristOut)</code></td><td></td></tr>
-    <tr><td><code>Shoulders_Proximal_Radius</code></td><td><code>0.5*DISTANCE(LShoulderTop, RShoulderTop)</code></td><td>肩宽的一半</td></tr>
-    <tr><td><code>Shoulders_Distal_Radius</code></td><td><code>0.5*DISTANCE(WaistLFront, WaistRFront)</code></td><td>骨盆宽的一半</td></tr>
   </tbody>
 </table>
 
-<h4>生成的 Landmarks（上肢部分）</h4>
+<h4>生成的 Landmarks（躯干部分）</h4>
 <table>
   <thead><tr><th>Landmark</th><th>定义位置</th><th>计算方式</th></tr></thead>
   <tbody>
-    <tr><td><code>trunk_cran</code></td><td>— (USE_TARGETS)</td><td>Chest 与 SpineThoracic2 的中点 (50%) — 躯干近端关节</td></tr>
-    <tr><td><code>R_SHOULD_MOVED</code></td><td>RTA 段</td><td>RShoulderTop marker 在 RTA 段坐标系中 MCS_AXIAL=-0.08 (向内侧偏移 8cm)</td></tr>
-    <tr><td><code>L_SHOULD_MOVED</code></td><td>RTA 段</td><td>LShoulderTop marker 在 RTA 段坐标系中 MCS_AXIAL=-0.08</td></tr>
-    <tr><td><code>R_ELBOW</code></td><td>RAR 段</td><td>RAR 远端点 (MCS_AXIAL=-1)</td></tr>
-    <tr><td><code>L_ELBOW</code></td><td>LAR 段</td><td>LAR 远端点 (MCS_AXIAL=-1)</td></tr>
-    <tr><td><code>R_WRIST_MID</code></td><td>— (USE_TARGETS)</td><td>RWristIn 与 RWristOut 的中点 (50%)</td></tr>
-    <tr><td><code>L_WRIST_MID</code></td><td>— (USE_TARGETS)</td><td>LWristIn 与 LWristOut 的中点 (50%)</td></tr>
-    <tr><td><code>R_WRIST_MOVED</code></td><td>— (USE_TARGETS)</td><td>R_WRIST_MID 向 R_ELBOW 方向偏移 MCS_AXIAL=-0.07</td></tr>
-    <tr><td><code>L_WRIST_MOVED</code></td><td>— (USE_TARGETS)</td><td>L_WRIST_MID 向 L_ELBOW 方向偏移 MCS_AXIAL=-0.07</td></tr>
-    <tr><td><code>RHand2_DIST</code></td><td>— (USE_TARGETS)</td><td>CALIBRATION_ONLY: 由 R_ELBOW+R_WRIST_MID 向 RHand2 投影</td></tr>
-    <tr><td><code>LHand2_DIST</code></td><td>— (USE_TARGETS)</td><td>CALIBRATION_ONLY: 由 L_ELBOW+L_WRIST_MID 向 LHand2 投影</td></tr>
-    <tr><td><code>Distal Thorax</code></td><td>— (USE_TARGETS)</td><td>LShoulderTop 与 RShoulderTop 的中点 (50%)</td></tr>
-    <tr><td><code>R_Shoulder</code></td><td>RAR 段</td><td>RAR 近端点 (MCS_AXIAL=0)</td></tr>
-    <tr><td><code>L_Shoulder</code></td><td>LAR 段</td><td>LAR 近端点 (MCS_AXIAL=0)</td></tr>
-    <tr><td><code>R_WRIST</code></td><td>RHA 段</td><td>RHA 近端点 (MCS_AXIAL=0)</td></tr>
-    <tr><td><code>L_WRIST</code></td><td>LHA 段</td><td>LHA 近端点 (MCS_AXIAL=0)</td></tr>
+    <tr><td><code>trunk_cran</code></td><td>— (USE_TARGETS)</td><td>Chest 与 SpineThoracic2 的中点 (50%)，作为 RTA 近端关节</td></tr>
   </tbody>
 </table>
 
 <div class="warn">
-  <strong>上肢模型注意事项：</strong>
-  <ul>
-    <li>SHOULD_MOVED 将肩峰 marker 向内侧偏移 8cm 以估算盂肱关节中心。</li>
-    <li>WRIST_MOVED 将腕中点向肘方向偏移 7cm 以估算腕关节中心。</li>
-    <li>RHand2_DIST / LHand2_DIST 为仅标定 Landmark (<code>CALIBRATION_ONLY=TRUE</code>)，用于定义手段长度和方向，不用于追踪。</li>
-    <li>手部段 Graphics Scale 为 1.3x，用于可视化放大。</li>
-    <li>上臂和前臂的 AP_DIRECTION=+Y, AXIAL_DIRECTION=+Z（与下肢不同）。</li>
-  </ul>
+  <strong>Sports 躯干注意事项：</strong>此模型依赖 Sports 骨盆先生成 <code>Pelvis_mid</code>。如果全身 marker 中包含肘、腕、手 marker，当前 <code>pipeline_create_workspace*.v3s</code> 也不会调用 <code>Sports_Upper_Body_sports.mdh</code>，因此不会建立手臂段。
 </div>
 
 <!-- ===== 8.4 Cast 骨盆 ===== -->
@@ -1652,7 +1616,7 @@ R_IAS    L_IAS</code></pre>
     <tr>
       <td><strong>RIGHT_KNEE</strong></td>
       <td>中点法</td>
-      <td>(RKneeOut + RKneeIn) / 2</td>
+      <td>(RKneeOut + RKneeIn) / 2；functional knee 分支为 (RKneeOut + R_KneeIn_FJ) / 2</td>
       <td>—</td>
       <td><span class="badge badge-sports">Sports</span></td>
     </tr>
@@ -1667,27 +1631,6 @@ R_IAS    L_IAS</code></pre>
       <td><strong>RIGHT_ANKLE</strong></td>
       <td>MovED + 半径偏移</td>
       <td>RAnkleOut_MOVED → 向膝方向偏移<br>-0.5*(2*RSK_Proximal_Radius*0.322+0.038745)</td>
-      <td>—</td>
-      <td><span class="badge badge-sports">Sports</span></td>
-    </tr>
-    <tr>
-      <td><strong>R_SHOULD_MOVED</strong></td>
-      <td>Marker 内移</td>
-      <td>RShoulderTop 在 RTA 段中 MCS_AXIAL=-0.08</td>
-      <td>RTA</td>
-      <td><span class="badge badge-sports">Sports</span></td>
-    </tr>
-    <tr>
-      <td><strong>R_ELBOW</strong></td>
-      <td>段远端</td>
-      <td>RAR 段 MCS_AXIAL=-1 (远端点)</td>
-      <td>RAR</td>
-      <td><span class="badge badge-sports">Sports</span></td>
-    </tr>
-    <tr>
-      <td><strong>R_WRIST_MOVED</strong></td>
-      <td>中点 + 偏移</td>
-      <td>R_WRIST_MID → R_ELBOW 方向 MCS_AXIAL=-0.07</td>
       <td>—</td>
       <td><span class="badge badge-sports">Sports</span></td>
     </tr>
@@ -1733,7 +1676,7 @@ R_IAS    L_IAS</code></pre>
   <strong>Create_Hybrid_Model</strong> → 基于静态文件创建混合模型<br>
   <strong>Remove_Prefix_From_Point_Labels /PREFIX=Q_</strong> → 移除 QTM Skeleton 前缀<br>
   <strong>Apply_Model_Template / Append_Model_Template</strong> → 根据 marker 检测结果应用模型模板（见第 6 节决策树）<br>
-  <strong>Set_Subject_Weight & Set_Subject_Height</strong> → 写入受试者体重/身高<br>
+  <strong>Set_Subject_Weight & Set_Subject_Height</strong> → 写入受试者体重/身高；体重只读取 <code>$subject["Weight"]</code><br>
   <strong>Assign_Model_File</strong> → 将模型分配给所有动态文件<br>
   <strong>Set_Text_Item</strong> → 将元数据 (Name, ID, DOB, Weight, Comments, Creation_date/time) 写入 GLOBAL Workspace
 </div>
@@ -1832,7 +1775,7 @@ R_IAS    L_IAS</code></pre>
 <ul>
   <li>静态文件 marker 是否完整（尤其是骨盆 marker）</li>
   <li>动态文件是否存在关键 marker 长时间丢失</li>
-  <li>Sports 方案必须有 <code>LKneeIn</code> 和 <code>RKneeIn</code></li>
+  <li>Sports 下肢如无 <code>LKneeIn</code>/<code>RKneeIn</code>，必须确认存在带 <code>Functional</code> 标签的功能膝试验</li>
   <li>体重是否有效（<code>Weight not specified or invalid</code> 警告）</li>
   <li>输出文件是否为空（尤其是 <code>DATA_Angle.txt</code>、<code>DATA_CoM.txt</code>）</li>
 </ul>
@@ -1860,13 +1803,13 @@ WARNING!! Weight not specified or invalid!</div>
     </tr>
     <tr>
       <td>下肢模型未生成</td>
-      <td>缺少 <code>RKneeIn</code> / <code>LKneeIn</code> 或足部 marker</td>
-      <td>检查 16 个 sports 下肢 marker 是否全部存在</td>
+      <td>下肢基础 marker 不完整；或缺 <code>RKneeIn</code>/<code>LKneeIn</code> 且没有可用 <code>Functional</code> 文件</td>
+      <td>检查 thigh/knee/shank/ankle/foot marker；无 KneeIn 时检查 Functional 文件是否被正确打标签</td>
     </tr>
     <tr>
-      <td>躯干/上肢未生成</td>
-      <td>缺少 <code>Chest</code>、<code>SpineThoracic2</code>、<code>SpineThoracic12</code> 或肩肘腕手 marker</td>
-      <td>补齐 marker 或取消该模型需求</td>
+      <td>Sports 躯干未生成</td>
+      <td>缺少 <code>Chest</code>、<code>SpineThoracic2</code>、<code>SpineThoracic12</code>、<code>LShoulderTop</code> 或 <code>RShoulderTop</code></td>
+      <td>补齐 5 个躯干 marker；手臂/手部 marker 不参与当前 Sports 躯干建模</td>
     </tr>
     <tr>
       <td>骨盆模型选择了错误的子类型</td>
@@ -1900,7 +1843,8 @@ WARNING!! Weight not specified or invalid!</div>
 <p>数据导出仅在满足以下条件之一时执行：</p>
 <div class="flow-box">
   <strong>条件 A（Sports 方案）：</strong><br>
-  <code>WaistLFront + WaistRFront + WaistBack + RThighFrontLow + LThighFrontLow + RKneeOut + LKneeOut + RKneeIn + LKneeIn</code> 全部存在<br><br>
+  <code>WaistLFront + WaistRFront + WaistBack + RThighFrontLow + LThighFrontLow + RKneeOut + LKneeOut + RShinFrontHigh + LShinFrontHigh + RAnkleOut + LAnkleOut + RHeelBack + LHeelBack + RForefoot2 + LForefoot2 + RForefoot5 + LForefoot5</code> 全部存在<br>
+  <span class="badge badge-sports">说明</span> 此导出条件不再硬性要求 <code>RKneeIn</code>/<code>LKneeIn</code>；无 KneeIn 时模型构建仍依赖 <code>Functional</code> 文件生成功能膝中心。<br><br>
   <strong>条件 B（Cast 方案）：</strong><br>
   <code>R_TH1 + L_TH1 + R_SK1 + L_SK1 + R_FM1 + L_FM1</code> 全部存在
 </div>
@@ -1917,8 +1861,9 @@ WARNING!! Weight not specified or invalid!</div>
     <tr><td>日期</td><td></td></tr>
     <tr><td>测试项目 / 任务</td><td></td></tr>
     <tr><td>贴点方案</td><td><span class="badge badge-sports">Sports</span> / <span class="badge badge-cast">Cast</span></td></tr>
-    <tr><td>是否含躯干/上肢</td><td>是 / 否（如果选择了 Sports 方案）</td></tr>
-    <tr><td>是否含头部</td><td>当前版本不含头部段</td></tr>
+    <tr><td>是否含 Sports 躯干</td><td>是 / 否（当前 pipeline 不建立 Sports 手臂/手部段）</td></tr>
+    <tr><td>Sports 膝关节方案</td><td>KneeIn marker / Functional knee</td></tr>
+    <tr><td>是否含头部</td><td>当前 pipeline 不建立头部段，也不建立 Sports 手臂/手部段</td></tr>
     <tr><td>静态文件名</td><td></td></tr>
     <tr><td>动态文件名（数量）</td><td></td></tr>
     <tr><td>采样率 (Hz)</td><td></td></tr>
@@ -1939,11 +1884,12 @@ WARNING!! Weight not specified or invalid!</div>
 
 <h3 id="s11a">13.1 PAF_v3d 版本信息</h3>
 <table>
-  <tr><td>当前版本</td><td><strong>1.0.5</strong> (2026.05.20)</td></tr>
+  <tr><td>当前 SOP 版本</td><td><strong>1.0.6</strong> (2026.06.02)</td></tr>
+  <tr><td>Settings.paf 包版本</td><td><strong>1.0.5</strong>（未改动）</td></tr>
   <tr><td>最低 QTM 版本</td><td>2.16.3600</td></tr>
   <tr><td>兼容 Visual3D</td><td>2024.10.4（推荐），向下兼容至 2023.10.2</td></tr>
   <tr><td>支持贴点方案</td><td>Sports（自动检测 WaistLFront）与 Cast（自动切换）</td></tr>
-  <tr><td>Sports 模型组成</td><td>骨盆（IC/Standard）+ 下肢（wo_FKnee）+ 躯干/上肢（无头部）</td></tr>
+  <tr><td>Sports 模型组成</td><td>骨盆（IC/Standard）+ 下肢（KneeIn / Functional knee）+ 躯干（不建手臂/手部）</td></tr>
   <tr><td>Cast 模型组成</td><td>骨盆（Coda）+ 下肢（完整/自定义）+ 躯干</td></tr>
   <tr><td>输出模式</td><td>双侧 (Double) / 优势侧 (Dominance)</td></tr>
 </table>
@@ -1951,6 +1897,7 @@ WARNING!! Weight not specified or invalid!</div>
 <h3 id="s11b">13.2 变更记录</h3>
 <table>
   <tr><th>日期</th><th>变更</th></tr>
+  <tr><td>2026.06.02</td><td>更新 Sports functional knee 分支：无 RKneeIn/LKneeIn 时调用 <code>Sports_Lower_Body_sports.mdh</code>；当前 Sports pipeline 仅建立躯干、骨盆和下肢；体重改为只读取 <code>$subject["Weight"]</code>；同步美化 SOP 页面样式</td></tr>
   <tr><td>2026.05.20</td><td>整合 Cast 模型，拆分下肢/骨盆/上肢；根据优势侧自动输出</td></tr>
   <tr><td>1.0.5</td><td>兼容性测试：Visual3D 2024.10.4</td></tr>
   <tr><td>1.0.4</td><td>兼容性测试：Visual3D 2024.06.1</td></tr>
@@ -2009,7 +1956,7 @@ WARNING!! Weight not specified or invalid!</div>
 
 <hr style="margin: 40px 0 20px; border: none; border-top: 1px solid #ddd;">
 <p style="color: var(--muted); font-size: 0.87em;">
-  SOP_Biomechanics_PAF_v3d &mdash; 基于 Qualisys PAF Visual3D Example 二次开发 &mdash; 最后更新 2026/05/27
+  SOP_Biomechanics_PAF_v3d &mdash; 基于 Qualisys PAF Visual3D Example 二次开发 &mdash; 最后更新 2026/06/02
 </p>
 
 </div><!-- /#main-content -->
