@@ -981,6 +981,60 @@ LShoulderTop    RShoulderTop</code></pre>
   <strong>当前 pipeline 仅建立 Sports 躯干段：</strong>不再调用 <code>Sports_Upper_Body_sports.mdh</code> 建立上臂、前臂或手部段；肘、腕、手 marker 可以出现在采集文件中，但不会触发手臂模型。
 </div>
 
+<h4>Sports 贴点操作注意事项</h4>
+<table>
+  <thead>
+    <tr><th>部位 / 环节</th><th>注意事项</th><th>对当前 pipeline 的影响</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>方案识别</td>
+      <td><code>WaistLFront</code> 必须存在且命名完全一致；若 QTM 输出 <code>Q_</code> 前缀，pipeline 会自动移除。</td>
+      <td>检测到 <code>WaistLFront</code> 才进入 Sports 分支；否则会被当作 Cast 方案处理。</td>
+    </tr>
+    <tr>
+      <td>骨盆</td>
+      <td><code>WaistLFront</code> 与 <code>WaistRFront</code> 左右高度应一致；<code>WaistBack</code> 应贴在后方两侧骨性标志之间。骨盆 3 点位置对骨盆朝向和髋角最敏感。</td>
+      <td>骨盆贴歪会影响 <code>RPV</code>、髋关节角、骨盆角和后续动力学结果。</td>
+    </tr>
+    <tr>
+      <td>骨盆 IC 版</td>
+      <td>若采集 <code>WaistL</code>/<code>WaistR</code>，建议左右对称并尽量稳定，不要只贴单侧。</td>
+      <td>检测到 <code>WaistL</code> 时自动调用 <code>Sports_Pelvis_IC.mdh</code>；否则调用 <code>Sports_Pelvis.mdh</code>。</td>
+    </tr>
+    <tr>
+      <td>膝内侧 marker</td>
+      <td><code>RKneeIn</code>/<code>LKneeIn</code> 在 Sports 清单中属于静态下肢 marker。若动态也保留它们，可直接使用静态膝内侧 marker 模型；若动态移除，则必须准备 Functional knee 文件。</td>
+      <td>有 KneeIn 时调用 <code>Sports_Lower_Body_sports_wo_FKnee.mdh</code>；无 KneeIn 时调用 <code>Sports_Lower_Body_sports.mdh</code> 并依赖 <code>Functional</code> 文件。</td>
+    </tr>
+    <tr>
+      <td>Functional knee</td>
+      <td>不使用 <code>RKneeIn</code>/<code>LKneeIn</code> 时，必须采集一个非 Static 的功能膝试验，并在 PAF/QTM 中标记为 <code>Functional</code>。</td>
+      <td>pipeline 使用 <code>Associate_Functional_Joints_With_Files</code> 生成 <code>F_RKNEE</code>/<code>F_LKNEE</code> 和 <code>R_KneeIn_FJ</code>/<code>L_KneeIn_FJ</code>；缺失 Functional 会导致下肢模型或后续计算不可靠。</td>
+    </tr>
+    <tr>
+      <td>下肢关键点</td>
+      <td><code>KneeOut</code> 尽量贴近膝屈伸轴；<code>AnkleOut</code> 决定简化踝关节轴，位置要准确；<code>HeelBack</code> 与 <code>Forefoot2</code> 定义足部长轴，二者高度应尽量接近。</td>
+      <td>这些点会直接影响膝、踝、足部坐标系和足进展角。</td>
+    </tr>
+    <tr>
+      <td>下肢 tracking 点</td>
+      <td><code>ThighFrontLow</code>、<code>ShinFrontHigh</code>、<code>Forefoot5</code> 主要用于 segment tracking，贴点位置相对没那么解剖严格，但必须牢固、无遮挡。</td>
+      <td>tracking 点掉点或大幅晃动会增加插值、滤波和模型 tracking 误差。</td>
+    </tr>
+    <tr>
+      <td>躯干</td>
+      <td>当前只需要 <code>Chest</code>、<code>SpineThoracic2</code>、<code>SpineThoracic12</code>、<code>LShoulderTop</code>、<code>RShoulderTop</code>。注意 marker 名为 <code>SpineThoracic</code>，不要写成 <code>SpineThorasic</code>。</td>
+      <td>5 个躯干点完整时调用 <code>Sports_Trunk_sports.mdh</code>；当前 pipeline 不建立手臂、手部或头部模型。</td>
+    </tr>
+    <tr>
+      <td>静态 / 动态方向</td>
+      <td>静态标定和动态动作应尽量保持同一实验室坐标方向、同一面向方向和同一套 marker 命名。</td>
+      <td>方向不一致会增加虚拟实验室方向、足进展角和骨盆朝向异常的风险。</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3 id="s5c">6.3 Cast 方案 <span class="badge badge-cast">Cast</span></h3>
 
 <p>触发条件：<code>(Data_Exists(TARGET::ORIGINAL::WaistLFront) &lt;&gt; 1)</code></p>
@@ -1929,7 +1983,7 @@ WARNING!! Weight not specified or invalid!</div>
 
 <h3 id="s11a">13.1 PAF_v3d 版本信息</h3>
 <table>
-  <tr><td>当前 SOP 版本</td><td><strong>1.0.8</strong> (2026.06.03)</td></tr>
+  <tr><td>当前 SOP 版本</td><td><strong>1.0.9</strong> (2026.06.03)</td></tr>
   <tr><td>Settings.paf 包版本</td><td><strong>1.0.5</strong>（未改动）</td></tr>
   <tr><td>最低 QTM 版本</td><td>2.16.3600</td></tr>
   <tr><td>兼容 Visual3D</td><td>2024.10.4（推荐），向下兼容至 2023.10.2</td></tr>
@@ -1942,6 +1996,7 @@ WARNING!! Weight not specified or invalid!</div>
 <h3 id="s11b">13.2 变更记录</h3>
 <table>
   <tr><th>日期</th><th>变更</th></tr>
+  <tr><td>2026.06.03</td><td>补充 Sports 贴点操作注意事项：骨盆、KneeIn/Functional knee、下肢关键点、躯干命名和静态/动态方向一致性。</td></tr>
   <tr><td>2026.06.03</td><td>修正手机端多列表格宽度：根据列数自动设置表格最小宽度，避免 4 列及以上表格内容被挤压。</td></tr>
   <tr><td>2026.06.03</td><td>增加手机端浏览器适配：目录改为移动端抽屉、表格自动横向滚动、正文路径与代码片段避免撑破屏幕，并补齐网页端 Logo 相对资源路径。</td></tr>
   <tr><td>2026.06.02</td><td>更新 Sports functional knee 分支：无 RKneeIn/LKneeIn 时调用 <code>Sports_Lower_Body_sports.mdh</code>；当前 Sports pipeline 仅建立躯干、骨盆和下肢；体重改为只读取 <code>$subject["Weight"]</code>；同步美化 SOP 页面样式</td></tr>
