@@ -283,7 +283,7 @@
     background: var(--surface); box-shadow: var(--shadow-sm);
   }
   .marker-scheme-figure img {
-    display: block; width: 100%; height: auto;
+    display: block; width: 50%; max-width: 100%; height: auto; margin: 0 auto;
     border-radius: 6px;
   }
   .marker-scheme-figure figcaption {
@@ -395,6 +395,7 @@
     }
     .diagram { padding: 12px; -webkit-overflow-scrolling: touch; }
     .diagram.wide svg { min-width: 920px; }
+    .marker-scheme-figure img { width: 100%; }
     .branch-grid { grid-template-columns: 1fr; }
     #back-to-top { bottom: 20px; right: 16px; width: 40px; height: 40px; }
   }
@@ -2004,7 +2005,7 @@ WARNING!! Weight not specified or invalid!</div>
 
 <h3 id="s11a">13.1 PAF_v3d 版本信息</h3>
 <table>
-  <tr><td>当前 SOP 版本</td><td><strong>1.1.0</strong> (2026.06.04)</td></tr>
+  <tr><td>当前 SOP 版本</td><td><strong>1.1.1</strong> (2026.06.04)</td></tr>
   <tr><td>Settings.paf 包版本</td><td><strong>1.0.5</strong>（未改动）</td></tr>
   <tr><td>最低 QTM 版本</td><td>2.16.3600</td></tr>
   <tr><td>兼容 Visual3D</td><td>2024.10.4（推荐），向下兼容至 2023.10.2</td></tr>
@@ -2017,6 +2018,7 @@ WARNING!! Weight not specified or invalid!</div>
 <h3 id="s11b">13.2 变更记录</h3>
 <table>
   <tr><th>日期</th><th>变更</th></tr>
+  <tr><td>2026.06.04</td><td>将 Cast/Sports 贴点方案图片在桌面端缩小为 50% 显示，手机端仍按屏幕宽度适配。</td></tr>
   <tr><td>2026.06.04</td><td>调整贴点方案章节顺序：Cast 作为主方案放在 Sports 前；在 Cast/Sports 触发条件后加入对应贴点图，并统一图片路径到 <code>Documentation/Figure</code>。</td></tr>
   <tr><td>2026.06.03</td><td>补充 Sports 贴点操作注意事项：骨盆、KneeIn/Functional knee、下肢关键点、躯干命名和静态/动态方向一致性。</td></tr>
   <tr><td>2026.06.03</td><td>修正手机端多列表格宽度：根据列数自动设置表格最小宽度，避免 4 列及以上表格内容被挤压。</td></tr>
