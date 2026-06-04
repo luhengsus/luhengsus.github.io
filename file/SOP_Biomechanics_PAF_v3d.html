@@ -499,22 +499,33 @@
     </li>
     <li class="has-sub collapsed">
       <span class="toc-arrow" onclick="var p=this.parentElement;p.classList.toggle('collapsed');event.stopPropagation();">▼</span>
-      <a href="#s9">11. 质量控制与故障排除</a>
+      <a href="#s8d">11. 表面肌电采集与处理方案</a>
       <ol>
-        <li><a href="#s9a">11.1 采集后检查清单</a></li>
-        <li><a href="#s9b">11.2 error.txt 关键错误关键字</a></li>
-        <li><a href="#s9c">11.3 常见问题速查</a></li>
-        <li><a href="#s9d">11.4 lower_body_outputs 触发条件</a></li>
+        <li><a href="#s8d1">11.1 粘贴原则</a></li>
+        <li><a href="#s8d2">11.2 下肢肌肉贴放位置</a></li>
+        <li><a href="#s8d3">11.3 采集流程</a></li>
+        <li><a href="#s8d4">11.4 数据处理</a></li>
+        <li><a href="#s8d5">11.5 质量控制</a></li>
       </ol>
     </li>
-    <li><a href="#s10">12. 建议记录表</a></li>
     <li class="has-sub collapsed">
       <span class="toc-arrow" onclick="var p=this.parentElement;p.classList.toggle('collapsed');event.stopPropagation();">▼</span>
-      <a href="#s11">13. 版本说明与参考资料</a>
+      <a href="#s9">12. 质量控制与故障排除</a>
       <ol>
-        <li><a href="#s11a">13.1 PAF_v3d 版本信息</a></li>
-        <li><a href="#s11b">13.2 变更记录</a></li>
-        <li><a href="#s11c">13.3 参考资料</a></li>
+        <li><a href="#s9a">12.1 采集后检查清单</a></li>
+        <li><a href="#s9b">12.2 error.txt 关键错误关键字</a></li>
+        <li><a href="#s9c">12.3 常见问题速查</a></li>
+        <li><a href="#s9d">12.4 lower_body_outputs 触发条件</a></li>
+      </ol>
+    </li>
+    <li><a href="#s10">13. 建议记录表</a></li>
+    <li class="has-sub collapsed">
+      <span class="toc-arrow" onclick="var p=this.parentElement;p.classList.toggle('collapsed');event.stopPropagation();">▼</span>
+      <a href="#s11">14. 版本说明与参考资料</a>
+      <ol>
+        <li><a href="#s11a">14.1 PAF_v3d 版本信息</a></li>
+        <li><a href="#s11b">14.2 变更记录</a></li>
+        <li><a href="#s11c">14.3 参考资料</a></li>
       </ol>
     </li>
   </ol>
@@ -1895,10 +1906,166 @@ LShoulderTop    RShoulderTop</code></pre>
   <tr><td>文件名</td><td><code>USE_SHORT_FILENAME=TRUE</code></td></tr>
 </table>
 
-<!-- ===== 9. 质量控制 ===== -->
-<h2 id="s9">11. 质量控制与故障排除</h2>
+<!-- ===== 8b. 表面肌电 ===== -->
+<h2 id="s8d">11. 表面肌电粘贴、采集与数据处理方案</h2>
 
-<h3 id="s9a">11.1 采集后检查清单</h3>
+<div class="info">
+  <strong>适用范围：</strong>本节用于同步采集表面肌电 (sEMG) 与动作捕捉/力台数据。当前 <code>pipeline_create_workspace*.v3s</code> 主要处理模型、运动学、动力学和导出，不自动完成 EMG 滤波、整流、包络或归一化；EMG 数据建议在 QTM/外部分析脚本中单独处理，并与 C3D 时间轴、事件和任务标签保持一致。
+</div>
+
+<h3 id="s8d1">11.1 粘贴原则</h3>
+<table>
+  <thead>
+    <tr><th>环节</th><th>操作要求</th><th>目的 / 风险控制</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>皮肤准备</td>
+      <td>必要时剃除检测部位毛发；用酒精棉片清洁皮肤油脂和表面残留，待皮肤完全干燥后再贴电极。</td>
+      <td>降低皮肤阻抗和 50/60 Hz 工频干扰，减少电极松动导致的噪声。</td>
+    </tr>
+    <tr>
+      <td>电极间距</td>
+      <td>双极表面电极中心距优先采用 <strong>20 mm</strong>；小肌肉不超过肌纤维长度的 1/4。</td>
+      <td>提高重复性，减少运动终板、肌腱和邻近肌肉串扰影响。</td>
+    </tr>
+    <tr>
+      <td>电极方向</td>
+      <td>电极连线应与目标肌肉肌纤维方向平行；Delsys 平行棒传感器按箭头方向对齐肌纤维长轴。</td>
+      <td>保证检测面跨越肌纤维方向，获得稳定、可解释的 sEMG。</td>
+    </tr>
+    <tr>
+      <td>贴放位置</td>
+      <td>优先贴在肌腹中线，避开肌腱、骨性突起、运动终板明显区域和邻近肌肉边缘。</td>
+      <td>提高信噪比，减少串扰和低幅值信号。</td>
+    </tr>
+    <tr>
+      <td>固定</td>
+      <td>使用双面胶、贴环、医用胶带或弹性绷带固定电极和线缆；线缆预留松弛，不得牵拉电极。</td>
+      <td>减少动态动作中的运动伪影和传感器脱落。</td>
+    </tr>
+    <tr>
+      <td>参考电极</td>
+      <td>根据设备要求放置参考电极；常用位置包括 C7、腕部、踝部或骨性区域，需避开目标肌肉收缩区域。</td>
+      <td>稳定参考电位，降低环境噪声和工频干扰。</td>
+    </tr>
+    <tr>
+      <td>命名</td>
+      <td>建议使用 <code>EMG_肌肉缩写_侧别</code>，例如 <code>EMG_RF_R</code>、<code>EMG_TA_L</code>。</td>
+      <td>保证与 C3D analog channel、后处理脚本和报告字段一致。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="s8d2">11.2 下肢肌肉贴放位置</h3>
+<p>以下 10 块肌肉来自本项目 EMG 贴点方案。具体解剖定位可结合 SENIAM individual muscle recommendations 逐一核对。</p>
+<table>
+  <thead>
+    <tr><th>序号</th><th>肌肉</th><th>缩写</th><th>贴放位置</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>股直肌 Rectus Femoris</td><td><code>RF</code></td><td>髂前上棘与髌骨上缘连线的中点。</td></tr>
+    <tr><td>2</td><td>股内侧肌 Vastus Medialis</td><td><code>VM</code></td><td>髂前上棘与膝关节内侧韧带前关节间隙连线的 4/5 处，靠近髌骨。</td></tr>
+    <tr><td>3</td><td>股外侧肌 Vastus Lateralis</td><td><code>VL</code></td><td>髂前上棘与髌骨外缘连线的 2/3 处，靠近髌骨。</td></tr>
+    <tr><td>4</td><td>股二头肌长头 Long Head of Biceps Femoris</td><td><code>BFL</code></td><td>坐骨结节与胫骨外侧髁连线的中点。</td></tr>
+    <tr><td>5</td><td>半腱肌 Semitendinosus</td><td><code>ST</code></td><td>坐骨结节与胫骨内侧髁连线的中点。</td></tr>
+    <tr><td>6</td><td>胫骨前肌 Tibialis Anterior</td><td><code>TA</code></td><td>腓骨头与内踝尖端连线的 1/3 处。</td></tr>
+    <tr><td>7</td><td>腓肠肌外侧头 Gastrocnemius Lateralis</td><td><code>GL</code></td><td>腓骨头与跟骨连线的 1/3 处。</td></tr>
+    <tr><td>8</td><td>腓肠肌内侧头 Gastrocnemius Medialis</td><td><code>GM</code></td><td>肌肉最突出的位置，方向沿小腿长轴。</td></tr>
+    <tr><td>9</td><td>比目鱼肌 Soleus</td><td><code>SOL</code></td><td>股骨内髁到内踝连线的 2/3 处。</td></tr>
+    <tr><td>10</td><td>臀大肌 Gluteus Maximus</td><td><code>GMa</code></td><td>肌肉最突出的位置；SENIAM 可参考骶椎与大转子连线 50% 位置。</td></tr>
+  </tbody>
+</table>
+
+<h3 id="s8d3">11.3 采集流程</h3>
+<ol>
+  <li><strong>设备检查：</strong>确认 EMG 接收器、电极、参考电极、同步线或 QTM analog 输入正常；记录设备型号、采样率和通道映射。</li>
+  <li><strong>皮肤准备与粘贴：</strong>按 11.1 处理皮肤并粘贴电极；贴好后拍照或记录左右侧、通道号和肌肉缩写。</li>
+  <li><strong>静息基线：</strong>正式任务前采集 5-10 秒静息数据，检查基线噪声和工频干扰。</li>
+  <li><strong>动作试采：</strong>让受试者完成 1-2 次低强度目标动作，确认目标肌肉激活明显、邻近肌肉串扰不过高、传感器不松动。</li>
+  <li><strong>MVC / 归一化试验：</strong>如需跨受试者或跨天比较，采集每块肌肉对应的最大随意收缩 (MVC) 或统一参考动作；每项建议 2-3 次，每次 3-5 秒，中间充分休息。</li>
+  <li><strong>正式动态任务：</strong>与 QTM/C3D 同步采集，确保 EMG、marker、力台使用同一触发或同一时间轴。</li>
+  <li><strong>采后检查：</strong>每个通道检查是否存在饱和、平线、明显脱落、突发尖峰或持续工频噪声；异常通道必须记录。</li>
+</ol>
+
+<table>
+  <thead>
+    <tr><th>采集参数</th><th>建议</th><th>说明</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>采样率</td><td><strong>≥ 1000 Hz</strong>，优先 2000 Hz</td><td>sEMG 高频成分明显，采样率过低会导致混叠和波形失真。</td></tr>
+    <tr><td>模拟输入</td><td>记录为 C3D analog channel</td><td>通道名建议与肌肉缩写一致，如 <code>EMG_RF_R</code>。</td></tr>
+    <tr><td>量程</td><td>避免饱和</td><td>若最大收缩时波形顶端被截平，需调整增益或量程后重采。</td></tr>
+    <tr><td>同步</td><td>与 QTM/力台同一时间轴</td><td>后续分析需要按起跳、落地、支撑期等事件对齐。</td></tr>
+  </tbody>
+</table>
+
+<h3 id="s8d4">11.4 数据处理</h3>
+<table>
+  <thead>
+    <tr><th>步骤</th><th>推荐处理</th><th>注意事项</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>原始检查</td>
+      <td>先查看 raw EMG、静息基线、最大值和异常尖峰。</td>
+      <td>不要在未检查原始波形前直接滤波导出。</td>
+    </tr>
+    <tr>
+      <td>带通滤波</td>
+      <td>常用 <strong>20-450 Hz</strong>；根据设备和研究方案也可用 10-500 Hz。</td>
+      <td>滤波参数必须在同一研究批次保持一致。</td>
+    </tr>
+    <tr>
+      <td>陷波</td>
+      <td>仅在存在明显工频干扰时使用 50 Hz 陷波。</td>
+      <td>优先通过皮肤准备、参考电极和线缆固定降低噪声，不建议默认强行陷波。</td>
+    </tr>
+    <tr>
+      <td>整流</td>
+      <td>全波整流。</td>
+      <td>整流后用于包络、RMS 或积分肌电计算。</td>
+    </tr>
+    <tr>
+      <td>包络 / RMS</td>
+      <td>线性包络：整流后低通 4-10 Hz；或使用 RMS 滑动窗 50 ms 左右。</td>
+      <td>研究激活时序可用较低平滑；研究幅值趋势可用 RMS 或包络。</td>
+    </tr>
+    <tr>
+      <td>归一化</td>
+      <td>优先按 MVC 峰值或 MVC 均值归一化；没有 MVC 时可按任务内峰值归一化。</td>
+      <td>任务内峰值只能比较同一任务内相对激活，不能替代标准 MVC 跨人比较。</td>
+    </tr>
+    <tr>
+      <td>时间标准化</td>
+      <td>按动作事件或支撑期/腾空期重采样到固定百分比。</td>
+      <td>与 <code>DATA_Angle.txt</code>、<code>DATA_Moment.txt</code> 等动力学输出对齐。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="s8d5">11.5 质量控制</h3>
+<table>
+  <thead>
+    <tr><th>现象</th><th>可能原因</th><th>处理</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>静息期噪声很高</td><td>皮肤未清洁、参考电极接触差、线缆松动、环境工频干扰</td><td>重新清洁皮肤、固定线缆、检查参考电极和接地。</td></tr>
+    <tr><td>通道平线</td><td>电极脱落、通道未连接、设备未启用</td><td>检查硬件连接和 QTM analog channel 设置。</td></tr>
+    <tr><td>动作中突发尖峰</td><td>电极被拉扯、衣物摩擦、线缆摆动</td><td>重新固定传感器和线缆，必要时重采。</td></tr>
+    <tr><td>目标肌肉激活不明显</td><td>贴到肌腱或偏离肌腹，方向未沿肌纤维</td><td>按解剖标志重新定位，完成目标肌肉试激活。</td></tr>
+    <tr><td>邻近肌肉信号过强</td><td>电极靠近肌肉边缘或电极间距过大</td><td>向目标肌肉肌腹中心调整，保持合理电极间距。</td></tr>
+  </tbody>
+</table>
+
+<div class="warn">
+  <strong>记录要求：</strong>EMG 粘贴肌肉、左右侧、通道名、采样率、滤波参数、MVC 方案、异常通道和剔除理由必须写入实验记录。否则 EMG 幅值比较不可追溯。
+</div>
+
+<!-- ===== 9. 质量控制 ===== -->
+<h2 id="s9">12. 质量控制与故障排除</h2>
+
+<h3 id="s9a">12.1 采集后检查清单</h3>
 <ul>
   <li>静态文件 marker 是否完整（尤其是骨盆 marker）</li>
   <li>动态文件是否存在关键 marker 长时间丢失</li>
@@ -1907,7 +2074,7 @@ LShoulderTop    RShoulderTop</code></pre>
   <li>输出文件是否为空（尤其是 <code>DATA_Angle.txt</code>、<code>DATA_CoM.txt</code>）</li>
 </ul>
 
-<h3 id="s9b">11.2 error.txt 关键错误关键字</h3>
+<h3 id="s9b">12.2 error.txt 关键错误关键字</h3>
 <p>检查 <code>Messages/error.txt</code> 中是否出现以下关键字：</p>
 <div class="dir-tree">ERROR!
 Failed to Create
@@ -1917,7 +2084,7 @@ HIP_VECTOR was not created
 Lab orientation was not created
 WARNING!! Weight not specified or invalid!</div>
 
-<h3 id="s9c">11.3 常见问题速查</h3>
+<h3 id="s9c">12.3 常见问题速查</h3>
 <table>
   <thead>
     <tr><th>问题</th><th>可能原因</th><th>处理</th></tr>
@@ -1966,7 +2133,7 @@ WARNING!! Weight not specified or invalid!</div>
   </tbody>
 </table>
 
-<h3 id="s9d">11.4 lower_body_outputs 触发条件</h3>
+<h3 id="s9d">12.4 lower_body_outputs 触发条件</h3>
 <p>数据导出仅在满足以下条件之一时执行：</p>
 <div class="flow-box">
   <strong>条件 A（Sports 方案）：</strong><br>
@@ -1977,7 +2144,7 @@ WARNING!! Weight not specified or invalid!</div>
 </div>
 
 <!-- ===== 10. 建议记录表 ===== -->
-<h2 id="s10">12. 建议记录表</h2>
+<h2 id="s10">13. 建议记录表</h2>
 
 <table>
   <thead>
@@ -2000,6 +2167,9 @@ WARNING!! Weight not specified or invalid!</div>
     <tr><td>Marker 低通滤波 (Hz)</td><td>默认 15 Hz</td></tr>
     <tr><td>Force 低通滤波 (Hz)</td><td>默认 50 Hz</td></tr>
     <tr><td>Analog 低通滤波 (Hz)</td><td>默认 50 Hz</td></tr>
+    <tr><td>EMG 肌肉 / 通道</td><td>RF / VM / VL / BFL / ST / TA / GL / GM / SOL / GMa；记录左右侧与通道名</td></tr>
+    <tr><td>EMG 采样率 (Hz)</td><td>建议 ≥ 1000 Hz，优先 2000 Hz</td></tr>
+    <tr><td>EMG 处理方案</td><td>带通滤波、整流、包络/RMS、归一化方法、MVC 方案</td></tr>
     <tr><td>力台阈值 (N)</td><td>默认 20 N</td></tr>
     <tr><td>使用的 Pipeline</td><td>Double (双侧) / Dominance (优势侧)</td></tr>
     <tr><td>异常说明</td><td></td></tr>
@@ -2007,11 +2177,11 @@ WARNING!! Weight not specified or invalid!</div>
 </table>
 
 <!-- ===== 11. 版本说明 ===== -->
-<h2 id="s11">13. 版本说明与参考资料</h2>
+<h2 id="s11">14. 版本说明与参考资料</h2>
 
-<h3 id="s11a">13.1 PAF_v3d 版本信息</h3>
+<h3 id="s11a">14.1 PAF_v3d 版本信息</h3>
 <table>
-  <tr><td>当前 SOP 版本</td><td><strong>1.1.2</strong> (2026.06.04)</td></tr>
+  <tr><td>当前 SOP 版本</td><td><strong>1.2.0</strong> (2026.06.04)</td></tr>
   <tr><td>Settings.paf 包版本</td><td><strong>1.0.5</strong>（未改动）</td></tr>
   <tr><td>最低 QTM 版本</td><td>2.16.3600</td></tr>
   <tr><td>兼容 Visual3D</td><td>2024.10.4（推荐），向下兼容至 2023.10.2</td></tr>
@@ -2021,9 +2191,10 @@ WARNING!! Weight not specified or invalid!</div>
   <tr><td>输出模式</td><td>双侧 (Double) / 优势侧 (Dominance)</td></tr>
 </table>
 
-<h3 id="s11b">13.2 变更记录</h3>
+<h3 id="s11b">14.2 变更记录</h3>
 <table>
   <tr><th>日期</th><th>变更</th></tr>
+  <tr><td>2026.06.04</td><td>在动力学计算与数据导出后新增表面肌电粘贴、采集与数据处理方案；补充下肢 10 块肌肉贴放位置、采集流程、处理流程和质量控制。</td></tr>
   <tr><td>2026.06.04</td><td>将 Cast 下肢 Cluster 追踪板位置图在桌面端缩小为 2/3 显示，手机端仍按屏幕宽度适配。</td></tr>
   <tr><td>2026.06.04</td><td>将 Cast/Sports 贴点方案图片在桌面端缩小为 50% 显示，手机端仍按屏幕宽度适配。</td></tr>
   <tr><td>2026.06.04</td><td>调整贴点方案章节顺序：Cast 作为主方案放在 Sports 前；在 Cast/Sports 触发条件后加入对应贴点图，并统一图片路径到 <code>Documentation/Figure</code>。</td></tr>
@@ -2039,7 +2210,7 @@ WARNING!! Weight not specified or invalid!</div>
   <tr><td>1.0.0</td><td>从 paf-resources 迁移初始版本</td></tr>
 </table>
 
-<h3 id="s11c">13.3 参考资料</h3>
+<h3 id="s11c">14.3 参考资料</h3>
 
 <div class="ref-card">
   <strong>项目内部文档 (Documentation/)</strong><br>
@@ -2051,6 +2222,15 @@ WARNING!! Weight not specified or invalid!</div>
   - <code>Animation Marker Set.pdf</code> — 动画用 Marker Set<br>
   - <code>QTM RT protocol.pdf</code> — 实时协议<br>
   - <code>QTM Shortcut Reference.pdf</code> — 快捷键参考
+</div>
+
+<div class="ref-card">
+  <strong>表面肌电参考资料</strong><br>
+  - <code>C:\Users\admin\Documents\坚果云\书\生理解剖生物力学\存活手册\学术生存手册.pptx</code> 第 4 页 — 本项目下肢 10 块肌肉贴放方案<br>
+  - <code>C:\Users\admin\Documents\坚果云\书\生理解剖生物力学\运动生物力学\EMG\</code> — Delsys、ABC of EMG、sEMG detection/recording、SENIAM sensor locations 等资料<br>
+  - <a href="https://www.seniam.org/sensorlocation.htm" target="_blank">SENIAM: Determination of sensor location</a><br>
+  - <a href="https://seniam.org/fixation.htm" target="_blank">SENIAM: Placement and fixation of the sensor</a><br>
+  - <a href="https://seniam.org/sensor_location.htm" target="_blank">SENIAM: Recommendations for sensor locations on individual muscles</a>
 </div>
 
 <div class="ref-card">
@@ -2352,7 +2532,7 @@ document.getElementById('print-btn').addEventListener('click', () => window.prin
     's1': 'fa-diagram-project', 's2': 'fa-folder-tree', 's2a': 'fa-gears',
     's3': 'fa-clipboard-check', 's4': 'fa-wave-square', 's5': 'fa-thumbtack',
     's6': 'fa-code-branch', 's6a': 'fa-microscope', 's7': 'fa-play',
-    's8': 'fa-file-export', 's9': 'fa-circle-exclamation', 's10': 'fa-table-list',
+    's8': 'fa-file-export', 's8d': 'fa-wave-square', 's9': 'fa-circle-exclamation', 's10': 'fa-table-list',
     's11': 'fa-code-compare'
   };
   document.querySelectorAll('h2[id]').forEach(h2 => {
