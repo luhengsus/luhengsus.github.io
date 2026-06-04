@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -277,6 +277,19 @@
   }
   .diagram svg { display: block; margin: 0 auto; max-width: 100%; }
   .diagram.wide svg { min-width: 980px; max-width: none; }
+  .marker-scheme-figure {
+    margin: 12px 0 22px; padding: 10px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--surface); box-shadow: var(--shadow-sm);
+  }
+  .marker-scheme-figure img {
+    display: block; width: 100%; height: auto;
+    border-radius: 6px;
+  }
+  .marker-scheme-figure figcaption {
+    margin-top: 8px; color: var(--muted);
+    font-size: 0.86em; text-align: center;
+  }
 
   .badge {
     display: inline-block; padding: 2px 10px; border-radius: 10px;
@@ -418,7 +431,7 @@
 <div id="sidebar-backdrop" aria-hidden="true"></div>
 
 <div id="sidebar">
-  <img src="Documentation/WiseMove logo.png" alt="WiseMove Logo" style="width:100%;max-width:180px;margin-bottom:12px;">
+  <img src="Documentation/Figure/WiseMove logo.png" alt="WiseMove Logo" style="width:100%;max-width:180px;margin-bottom:12px;">
   <h3>目录</h3>
   <ol>
     <li><a href="#s1">1. 系统架构与数据流程</a></li>
@@ -439,8 +452,8 @@
       <a href="#s5">6. 贴点方案与命名规则</a>
       <ol>
         <li><a href="#s5a">6.1 通用命名原则</a></li>
-        <li><a href="#s5b">6.2 Sports 方案</a></li>
-        <li><a href="#s5c">6.3 Cast 方案</a></li>
+        <li><a href="#s5b">6.2 Cast 方案</a></li>
+        <li><a href="#s5c">6.3 Sports 方案</a></li>
       </ol>
     </li>
     <li><a href="#s6">7. 模型分段与自动选择逻辑</a></li>
@@ -508,7 +521,7 @@
 <p class="meta">
   <strong>Author:</strong> Heng Lu &nbsp;|&nbsp;
 	  <strong>版本：</strong>1.0.6 &nbsp;|&nbsp;
-  <strong>日期：</strong>2026/06/03 &nbsp;|&nbsp;
+  <strong>日期：</strong>2026/06/04 &nbsp;|&nbsp;
   <strong>适用项目：</strong><code>PAF_v3d</code> &nbsp;|&nbsp;
   <strong>处理引擎：</strong>Visual3D 2024.10.4+
 </p>
@@ -911,8 +924,8 @@
 
 <p>
   Pipeline 通过检测 <code>WaistLFront</code> marker 是否存在来自动判断贴点方案：
-  <span class="badge badge-sports">检测到 WaistLFront → Sports 方案</span>
   <span class="badge badge-cast">未检测到 WaistLFront → Cast 方案</span>
+  <span class="badge badge-sports">检测到 WaistLFront → Sports 方案</span>
 </p>
 
 <h3 id="s5a">6.1 通用命名原则</h3>
@@ -924,9 +937,48 @@
   <li><strong>禁止混用 Sports 与 Cast marker 名称。</strong></li>
 </ul>
 
-<h3 id="s5b">6.2 Sports 方案 <span class="badge badge-sports">Sports</span></h3>
+<h3 id="s5b">6.2 Cast 方案 <span class="badge badge-cast">Cast</span></h3>
+
+<p>触发条件：<code>(Data_Exists(TARGET::ORIGINAL::WaistLFront) &lt;&gt; 1)</code></p>
+<figure class="marker-scheme-figure">
+  <img src="Documentation/Figure/Cast.jpg" alt="Cast marker set placement">
+  <figcaption>Cast 贴点方案示意图</figcaption>
+</figure>
+
+<h4>骨盆 marker (4 点)</h4>
+<pre><code>R_IAS    L_IAS    R_IPS    L_IPS</code></pre>
+<p>模型：<code>Cast_Pelvis_Coda.mdh</code></p>
+
+<h4>下肢 marker</h4>
+<pre><code>大腿:  R_TH1 R_TH2 R_TH3 R_TH4    L_TH1 L_TH2 L_TH3 L_TH4
+小腿:  R_SK1 R_SK2 R_SK3 R_SK4    L_SK1 L_SK2 L_SK3 L_SK4
+足部:  R_FLE R_FME R_FAL R_TAM R_FCC R_FM1 R_FM2 R_FM5
+       L_FLE L_FME L_FAL L_TAM L_FCC L_FM1 L_FM2 L_FM5</code></pre>
+
+<table>
+  <tr><th>条件</th><th>模型</th></tr>
+  <tr><td>完整 Cast 下肢 (有 <code>L_TH3</code> + <code>L_TH4</code>)</td><td><code>Cast_Lower_Body.mdh</code></td></tr>
+  <tr><td>简化下肢 (缺 <code>L_TH3</code> / <code>L_TH4</code>)</td><td><code>Custom_Lower_Body_xxy.mdh</code></td></tr>
+</table>
+
+<div class="info">
+  <strong>Cast 下肢 Cluster 追踪板位置：</strong><br>
+  <img src="Documentation/Figure/Cluster.png" alt="Cluster marker placement" style="max-width:100%;margin-top:8px;">
+</div>
+
+<h4>躯干 marker (10 点)</h4>
+<pre><code>C7    Chest    T10
+R_SAE    L_SAE    R_SIA    L_SIA
+R_IAS    L_IAS</code></pre>
+<p>模型：<code>Cast_Trunk.mdh</code></p>
+
+<h3 id="s5c">6.3 Sports 方案 <span class="badge badge-sports">Sports</span></h3>
 
 <p>触发条件：<code>Data_Exists(TARGET::ORIGINAL::WaistLFront)</code></p>
+<figure class="marker-scheme-figure">
+  <img src="Documentation/Figure/Sport.jpg" alt="Sports marker set placement">
+  <figcaption>Sports 贴点方案示意图</figcaption>
+</figure>
 
 <h4>骨盆 marker — 标准方案 (5 点)</h4>
 <pre><code>WaistLFront    WaistRFront    WaistBack    WaistL    WaistR</code></pre>
@@ -1034,37 +1086,6 @@ LShoulderTop    RShoulderTop</code></pre>
     </tr>
   </tbody>
 </table>
-
-<h3 id="s5c">6.3 Cast 方案 <span class="badge badge-cast">Cast</span></h3>
-
-<p>触发条件：<code>(Data_Exists(TARGET::ORIGINAL::WaistLFront) &lt;&gt; 1)</code></p>
-
-<h4>骨盆 marker (4 点)</h4>
-<pre><code>R_IAS    L_IAS    R_IPS    L_IPS</code></pre>
-<p>模型：<code>Cast_Pelvis_Coda.mdh</code></p>
-
-<h4>下肢 marker</h4>
-<pre><code>大腿:  R_TH1 R_TH2 R_TH3 R_TH4    L_TH1 L_TH2 L_TH3 L_TH4
-小腿:  R_SK1 R_SK2 R_SK3 R_SK4    L_SK1 L_SK2 L_SK3 L_SK4
-足部:  R_FLE R_FME R_FAL R_TAM R_FCC R_FM1 R_FM2 R_FM5
-       L_FLE L_FME L_FAL L_TAM L_FCC L_FM1 L_FM2 L_FM5</code></pre>
-
-<table>
-  <tr><th>条件</th><th>模型</th></tr>
-  <tr><td>完整 Cast 下肢 (有 <code>L_TH3</code> + <code>L_TH4</code>)</td><td><code>Cast_Lower_Body.mdh</code></td></tr>
-  <tr><td>简化下肢 (缺 <code>L_TH3</code> / <code>L_TH4</code>)</td><td><code>Custom_Lower_Body_xxy.mdh</code></td></tr>
-</table>
-
-<div class="info">
-  <strong>Cast 下肢 Cluster 追踪板位置：</strong><br>
-  <img src="Documentation/Cluster.png" alt="Cluster marker placement" style="max-width:100%;margin-top:8px;">
-</div>
-
-<h4>躯干 marker (10 点)</h4>
-<pre><code>C7    Chest    T10
-R_SAE    L_SAE    R_SIA    L_SIA
-R_IAS    L_IAS</code></pre>
-<p>模型：<code>Cast_Trunk.mdh</code></p>
 
 <!-- ===== 6. 模型分段逻辑 ===== -->
 <h2 id="s6">7. 模型分段与自动选择逻辑</h2>
@@ -1983,7 +2004,7 @@ WARNING!! Weight not specified or invalid!</div>
 
 <h3 id="s11a">13.1 PAF_v3d 版本信息</h3>
 <table>
-  <tr><td>当前 SOP 版本</td><td><strong>1.0.9</strong> (2026.06.03)</td></tr>
+  <tr><td>当前 SOP 版本</td><td><strong>1.1.0</strong> (2026.06.04)</td></tr>
   <tr><td>Settings.paf 包版本</td><td><strong>1.0.5</strong>（未改动）</td></tr>
   <tr><td>最低 QTM 版本</td><td>2.16.3600</td></tr>
   <tr><td>兼容 Visual3D</td><td>2024.10.4（推荐），向下兼容至 2023.10.2</td></tr>
@@ -1996,6 +2017,7 @@ WARNING!! Weight not specified or invalid!</div>
 <h3 id="s11b">13.2 变更记录</h3>
 <table>
   <tr><th>日期</th><th>变更</th></tr>
+  <tr><td>2026.06.04</td><td>调整贴点方案章节顺序：Cast 作为主方案放在 Sports 前；在 Cast/Sports 触发条件后加入对应贴点图，并统一图片路径到 <code>Documentation/Figure</code>。</td></tr>
   <tr><td>2026.06.03</td><td>补充 Sports 贴点操作注意事项：骨盆、KneeIn/Functional knee、下肢关键点、躯干命名和静态/动态方向一致性。</td></tr>
   <tr><td>2026.06.03</td><td>修正手机端多列表格宽度：根据列数自动设置表格最小宽度，避免 4 列及以上表格内容被挤压。</td></tr>
   <tr><td>2026.06.03</td><td>增加手机端浏览器适配：目录改为移动端抽屉、表格自动横向滚动、正文路径与代码片段避免撑破屏幕，并补齐网页端 Logo 相对资源路径。</td></tr>
@@ -2058,7 +2080,7 @@ WARNING!! Weight not specified or invalid!</div>
 
 <hr style="margin: 40px 0 20px; border: none; border-top: 1px solid #ddd;">
 <p style="color: var(--muted); font-size: 0.87em;">
-  SOP_Biomechanics_PAF_v3d &mdash; 基于 Qualisys PAF Visual3D Example 二次开发 &mdash; 最后更新 2026/06/03
+  SOP_Biomechanics_PAF_v3d &mdash; 基于 Qualisys PAF Visual3D Example 二次开发 &mdash; 最后更新 2026/06/04
 </p>
 
 </div><!-- /#main-content -->
